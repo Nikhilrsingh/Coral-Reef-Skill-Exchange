@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Coral Reef | Coding Challenges</title>
+
+    <link rel="stylesheet"
+          href="coding-challenges.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="challenge-header">
+
+        <div class="brand">
+
+            <a href="../index.html">
+                <img
+                    src="../assets/images/logos/logo.png"
+                    alt="Coral Reef Logo"
+                >
+            </a>
+
+            <div>
+                <h1>Coral Reef</h1>
+                <p>Where Knowledge Unites</p>
+            </div>
+
+        </div>
+
+
+        <a href="../index.html"
+           class="back-home">
+            ← Back to Home
+        </a>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="challenge-page">
+
+        <div class="page-heading">
+
+            <span class="badge">
+                💻 Skill Verification
+            </span>
+
+            <h2>
+                Coding Challenges
+            </h2>
+
+            <p>
+                Solve practical coding problems and demonstrate
+                your programming skills.
+            </p>
+
+        </div>
+
+
+        <!-- ================= CHALLENGE ================= -->
+
+        <section class="challenge-card">
+
+            <!-- Challenge Information -->
+
+            <div class="challenge-info">
+
+                <div class="challenge-top">
+
+                    <span class="difficulty">
+                        Easy
+                    </span>
+
+                    <span class="question-count">
+                        Challenge 1
+                    </span>
+
+                </div>
+
+
+                <h3>
+                    Reverse a String
+                </h3>
+
+
+                <p class="problem-description">
+                    Write a JavaScript function that takes a string
+                    as input and returns the string in reverse order.
+                </p>
+
+
+                <div class="example-box">
+
+                    <h4>Example</h4>
+
+                    <div class="example-row">
+                        <span>Input</span>
+                        <code>"hello"</code>
+                    </div>
+
+                    <div class="example-row">
+                        <span>Expected Output</span>
+                        <code>"olleh"</code>
+                    </div>
+
+                </div>
+
+
+                <div class="hint-box">
+
+                    <strong>💡 Hint</strong>
+
+                    <p id="hintText">
+                        The hint will become available after
+                        an incorrect submission.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="showHint"
+                        disabled>
+                        Show Hint
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Code Editor -->
+
+            <div class="editor-section">
+
+                <div class="editor-header">
+
+                    <span>
+                        JavaScript
+                    </span>
+
+                    <span>
+                        main.js
+                    </span>
+
+                </div>
+
+
+                <textarea
+                    id="codeEditor"
+                    spellcheck="false">function reverseString(str) {
+    // Write your code here
+
+}</textarea>
+
+
+                <div class="editor-actions">
+
+                    <button
+                        type="button"
+                        id="runCode"
+                        class="run-btn">
+
+                        ▶ Run Code
+
+                    </button>
+
+                    <button
+                        type="button"
+                        id="resetCode"
+                        class="reset-btn">
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+
+                <!-- Result -->
+
+                <div
+                    id="resultPanel"
+                    class="result-panel">
+
+                    <div class="result-header">
+
+                        <strong id="resultTitle">
+                            Test Results
+                        </strong>
+
+                        <span id="resultStatus">
+                        </span>
+
+                    </div>
+
+
+                    <div id="testResults">
+
+                        <p class="empty-result">
+                            Run your code to see the test results.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SCORE ================= -->
+
+        <section
+            id="challengeScore"
+            class="challenge-score">
+
+            <div class="score-icon">
+                🏆
+            </div>
+
+            <div>
+
+                <h3>
+                    Challenge Score
+                </h3>
+
+                <p id="scoreText">
+                    Solve the challenge to earn your score.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="coding-challenges.js"></script>
+
+</body>
+
+</html>

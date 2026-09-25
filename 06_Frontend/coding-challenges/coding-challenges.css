@@ -1,0 +1,449 @@
+/* =========================================================
+   CORAL REEF - CODING CHALLENGES
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f9ff;
+    color: #102b55;
+}
+
+
+/* ================= HEADER ================= */
+
+.challenge-header {
+    min-height: 76px;
+    padding: 12px 7%;
+
+    background: #1264d8;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.brand h1 {
+    color: #ffffff;
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 22px;
+}
+
+.brand p {
+    color: #dceaff;
+    font-size: 12px;
+}
+
+.back-home {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ================= PAGE ================= */
+
+.challenge-page {
+    width: min(1200px, 90%);
+    margin: auto;
+    padding: 60px 0 80px;
+}
+
+.page-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 25px;
+    background: #e7f1ff;
+    color: #1264d8;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.page-heading h2 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.page-heading p {
+    color: #6c7f9d;
+    font-size: 16px;
+}
+
+
+/* ================= CHALLENGE CARD ================= */
+
+.challenge-card {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce8f7;
+    border-radius: 20px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 15px 40px rgba(18, 100, 216, 0.08);
+}
+
+
+/* ================= INFO ================= */
+
+.challenge-info {
+    padding: 15px;
+}
+
+.challenge-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.difficulty {
+    background: #e9f8ef;
+    color: #18864b;
+
+    padding: 6px 12px;
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.question-count {
+    color: #7183a0;
+    font-size: 13px;
+}
+
+.challenge-info h3 {
+    font-size: 27px;
+    margin-bottom: 15px;
+}
+
+.problem-description {
+    color: #637898;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+
+/* ================= EXAMPLE ================= */
+
+.example-box {
+    background: #f6f9fd;
+
+    border: 1px solid #e2eaf5;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    margin-bottom: 20px;
+}
+
+.example-box h4 {
+    margin-bottom: 14px;
+}
+
+.example-row {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 8px 0;
+
+    color: #637898;
+    font-size: 14px;
+}
+
+.example-row code {
+    color: #1264d8;
+    font-family: monospace;
+}
+
+
+/* ================= HINT ================= */
+
+.hint-box {
+    padding: 18px;
+
+    background: #fff9e9;
+
+    border: 1px solid #f2df9d;
+
+    border-radius: 12px;
+}
+
+.hint-box strong {
+    color: #9b7300;
+}
+
+.hint-box p {
+    color: #796b42;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 8px 0 12px;
+}
+
+#showHint {
+    padding: 8px 14px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #e9d477;
+    color: #5d4b00;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+#showHint:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* ================= EDITOR ================= */
+
+.editor-section {
+    min-width: 0;
+}
+
+.editor-header {
+    height: 44px;
+
+    padding: 0 15px;
+
+    background: #102b55;
+
+    color: #ffffff;
+
+    border-radius: 12px 12px 0 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 13px;
+}
+
+#codeEditor {
+    width: 100%;
+    min-height: 330px;
+
+    display: block;
+
+    resize: vertical;
+
+    padding: 20px;
+
+    background: #101827;
+    color: #e7f0ff;
+
+    border: none;
+
+    outline: none;
+
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.editor-actions {
+    padding: 12px;
+
+    background: #172238;
+
+    display: flex;
+    gap: 10px;
+}
+
+.run-btn,
+.reset-btn {
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.run-btn {
+    background: #1264d8;
+    color: #ffffff;
+}
+
+.reset-btn {
+    background: #ffffff;
+    color: #243c5e;
+}
+
+
+/* ================= RESULT ================= */
+
+.result-panel {
+    background: #f7faff;
+
+    border: 1px solid #dce8f7;
+
+    border-radius: 0 0 12px 12px;
+
+    overflow: hidden;
+}
+
+.result-header {
+    padding: 14px 16px;
+
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #dce8f7;
+}
+
+#resultStatus {
+    font-weight: 700;
+}
+
+.empty-result {
+    padding: 20px;
+
+    color: #7183a0;
+
+    font-size: 13px;
+}
+
+
+/* ================= TEST RESULT ================= */
+
+.test-result {
+    padding: 15px;
+
+    border-bottom: 1px solid #e2eaf5;
+}
+
+.test-result:last-child {
+    border-bottom: none;
+}
+
+.test-result.correct {
+    background: #effaf4;
+}
+
+.test-result.wrong {
+    background: #fff3f3;
+}
+
+.test-result strong {
+    font-size: 14px;
+}
+
+.test-result p {
+    margin-top: 7px;
+
+    color: #667a99;
+
+    font-size: 13px;
+}
+
+.correct-text {
+    color: #16864b;
+}
+
+.wrong-text {
+    color: #c43b3b;
+}
+
+
+/* ================= SCORE ================= */
+
+.challenge-score {
+    margin-top: 25px;
+
+    padding: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #dce8f7;
+
+    border-radius: 16px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.score-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e8f1ff;
+
+    border-radius: 14px;
+
+    font-size: 25px;
+}
+
+.challenge-score h3 {
+    margin-bottom: 5px;
+}
+
+.challenge-score p {
+    color: #7183a0;
+    font-size: 14px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 850px) {
+
+    .challenge-card {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading h2 {
+        font-size: 32px;
+    }
+
+    .challenge-header {
+        padding: 12px 5%;
+    }
+
+    .back-home {
+        display: none;
+    }
+}

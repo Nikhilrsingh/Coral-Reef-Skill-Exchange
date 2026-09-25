@@ -1,0 +1,223 @@
+<header class="navbar">
+
+    <div class="container navbar-container">
+
+        <a href="../index.html" class="logo">
+            <img
+                src="../assets/images/logos/logo.png"
+                alt="Coral Reef"
+                class="logo-image"
+            >
+
+            <div class="logo-content">
+                <h1>Coral Reef</h1>
+                <span>Where Knowledge Unites</span>
+            </div>
+        </a>
+
+        <nav class="nav-menu">
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="../index.html">Home</a>
+                </li>
+
+                <li>
+                    <a href="matches.html">Matches</a>
+                </li>
+
+                <li>
+                    <a href="search.html">Explore</a>
+                </li>
+
+                <li>
+                    <a href="roadmap.html">Roadmap</a>
+                </li>
+
+                <li data-auth="logged-in">
+                    <a href="chat.html">Messages</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+        <div class="navbar-actions">
+
+            <div
+                class="auth-actions"
+                data-auth="logged-out"
+            >
+
+                <a
+                    href="login.html"
+                    class="nav-login"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="register.html"
+                    class="nav-register"
+                >
+                    Get Started
+                </a>
+
+            </div>
+
+
+            <div
+                class="auth-actions"
+                data-auth="logged-in"
+            >
+
+                <button
+                    type="button"
+                    class="notification-button"
+                    id="navbarNotificationButton"
+                    aria-label="Notifications"
+                >
+                    🔔
+                    <span
+                        class="notification-dot"
+                        id="navbarNotificationDot"
+                    ></span>
+                </button>
+
+
+                <div class="profile-menu">
+
+                    <button
+                        type="button"
+                        class="profile-menu-button"
+                        id="profileMenuButton"
+                    >
+
+                        <span
+                            class="profile-avatar"
+                            id="navbarProfileAvatar"
+                        >
+                            <img
+                                id="navbarProfileImage"
+                                src=""
+                                alt="Profile"
+                            >
+
+                            <span
+                                id="navbarProfileFallback"
+                            >
+                                U
+                            </span>
+                        </span>
+
+                        <span
+                            class="profile-menu-name"
+                            id="navbarProfileName"
+                        >
+                            User
+                        </span>
+
+                        <span class="profile-menu-arrow">
+                            ▾
+                        </span>
+
+                    </button>
+
+
+                    <div
+                        class="profile-dropdown"
+                        id="profileDropdown"
+                    >
+
+                        <div class="profile-dropdown-user">
+
+                            <span
+                                class="profile-avatar profile-avatar-large"
+                            >
+
+                                <img
+                                    id="dropdownProfileImage"
+                                    src=""
+                                    alt="Profile"
+                                >
+
+                                <span
+                                    id="dropdownProfileFallback"
+                                >
+                                    U
+                                </span>
+
+                            </span>
+
+                            <div>
+
+                                <strong
+                                    id="dropdownProfileName"
+                                >
+                                    User
+                                </strong>
+
+                                <span>
+                                    Coral Reef Member
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="profile-dropdown-divider"></div>
+
+
+                        <a href="profile.html">
+                            <span>👤</span>
+                            My Profile
+                        </a>
+
+                        <a href="roadmap.html">
+                            <span>🗺️</span>
+                            Learning Roadmap
+                        </a>
+
+                        <a href="verification.html">
+                            <span>🛡️</span>
+                            Skill Verification
+                        </a>
+
+
+                        <div class="profile-dropdown-divider"></div>
+
+
+                        <button
+                            type="button"
+                            data-nav="logout"
+                            class="dropdown-logout"
+                        >
+                            <span>↪</span>
+                            Logout
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </div>
+
+</header>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-logo">
+            <a href="dashboard.html">
+                <span class="logo-mark">CR</span>
+                <span>Coral Reef</span>
+            </a>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="dashboard.html" class="sidebar-link active">
+                <span>⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="search.html" class="sidebar-link">
+                <span>⌕</span>
+                <span>Find Matches</span>
+            </a>
+
+            <a href="profile.html" class="sidebar-link">
+                <span>◎</span>
+                <span>My Profile</span>
+            </a>
+
+            <a href="chat.html" class="sidebar-link">
+                <span>◌</span>
+                <span>Messages</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <a href="features.html" class="sidebar-link">
+                <span>✦</span>
+                <span>Features</span>
+            </a>
+
+            <button class="sidebar-link logout-link" id="logoutButton">
+                <span>↪</span>
+                <span>Logout</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <button
+                class="mobile-menu"
+                id="mobileMenu"
+                aria-label="Open menu"
+            >
+                ☰
+            </button>
+
+            <div class="topbar-title">
+                <p>Coral Reef</p>
+                <h1>Dashboard</h1>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button
+                    class="icon-button"
+                    id="notificationButton"
+                    aria-label="Notifications"
+                >
+                    ♢
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="profile-menu-wrapper">
+
+                    <button
+                        class="profile-button"
+                        id="profileButton"
+                    >
+                        <span class="profile-avatar" id="profileInitials">
+                            U
+                        </span>
+
+                        <span class="profile-button-text">
+                            <strong id="profileName">User</strong>
+                            <small>View profile</small>
+                        </span>
+
+                        <span>⌄</span>
+                    </button>
+
+                    <div
+                        class="profile-dropdown"
+                        id="profileDropdown"
+                    >
+                        <a href="profile.html">My Profile</a>
+                        <a href="search.html">Find Matches</a>
+                        <button id="dropdownLogout">Logout</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <section class="dashboard-content">
+
+            <div class="welcome-section">
+
+                <div>
+                    <p class="eyebrow">WELCOME BACK</p>
+
+                    <h2>
+                        Hello,
+                        <span id="dashboardUserName">User</span>
+                        👋
+                    </h2>
+
+                    <p>
+                        Find people who can teach you what you want to learn
+                        and learn from what you already know.
+                    </p>
+                </div>
+
+                <a
+                    href="search.html"
+                    class="primary-button"
+                >
+                    Find My Matches
+                    <span>→</span>
+                </a>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">↗</div>
+
+                    <div>
+                        <span>Skills Shared</span>
+                        <strong id="dashboardSkillsShared">
+                            0
+                        </strong>
+                        <small>Skills you can teach</small>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">♧</div>
+
+                    <div>
+                        <span>Learning Partners</span>
+                        <strong id="dashboardLearningPartners">
+                            —
+                        </strong>
+                        <small>People matched with you</small>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-icon">%</div>
+
+                    <div>
+                        <span>Best Match</span>
+                        <strong id="dashboardMatchScore">
+                            —
+                        </strong>
+                        <small>Your strongest match</small>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <section class="dashboard-card top-match-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <p class="eyebrow">RECOMMENDED FOR YOU</p>
+                            <h3>Top Match</h3>
+                        </div>
+
+                        <a href="search.html">
+                            View all →
+                        </a>
+
+                    </div>
+
+
+                    <div
+                        class="match-loading"
+                        id="matchLoading"
+                    >
+                        <div class="loading-spinner"></div>
+                        <span>Finding your best match...</span>
+                    </div>
+
+
+                    <div
+                        class="match-empty"
+                        id="matchEmpty"
+                        hidden
+                    >
+                        <div class="empty-icon">♧</div>
+
+                        <h4>No matches yet</h4>
+
+                        <p>
+                            Add teaching and learning skills to discover
+                            your perfect learning partner.
+                        </p>
+
+                        <a
+                            href="profile.html"
+                            class="secondary-button"
+                        >
+                            Complete Profile
+                        </a>
+                    </div>
+
+
+                    <div
+                        class="match-content"
+                        id="matchContent"
+                        hidden
+                    >
+
+                        <div class="match-person">
+
+                            <div
+                                class="large-avatar"
+                                id="dashboardMatchInitials"
+                            >
+                                U
+                            </div>
+
+                            <div>
+                                <h4 id="dashboardMatchName">
+                                    User
+                                </h4>
+
+                                <p id="dashboardMatchRole">
+                                    Coral Reef Member
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <div class="match-score">
+
+                            <span>Match score</span>
+
+                            <strong id="dashboardMatchScoreLarge">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="matched-skill">
+
+                            <span>Skill you can learn</span>
+
+                            <strong id="dashboardMatchSkill">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <a
+                            href="search.html"
+                            class="secondary-button"
+                        >
+                            View Match
+                            <span>→</span>
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+                <section class="dashboard-card quick-card">
+
+                    <div class="card-header">
+                        <div>
+                            <p class="eyebrow">QUICK ACTIONS</p>
+                            <h3>Get started</h3>
+                        </div>
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <a href="profile.html" class="quick-action">
+                            <span>◎</span>
+                            <div>
+                                <strong>Complete profile</strong>
+                                <small>Add your skills and interests</small>
+                            </div>
+                            <b>→</b>
+                        </a>
+
+                        <a href="search.html" class="quick-action">
+                            <span>⌕</span>
+                            <div>
+                                <strong>Find a partner</strong>
+                                <small>Discover people with matching skills</small>
+                            </div>
+                            <b>→</b>
+                        </a>
+
+                        <a href="chat.html" class="quick-action">
+                            <span>◌</span>
+                            <div>
+                                <strong>Check messages</strong>
+                                <small>Continue your conversations</small>
+                            </div>
+                            <b>→</b>
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<div
+    class="notification-panel"
+    id="notificationPanel"
+>
+
+    <div class="notification-panel-header">
+        <div>
+            <p class="eyebrow">ACTIVITY</p>
+            <h3>Notifications</h3>
+        </div>
+
+        <button id="closeNotifications">×</button>
+    </div>
+
+    <div id="notificationContent">
+        <div class="notification-empty">
+            <span>♢</span>
+            <p>No new notifications</p>
+        </div>
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script type="module" src="../js/modules/homeDashboard.js"></script>
+<script type="module" src="../js/modules/dashboard.js"></script>
+
+</body>
+</html>

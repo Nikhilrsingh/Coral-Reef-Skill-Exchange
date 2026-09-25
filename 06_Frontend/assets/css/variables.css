@@ -1,0 +1,91 @@
+/* ==========================================
+   CORAL REEF
+   DESIGN SYSTEM
+========================================== */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sacramento&display=swap');
+
+/* Lumberjack Web Font */
+@import url('https://fonts.cdnfonts.com/css/lumberjack');
+
+
+:root{
+
+    /* ======================================
+       BRAND COLORS
+    ====================================== */
+
+    --primary:#1261D6;
+    --primary-dark:#0847A8;
+    --primary-light:#3B82F6;
+
+    --accent:#FFBF1A;
+    --accent-dark:#E5A800;
+
+    --background:#F8FBFF;
+    --surface:#FFFFFF;
+
+    --text:#102A56;
+    --text-dark:#0B1F3A;
+    --text-light:#64748B;
+
+    --border:#DCE8F7;
+
+
+    /* ======================================
+       STATUS COLORS
+    ====================================== */
+
+    --success:#16A34A;
+    --danger:#DC2626;
+    --warning:#F59E0B;
+
+
+    /* ======================================
+       FONTS
+    ====================================== */
+
+    --heading-font:'Lumberjack', Impact, sans-serif;
+    --tagline-font:'Sacramento', cursive;
+    --body-font:'Inter', sans-serif;
+
+
+    /* ======================================
+       CONTAINER
+    ====================================== */
+
+    --container-width:1280px;
+
+
+    /* ======================================
+       BORDER RADIUS
+    ====================================== */
+
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:20px;
+    --radius-xl:28px;
+
+
+    /* ======================================
+       SHADOWS
+    ====================================== */
+
+    --shadow-sm:
+        0 4px 15px rgba(18,97,214,.06);
+
+    --shadow-md:
+        0 10px 30px rgba(18,97,214,.10);
+
+    --shadow-lg:
+        0 20px 55px rgba(18,97,214,.15);
+
+
+    /* ======================================
+       TRANSITION
+    ====================================== */
+
+    --transition:.3s ease;
+
+}

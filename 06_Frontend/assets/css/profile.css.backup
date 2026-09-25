@@ -1,0 +1,869 @@
+/* =========================================================
+   CORAL REEF - PROFILE
+========================================================= */
+
+.profile-navbar {
+
+    min-height: 72px;
+
+    padding: 0 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: var(--primary);
+
+    color: #fff;
+}
+
+
+.profile-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #fff;
+
+    font-family: var(--heading-font);
+
+    font-size: 1.35rem;
+
+    font-weight: 700;
+}
+
+
+.profile-brand img {
+
+    width: 42px;
+
+    height: 42px;
+
+    padding: 4px;
+
+    object-fit: contain;
+
+    background: #fff;
+
+    border-radius: 50%;
+}
+
+
+.profile-navbar nav {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.profile-navbar nav a {
+
+    color: #fff;
+
+    font-weight: 600;
+}
+
+
+.profile-logout {
+
+    padding: 9px 16px;
+
+    border: 1px solid rgba(255,255,255,.5);
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    font-weight: 600;
+}
+
+
+.profile-logout:hover {
+
+    background: rgba(255,255,255,.12);
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.profile-page {
+
+    width: min(1050px, 92%);
+
+    margin: 0 auto;
+
+    padding: 55px 0 80px;
+}
+
+
+.profile-header {
+
+    margin-bottom: 30px;
+}
+
+
+.profile-label {
+
+    margin-bottom: 8px;
+
+    color: var(--primary);
+
+    font-size: .78rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.profile-header h1 {
+
+    margin-bottom: 8px;
+
+    color: var(--text-dark);
+
+    font-size: 2.4rem;
+}
+
+
+.profile-header > p:last-child {
+
+    color: var(--text-light);
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.profile-card {
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-xl);
+
+    box-shadow: var(--shadow-md);
+
+    overflow: hidden;
+}
+
+
+.profile-section {
+
+    padding: 30px 35px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.profile-section h2 {
+
+    margin-bottom: 5px;
+
+    color: var(--text-dark);
+
+    font-size: 1.25rem;
+}
+
+
+.profile-section > p {
+
+    margin-bottom: 22px;
+
+    color: var(--text-light);
+
+    font-size: .9rem;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.profile-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+.profile-field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.profile-field label {
+
+    color: var(--text-dark);
+
+    font-size: .9rem;
+
+    font-weight: 700;
+}
+
+
+.profile-field input,
+.profile-field select,
+.profile-field textarea {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: var(--text-dark);
+
+    font-family: var(--body-font);
+
+    outline: none;
+
+    transition: var(--transition);
+}
+
+
+.profile-field textarea {
+
+    resize: vertical;
+
+    min-height: 120px;
+}
+
+
+.profile-field input:focus,
+.profile-field select:focus,
+.profile-field textarea:focus {
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(18,97,214,.09);
+}
+
+
+.profile-field input:disabled {
+
+    background: #f5f7fa;
+
+    color: var(--text-light);
+
+    cursor: not-allowed;
+}
+
+
+.profile-field small {
+
+    color: var(--text-light);
+
+    font-size: .75rem;
+}
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+.skill-input-row {
+
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.skill-input-row input {
+
+    flex: 1;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-family: var(--body-font);
+}
+
+
+.skill-input-row input:focus {
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(18,97,214,.09);
+}
+
+
+.skill-add-button {
+
+    padding: 0 22px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: var(--primary);
+
+    color: #fff;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.skill-add-button:hover {
+
+    background: var(--primary-dark);
+}
+
+
+.skill-list {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    margin-top: 15px;
+}
+
+
+.skill-tag {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 11px;
+
+    border-radius: 999px;
+
+    background: rgba(18,97,214,.09);
+
+    color: var(--primary);
+
+    font-size: .84rem;
+
+    font-weight: 700;
+}
+
+
+.skill-remove {
+
+    width: 20px;
+
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: var(--primary);
+
+    cursor: pointer;
+
+    font-size: 1rem;
+
+    line-height: 1;
+}
+
+
+.skill-remove:hover {
+
+    background: rgba(18,97,214,.15);
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.profile-message {
+
+    display: none;
+
+    margin: 25px 35px 0;
+
+    padding: 12px 15px;
+
+    border-radius: 8px;
+
+    font-size: .88rem;
+}
+
+
+.profile-message.show {
+
+    display: block;
+}
+
+
+.profile-message.success {
+
+    background: #effaf3;
+
+    border: 1px solid #c5e8d0;
+
+    color: var(--success);
+}
+
+
+.profile-message.error {
+
+    background: #fff1f1;
+
+    border: 1px solid #ffd0d0;
+
+    color: var(--danger);
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.profile-actions {
+
+    padding: 25px 35px;
+
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+
+.save-profile-button {
+
+    padding: 13px 24px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: var(--primary);
+
+    color: #fff;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: var(--transition);
+}
+
+
+.save-profile-button:hover {
+
+    background: var(--primary-dark);
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .profile-navbar {
+
+        padding: 0 4%;
+    }
+
+
+    .profile-navbar nav a {
+
+        display: none;
+    }
+
+
+    .profile-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .profile-section {
+
+        padding: 25px 20px;
+    }
+
+
+    .profile-actions {
+
+        padding: 20px;
+    }
+
+
+    .profile-message {
+
+        margin-left: 20px;
+
+        margin-right: 20px;
+    }
+
+
+    .skill-input-row {
+
+        flex-direction: column;
+    }
+
+
+    .skill-add-button {
+
+        padding: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   CONNECTED PROFILES
+========================================================= */
+
+.connected-profiles-section {
+    background: var(--surface);
+}
+
+
+/* =========================================================
+   CONNECTED PROFILE LIST
+========================================================= */
+
+.connected-profile-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-bottom: 28px;
+}
+
+
+.connected-profile-card {
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr auto;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+    padding: 16px 18px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    background: #fff;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+
+.connected-profile-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(18, 97, 214, .25);
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, .07);
+}
+
+
+.connected-profile-card strong {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 78px;
+
+    padding: 6px 9px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(18, 97, 214, .08);
+
+    color: var(--primary);
+
+    font-size: .75rem;
+
+    font-weight: 800;
+
+    white-space: nowrap;
+}
+
+
+.connected-profile-card span {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: var(--text-dark);
+
+    font-size: .9rem;
+
+    font-weight: 600;
+}
+
+
+.connected-profile-card a {
+
+    flex-shrink: 0;
+
+    color: var(--primary);
+
+    font-size: .8rem;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+}
+
+
+.connected-profile-card a:hover {
+
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.connected-profile-empty {
+
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+    border: 1px dashed var(--border);
+
+    border-radius: 12px;
+
+    background: #fafbfc;
+
+    color: var(--text-light);
+
+    text-align: center;
+
+    font-size: .88rem;
+}
+
+
+/* =========================================================
+   ADD PROFILE FORM
+========================================================= */
+
+.connected-profile-form {
+
+    padding: 24px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: #fafbfc;
+}
+
+
+.connected-profile-form-header {
+
+    margin-bottom: 20px;
+}
+
+
+.connected-profile-form-header h3 {
+
+    margin-bottom: 5px;
+
+    color: var(--text-dark);
+
+    font-size: 1rem;
+
+    font-weight: 800;
+}
+
+
+.connected-profile-form-header p {
+
+    margin: 0;
+
+    color: var(--text-light);
+
+    font-size: .82rem;
+}
+
+
+.connected-profile-fields {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+
+.connected-profile-form-actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 18px;
+}
+
+
+.connected-profile-form
+.skill-add-button {
+
+    min-height: 44px;
+
+    padding:
+        0 20px;
+
+    transition:
+        transform .2s ease,
+        background .2s ease;
+}
+
+
+.connected-profile-form
+.skill-add-button:hover {
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .connected-profile-fields {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .connected-profile-list {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .connected-profile-form {
+
+        padding: 18px;
+    }
+
+
+    .connected-profile-card {
+
+        grid-template-columns: 1fr;
+
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+
+    .connected-profile-card strong {
+
+        min-width: auto;
+    }
+
+
+    .connected-profile-card a {
+
+        margin-top: 2px;
+    }
+
+
+    .connected-profile-form-actions {
+
+        justify-content: stretch;
+    }
+
+
+    .connected-profile-form
+    .skill-add-button {
+
+        width: 100%;
+    }
+
+}

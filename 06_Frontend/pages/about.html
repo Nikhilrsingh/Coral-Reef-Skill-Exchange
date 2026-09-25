@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <style>
+        .page-hero {
+            padding: 90px 0 80px;
+            background: linear-gradient(135deg, #0757C9, #1261D6);
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-hero .badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .page-hero h1 {
+            max-width: 850px;
+            margin: 22px auto 18px;
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1.1;
+            color: #fff;
+        }
+
+        .page-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.82);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .about-section {
+            padding: 90px 0;
+        }
+
+        .about-intro {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            font-size: 2.4rem;
+            line-height: 1.2;
+        }
+
+        .about-content p {
+            margin-bottom: 16px;
+            color: var(--text-light);
+            line-height: 1.85;
+        }
+
+        .about-visual {
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: linear-gradient(145deg, #EAF3FF, #F8FBFF);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .about-visual-inner {
+            width: 220px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-visual-inner img {
+            width: 145px;
+            height: 145px;
+            object-fit: contain;
+        }
+
+        .values-section {
+            padding: 90px 0;
+            background: #fff;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .value-card {
+            padding: 32px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .value-card:hover {
+            transform: translateY(-7px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .value-icon {
+            width: 54px;
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: #EAF3FF;
+            border-radius: 14px;
+            font-size: 1.5rem;
+        }
+
+        .value-card h3 {
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 0.92rem;
+        }
+
+        .about-cta {
+            padding: 90px 0;
+            text-align: center;
+        }
+
+        .about-cta-box {
+            padding: 60px 30px;
+            background: linear-gradient(135deg, #0757C9, #1261D6);
+            border-radius: 28px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-cta-box h2 {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 2.3rem;
+        }
+
+        .about-cta-box p {
+            max-width: 620px;
+            margin: 0 auto 28px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 800px) {
+            .about-intro {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="navbar"></div>
+
+
+<main>
+
+    <!-- PAGE HERO -->
+
+    <section class="page-hero">
+
+        <div class="container">
+
+            <span class="badge">
+                About Coral Reef
+            </span>
+
+            <h1>
+                Learning becomes better
+                <span style="color:#FFBF1A;">together.</span>
+            </h1>
+
+            <p>
+                Coral Reef brings people together through skill exchange,
+                meaningful connections and collaborative learning.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTRO -->
+
+    <section class="about-section">
+
+        <div class="container about-intro">
+
+            <div class="about-content">
+
+                <span class="badge">
+                    Our Mission
+                </span>
+
+                <h2>
+                    Turn knowledge into meaningful connections.
+                </h2>
+
+                <p>
+                    Everyone has something valuable to teach and something
+                    new to learn. Coral Reef is designed around that simple
+                    idea.
+                </p>
+
+                <p>
+                    Instead of learning alone, users can discover people
+                    whose skills complement their own, connect with them
+                    and build knowledge together.
+                </p>
+
+                <p>
+                    The platform focuses on skill compatibility, verified
+                    abilities, communication and structured learning
+                    roadmaps.
+                </p>
+
+            </div>
+
+            <div class="about-visual">
+
+                <div class="about-visual-inner">
+
+                    <img
+                        src="../assets/images/logos/logo.png"
+                        alt="Coral Reef"
+                    >
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- VALUES -->
+
+    <section class="values-section">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <span class="badge">
+                    What We Believe
+                </span>
+
+                <h2 class="section-title">
+                    Built around people and knowledge
+                </h2>
+
+                <p class="section-subtitle">
+                    Coral Reef is designed to make learning social,
+                    practical and mutually beneficial.
+                </p>
+
+            </div>
+
+
+            <div class="values-grid">
+
+                <article class="value-card">
+
+                    <div class="value-icon">🤝</div>
+
+                    <h3>Connect</h3>
+
+                    <p>
+                        Discover people with complementary skills and
+                        create meaningful learning partnerships.
+                    </p>
+
+                </article>
+
+
+                <article class="value-card">
+
+                    <div class="value-icon">🧠</div>
+
+                    <h3>Exchange Knowledge</h3>
+
+                    <p>
+                        Share what you know while learning something
+                        valuable from someone else.
+                    </p>
+
+                </article>
+
+
+                <article class="value-card">
+
+                    <div class="value-icon">🚀</div>
+
+                    <h3>Grow Together</h3>
+
+                    <p>
+                        Follow structured learning paths and turn
+                        conversations into real progress.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="about-cta">
+
+        <div class="container">
+
+            <div class="about-cta-box">
+
+                <h2>
+                    Ready to exchange skills?
+                </h2>
+
+                <p>
+                    Find your learning partner and start building
+                    something valuable together.
+                </p>
+
+                <a href="matches.html" class="btn btn-primary">
+                    Find Your Match →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<div id="footer"></div>
+
+
+<script type="module" src="../js/modules/commonUI.js"></script>
+
+</body>
+</html>

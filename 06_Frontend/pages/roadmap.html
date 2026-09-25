@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Learning Roadmap | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <style>
+        .page-hero {
+            padding: 80px 0 70px;
+            background: linear-gradient(135deg, #0757C9, #1261D6);
+            text-align: center;
+        }
+
+        .page-hero .badge {
+            color: #fff;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+        }
+
+        .page-hero h1 {
+            max-width: 850px;
+            margin: 20px auto 16px;
+            color: #fff;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1.1;
+        }
+
+        .page-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: rgba(255,255,255,.82);
+            line-height: 1.8;
+        }
+
+        .roadmap-section {
+            padding: 80px 0 100px;
+        }
+
+        .roadmap-builder {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 30px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .roadmap-builder h2 {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+
+        .roadmap-builder > p {
+            margin-bottom: 24px;
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: .9rem;
+        }
+
+        .roadmap-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+        }
+
+        .roadmap-form input {
+            min-width: 0;
+            padding: 15px 16px;
+            color: var(--text-dark);
+            background: #F8FBFF;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            outline: none;
+            font-family: var(--body-font);
+            font-size: .9rem;
+        }
+
+        .roadmap-form input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59,130,246,.1);
+            background: #fff;
+        }
+
+        .roadmap-form button {
+            border: none;
+            cursor: pointer;
+        }
+
+        .roadmap-area {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roadmap-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .roadmap-heading h2 {
+            color: var(--text-dark);
+            font-size: 1.5rem;
+        }
+
+        .roadmap-progress {
+            color: var(--primary);
+            font-size: .85rem;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 8px;
+            margin-bottom: 35px;
+            overflow: hidden;
+            background: #E8F0FA;
+            border-radius: 999px;
+        }
+
+        .progress-fill {
+            width: 25%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: inherit;
+            transition: width .35s ease;
+        }
+
+        .roadmap-list {
+            position: relative;
+            margin-left: 18px;
+            padding-left: 42px;
+        }
+
+        .roadmap-list::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 9px;
+            width: 2px;
+            background: #DCE8F7;
+        }
+
+        .roadmap-step {
+            position: relative;
+            margin-bottom: 25px;
+            padding: 24px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .roadmap-step:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .roadmap-step::before {
+            content: "";
+            position: absolute;
+            left: -48px;
+            top: 27px;
+            width: 16px;
+            height: 16px;
+            background: #fff;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .roadmap-step.completed::before {
+            background: var(--primary);
+        }
+
+        .step-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .step-label {
+            color: var(--primary);
+            font-size: .72rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .roadmap-step h3 {
+            margin: 6px 0 8px;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .roadmap-step p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: .88rem;
+        }
+
+        .step-status {
+            flex-shrink: 0;
+            padding: 6px 10px;
+            color: var(--primary);
+            background: #EAF3FF;
+            border-radius: 999px;
+            font-size: .7rem;
+            font-weight: 700;
+        }
+
+        .roadmap-step.completed .step-status {
+            color: #166534;
+            background: #ECFDF5;
+        }
+
+        .step-action {
+            margin-top: 18px;
+            padding: 9px 14px;
+            color: var(--primary);
+            background: #F1F6FF;
+            border: 1px solid #DCE8F7;
+            border-radius: 9px;
+            font-family: var(--body-font);
+            font-size: .78rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .step-action:hover {
+            background: #EAF3FF;
+        }
+
+        .roadmap-empty {
+            display: none;
+            padding: 45px 25px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .roadmap-empty.show {
+            display: block;
+        }
+
+        .roadmap-empty h3 {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .roadmap-empty p {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 600px) {
+            .roadmap-builder {
+                padding: 24px;
+            }
+
+            .roadmap-form {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-form button {
+                width: 100%;
+            }
+
+            .roadmap-heading {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 7px;
+            }
+
+            .roadmap-list {
+                margin-left: 5px;
+                padding-left: 32px;
+            }
+
+            .roadmap-step::before {
+                left: -38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+
+<main>
+
+    <section class="page-hero">
+
+        <div class="container">
+
+            <span class="badge">
+                Learning Journey
+            </span>
+
+            <h1>
+                Build your learning
+                <span style="color:#FFBF1A;">roadmap.</span>
+            </h1>
+
+            <p>
+                Break a learning goal into clear steps and track
+                your progress as you move forward.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="roadmap-section">
+
+        <div class="container">
+
+            <div class="roadmap-builder">
+
+                <h2>What do you want to learn?</h2>
+
+                <p>
+                    Enter a skill or topic to create a simple
+                    learning path.
+                </p>
+
+                <form class="roadmap-form" id="roadmapForm">
+
+                    <input
+                        type="text"
+                        id="roadmapGoal"
+                        placeholder="Example: Python, Web Development, UI Design"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Create Roadmap →
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div class="roadmap-area">
+
+                <div class="roadmap-heading">
+
+                    <h2 id="roadmapTitle">
+                        Example: Python Learning Path
+                    </h2>
+
+                    <span
+                        class="roadmap-progress"
+                        id="roadmapProgress"
+                    >
+                        1 of 4 completed
+                    </span>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-fill"
+                        id="progressFill"
+                    ></div>
+
+                </div>
+
+
+                <div class="roadmap-list" id="roadmapList">
+
+                    <article class="roadmap-step completed">
+
+                        <div class="step-top">
+
+                            <div>
+
+                                <span class="step-label">
+                                    STEP 01
+                                </span>
+
+                                <h3>Understand the basics</h3>
+
+                            </div>
+
+                            <span class="step-status">
+                                Completed
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Learn the fundamentals, syntax and core
+                            concepts of the subject.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="step-action"
+                        >
+                            Completed ✓
+                        </button>
+
+                    </article>
+
+
+                    <article class="roadmap-step">
+
+                        <div class="step-top">
+
+                            <div>
+
+                                <span class="step-label">
+                                    STEP 02
+                                </span>
+
+                                <h3>Practice core concepts</h3>
+
+                            </div>
+
+                            <span class="step-status">
+                                Upcoming
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Practice what you learned through small
+                            exercises and examples.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="step-action"
+                        >
+                            Mark Complete
+                        </button>
+
+                    </article>
+
+
+                    <article class="roadmap-step">
+
+                        <div class="step-top">
+
+                            <div>
+
+                                <span class="step-label">
+                                    STEP 03
+                                </span>
+
+                                <h3>Build a small project</h3>
+
+                            </div>
+
+                            <span class="step-status">
+                                Upcoming
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Apply your knowledge by creating a practical
+                            project related to your learning goal.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="step-action"
+                        >
+                            Mark Complete
+                        </button>
+
+                    </article>
+
+
+                    <article class="roadmap-step">
+
+                        <div class="step-top">
+
+                            <div>
+
+                                <span class="step-label">
+                                    STEP 04
+                                </span>
+
+                                <h3>Share and improve</h3>
+
+                            </div>
+
+                            <span class="step-status">
+                                Upcoming
+                            </span>
+
+                        </div>
+
+                        <p>
+                            Get feedback, improve your project and
+                            continue learning with others.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="step-action"
+                        >
+                            Mark Complete
+                        </button>
+
+                    </article>
+
+                </div>
+
+
+                <div class="roadmap-empty" id="roadmapEmpty">
+
+                    <h3>Your roadmap is ready.</h3>
+
+                    <p>
+                        Enter another learning goal above to create
+                        a new roadmap.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div id="footer"></div>
+
+
+<script type="module" src="../js/modules/commonUI.js"></script>
+
+<script>
+    const roadmapForm =
+        document.getElementById("roadmapForm");
+
+    const roadmapGoal =
+        document.getElementById("roadmapGoal");
+
+    const roadmapTitle =
+        document.getElementById("roadmapTitle");
+
+    const roadmapProgress =
+        document.getElementById("roadmapProgress");
+
+    const progressFill =
+        document.getElementById("progressFill");
+
+    const roadmapList =
+        document.getElementById("roadmapList");
+
+
+    roadmapForm.addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const goal =
+            roadmapGoal.value.trim();
+
+        if (!goal) return;
+
+        roadmapTitle.textContent =
+            `${goal} Learning Path`;
+
+        roadmapList.innerHTML = `
+            <article class="roadmap-step completed">
+
+                <div class="step-top">
+                    <div>
+                        <span class="step-label">STEP 01</span>
+                        <h3>Understand the basics</h3>
+                    </div>
+
+                    <span class="step-status">
+                        Completed
+                    </span>
+                </div>
+
+                <p>
+                    Learn the fundamentals and understand the
+                    core concepts of ${escapeHTML(goal)}.
+                </p>
+
+                <button
+                    type="button"
+                    class="step-action"
+                >
+                    Completed ✓
+                </button>
+
+            </article>
+
+
+            <article class="roadmap-step">
+
+                <div class="step-top">
+                    <div>
+                        <span class="step-label">STEP 02</span>
+                        <h3>Practice the fundamentals</h3>
+                    </div>
+
+                    <span class="step-status">
+                        Upcoming
+                    </span>
+                </div>
+
+                <p>
+                    Practice important concepts through exercises,
+                    examples and small challenges.
+                </p>
+
+                <button
+                    type="button"
+                    class="step-action"
+                >
+                    Mark Complete
+                </button>
+
+            </article>
+
+
+            <article class="roadmap-step">
+
+                <div class="step-top">
+                    <div>
+                        <span class="step-label">STEP 03</span>
+                        <h3>Build a practical project</h3>
+                    </div>
+
+                    <span class="step-status">
+                        Upcoming
+                    </span>
+                </div>
+
+                <p>
+                    Apply your knowledge by creating a practical
+                    project related to ${escapeHTML(goal)}.
+                </p>
+
+                <button
+                    type="button"
+                    class="step-action"
+                >
+                    Mark Complete
+                </button>
+
+            </article>
+
+
+            <article class="roadmap-step">
+
+                <div class="step-top">
+                    <div>
+                        <span class="step-label">STEP 04</span>
+                        <h3>Review and improve</h3>
+                    </div>
+
+                    <span class="step-status">
+                        Upcoming
+                    </span>
+                </div>
+
+                <p>
+                    Review your progress, get feedback and continue
+                    improving your ${escapeHTML(goal)} skills.
+                </p>
+
+                <button
+                    type="button"
+                    class="step-action"
+                >
+                    Mark Complete
+                </button>
+
+            </article>
+        `;
+
+        bindStepButtons();
+        updateProgress();
+    });
+
+
+    function bindStepButtons() {
+
+        document
+            .querySelectorAll(".step-action")
+            .forEach(button => {
+
+                button.addEventListener("click", () => {
+
+                    const step =
+                        button.closest(".roadmap-step");
+
+                    const status =
+                        step.querySelector(".step-status");
+
+                    const completed =
+                        step.classList.toggle("completed");
+
+                    if (completed) {
+
+                        status.textContent = "Completed";
+                        button.textContent = "Completed ✓";
+
+                    } else {
+
+                        status.textContent = "Upcoming";
+                        button.textContent = "Mark Complete";
+
+                    }
+
+                    updateProgress();
+
+                });
+
+            });
+
+    }
+
+
+    function updateProgress() {
+
+        const steps =
+            Array.from(
+                document.querySelectorAll(".roadmap-step")
+            );
+
+        const completed =
+            steps.filter(
+                step => step.classList.contains("completed")
+            ).length;
+
+        const percentage =
+            steps.length
+                ? (completed / steps.length) * 100
+                : 0;
+
+        roadmapProgress.textContent =
+            `${completed} of ${steps.length} completed`;
+
+        progressFill.style.width =
+            `${percentage}%`;
+
+    }
+
+
+    function escapeHTML(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = value;
+
+        return div.innerHTML;
+
+    }
+
+
+    bindStepButtons();
+
+    updateProgress();
+</script>
+
+</body>
+</html>

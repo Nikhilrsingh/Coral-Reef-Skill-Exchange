@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Search Skills | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <style>
+        .page-hero {
+            padding: 75px 0 65px;
+            background: linear-gradient(135deg, #0757C9, #1261D6);
+            text-align: center;
+        }
+
+        .page-hero .badge {
+            color: #fff;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+        }
+
+        .page-hero h1 {
+            max-width: 850px;
+            margin: 20px auto 15px;
+            color: #fff;
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1.1;
+        }
+
+        .page-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: rgba(255,255,255,.82);
+            line-height: 1.8;
+        }
+
+        .search-section {
+            padding: 70px 0 90px;
+        }
+
+        .search-box {
+            max-width: 900px;
+            margin: 0 auto 45px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .search-box input {
+            flex: 1;
+            min-width: 0;
+            padding: 15px 16px;
+            border: none;
+            outline: none;
+            color: var(--text-dark);
+            background: transparent;
+            font-family: var(--body-font);
+            font-size: .95rem;
+        }
+
+        .search-box button {
+            flex-shrink: 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-icon {
+            padding-left: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .search-layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .filter-card {
+            padding: 24px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-card h3 {
+            margin-bottom: 18px;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 13px;
+            color: var(--text-light);
+            font-size: .88rem;
+            cursor: pointer;
+        }
+
+        .filter-option input {
+            accent-color: var(--primary);
+        }
+
+        .results-area {
+            min-width: 0;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .results-header h2 {
+            color: var(--text-dark);
+            font-size: 1.35rem;
+        }
+
+        .results-count {
+            color: var(--text-light);
+            font-size: .85rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .skill-card {
+            padding: 23px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: #C7DCF8;
+        }
+
+        .skill-card-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            background: #EAF3FF;
+            border-radius: 12px;
+            font-size: 1.15rem;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 1.05rem;
+        }
+
+        .skill-card p {
+            margin-bottom: 16px;
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: .84rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .skill-tag {
+            padding: 6px 9px;
+            color: var(--primary);
+            background: #F1F6FF;
+            border-radius: 999px;
+            font-size: .72rem;
+            font-weight: 600;
+        }
+
+        .skill-card-link {
+            display: inline-block;
+            margin-top: 18px;
+            color: var(--primary);
+            font-size: .82rem;
+            font-weight: 700;
+        }
+
+        .no-results {
+            display: none;
+            padding: 60px 20px;
+            text-align: center;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .no-results h3 {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .no-results p {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 950px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+            .search-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-card {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px 18px;
+            }
+
+            .filter-card h3 {
+                grid-column: 1 / -1;
+                margin-bottom: 3px;
+            }
+
+            .filter-option {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .search-box {
+                padding: 8px;
+            }
+
+            .search-box .btn {
+                padding: 12px 16px;
+            }
+
+            .search-icon {
+                padding-left: 9px;
+            }
+
+            .filter-card {
+                grid-template-columns: 1fr;
+            }
+
+            .results-header {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+
+<main>
+
+    <section class="page-hero">
+
+        <div class="container">
+
+            <span class="badge">Explore Knowledge</span>
+
+            <h1>
+                Search for a
+                <span style="color:#FFBF1A;">skill.</span>
+            </h1>
+
+            <p>
+                Discover skills people can teach and explore areas
+                you may want to learn.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="search-section">
+
+        <div class="container">
+
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="search"
+                    id="skillSearch"
+                    placeholder="Search skills like Python, Photoshop, Excel..."
+                    autocomplete="off"
+                >
+
+                <button
+                    type="button"
+                    id="searchButton"
+                    class="btn btn-primary"
+                >
+                    Search
+                </button>
+
+            </div>
+
+
+            <div class="search-layout">
+
+                <aside class="filter-card">
+
+                    <h3>Filter by category</h3>
+
+                    <label class="filter-option">
+                        <input
+                            type="checkbox"
+                            value="Technology"
+                            class="category-filter"
+                        >
+                        Technology
+                    </label>
+
+                    <label class="filter-option">
+                        <input
+                            type="checkbox"
+                            value="Design"
+                            class="category-filter"
+                        >
+                        Design
+                    </label>
+
+                    <label class="filter-option">
+                        <input
+                            type="checkbox"
+                            value="Business"
+                            class="category-filter"
+                        >
+                        Business
+                    </label>
+
+                    <label class="filter-option">
+                        <input
+                            type="checkbox"
+                            value="Languages"
+                            class="category-filter"
+                        >
+                        Languages
+                    </label>
+
+                    <label class="filter-option">
+                        <input
+                            type="checkbox"
+                            value="Academic"
+                            class="category-filter"
+                        >
+                        Academic
+                    </label>
+
+                </aside>
+
+
+                <div class="results-area">
+
+                    <div class="results-header">
+
+                        <h2>Popular Skills</h2>
+
+                        <span
+                            class="results-count"
+                            id="resultsCount"
+                        >
+                            9 skills
+                        </span>
+
+                    </div>
+
+
+                    <div class="skills-grid" id="skillsGrid">
+
+                        <article
+                            class="skill-card"
+                            data-skill="Python"
+                            data-category="Technology"
+                        >
+
+                            <div class="skill-card-icon">🐍</div>
+
+                            <h3>Python</h3>
+
+                            <p>
+                                Programming, automation and application
+                                development.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Technology</span>
+                                <span class="skill-tag">Programming</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="JavaScript"
+                            data-category="Technology"
+                        >
+
+                            <div class="skill-card-icon">⚡</div>
+
+                            <h3>JavaScript</h3>
+
+                            <p>
+                                Build interactive websites and
+                                web applications.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Technology</span>
+                                <span class="skill-tag">Web</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="Web Design"
+                            data-category="Design"
+                        >
+
+                            <div class="skill-card-icon">🎨</div>
+
+                            <h3>Web Design</h3>
+
+                            <p>
+                                Create useful, attractive and
+                                user-friendly interfaces.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Design</span>
+                                <span class="skill-tag">UI/UX</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="Graphic Design"
+                            data-category="Design"
+                        >
+
+                            <div class="skill-card-icon">🖌️</div>
+
+                            <h3>Graphic Design</h3>
+
+                            <p>
+                                Visual communication, branding and
+                                digital graphics.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Design</span>
+                                <span class="skill-tag">Creative</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="Excel"
+                            data-category="Business"
+                        >
+
+                            <div class="skill-card-icon">📊</div>
+
+                            <h3>Excel</h3>
+
+                            <p>
+                                Data organization, formulas and
+                                spreadsheet analysis.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Business</span>
+                                <span class="skill-tag">Data</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="Public Speaking"
+                            data-category="Business"
+                        >
+
+                            <div class="skill-card-icon">🎤</div>
+
+                            <h3>Public Speaking</h3>
+
+                            <p>
+                                Improve communication, presentation and
+                                confidence.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Business</span>
+                                <span class="skill-tag">Communication</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="English"
+                            data-category="Languages"
+                        >
+
+                            <div class="skill-card-icon">🌐</div>
+
+                            <h3>English</h3>
+
+                            <p>
+                                Improve vocabulary, communication and
+                                everyday language skills.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Languages</span>
+                                <span class="skill-tag">Communication</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="Mathematics"
+                            data-category="Academic"
+                        >
+
+                            <div class="skill-card-icon">📐</div>
+
+                            <h3>Mathematics</h3>
+
+                            <p>
+                                Algebra, problem solving and
+                                quantitative concepts.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Academic</span>
+                                <span class="skill-tag">Problem Solving</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+
+                        <article
+                            class="skill-card"
+                            data-skill="Photography"
+                            data-category="Design"
+                        >
+
+                            <div class="skill-card-icon">📷</div>
+
+                            <h3>Photography</h3>
+
+                            <p>
+                                Composition, camera techniques and
+                                visual storytelling.
+                            </p>
+
+                            <div class="skill-tags">
+                                <span class="skill-tag">Design</span>
+                                <span class="skill-tag">Creative</span>
+                            </div>
+
+                            <a href="matches.html" class="skill-card-link">
+                                Find People →
+                            </a>
+
+                        </article>
+
+                    </div>
+
+
+                    <div class="no-results" id="noResults">
+
+                        <h3>No skills found</h3>
+
+                        <p>
+                            Try a different search term or remove a filter.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div id="footer"></div>
+
+
+<script type="module" src="../js/modules/commonUI.js"></script>
+
+<script>
+    const searchInput = document.getElementById("skillSearch");
+    const searchButton = document.getElementById("searchButton");
+    const skillCards = Array.from(
+        document.querySelectorAll(".skill-card")
+    );
+    const categoryFilters = Array.from(
+        document.querySelectorAll(".category-filter")
+    );
+    const resultsCount = document.getElementById("resultsCount");
+    const noResults = document.getElementById("noResults");
+
+    function filterSkills() {
+
+        const query =
+            searchInput.value.trim().toLowerCase();
+
+        const selectedCategories =
+            categoryFilters
+                .filter(filter => filter.checked)
+                .map(filter => filter.value);
+
+        let visibleCount = 0;
+
+        skillCards.forEach(card => {
+
+            const skill =
+                card.dataset.skill.toLowerCase();
+
+            const category =
+                card.dataset.category;
+
+            const matchesSearch =
+                !query ||
+                skill.includes(query) ||
+                card.textContent.toLowerCase().includes(query);
+
+            const matchesCategory =
+                selectedCategories.length === 0 ||
+                selectedCategories.includes(category);
+
+            const visible =
+                matchesSearch && matchesCategory;
+
+            card.style.display =
+                visible ? "" : "none";
+
+            if (visible) {
+                visibleCount++;
+            }
+
+        });
+
+        resultsCount.textContent =
+            `${visibleCount} skill${visibleCount === 1 ? "" : "s"}`;
+
+        noResults.classList.toggle(
+            "show",
+            visibleCount === 0
+        );
+    }
+
+    searchInput.addEventListener("input", filterSkills);
+
+    searchButton.addEventListener("click", filterSkills);
+
+    categoryFilters.forEach(filter => {
+        filter.addEventListener("change", filterSkills);
+    });
+
+    searchInput.addEventListener("keydown", event => {
+
+        if (event.key === "Enter") {
+            filterSkills();
+        }
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FAQ | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <style>
+        .page-hero {
+            padding: 85px 0 75px;
+            background: linear-gradient(135deg, #0757C9, #1261D6);
+            color: #fff;
+            text-align: center;
+        }
+
+        .page-hero .badge {
+            background: rgba(255,255,255,.15);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.25);
+        }
+
+        .page-hero h1 {
+            max-width: 850px;
+            margin: 22px auto 18px;
+            color: #fff;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+        }
+
+        .page-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: rgba(255,255,255,.82);
+            line-height: 1.8;
+        }
+
+        .faq-section {
+            padding: 90px 0;
+        }
+
+        .faq-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 14px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 22px 25px;
+            text-align: left;
+            color: var(--text-dark);
+            background: #fff;
+            font-family: var(--body-font);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+            background: #F8FBFF;
+        }
+
+        .faq-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            background: #EAF3FF;
+            border-radius: 50%;
+            font-size: 1.15rem;
+            transition: transform .25s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 25px 24px;
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-answer p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: .93rem;
+        }
+
+        .faq-cta {
+            margin-top: 65px;
+            padding: 55px 30px;
+            text-align: center;
+            background: #F1F6FF;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+        }
+
+        .faq-cta h2 {
+            margin-bottom: 12px;
+            color: var(--text-dark);
+            font-size: 2rem;
+        }
+
+        .faq-cta p {
+            max-width: 560px;
+            margin: 0 auto 25px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 600px) {
+            .faq-question {
+                padding: 18px;
+                font-size: .92rem;
+            }
+
+            .faq-answer {
+                padding: 0 18px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+
+<main>
+
+    <section class="page-hero">
+
+        <div class="container">
+
+            <span class="badge">Help Center</span>
+
+            <h1>
+                Frequently asked
+                <span style="color:#FFBF1A;">questions.</span>
+            </h1>
+
+            <p>
+                Find answers about skill exchange, matching,
+                connections and learning on Coral Reef.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="faq-section">
+
+        <div class="container">
+
+            <div class="section-header">
+
+                <span class="badge">FAQ</span>
+
+                <h2 class="section-title">
+                    Everything you need to know
+                </h2>
+
+                <p class="section-subtitle">
+                    Click a question to expand the answer.
+                </p>
+
+            </div>
+
+
+            <div class="faq-wrapper">
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>What is Coral Reef?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Coral Reef is a skill-exchange platform where
+                            users can share skills they know, discover
+                            skills they want to learn and connect with
+                            compatible learning partners.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>How does skill matching work?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Your teaching skills and learning interests
+                            are compared with other users. Coral Reef
+                            calculates a compatibility score to help
+                            highlight suitable skill-exchange partners.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>Can I both teach and learn?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Yes. Coral Reef is designed around two-way
+                            knowledge exchange. You can list the skills
+                            you can teach and separately list the skills
+                            you want to learn.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>How do I connect with another user?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Open Find Matches, select a compatible profile
+                            and use the connection option. Once a request
+                            is accepted, you can continue communicating
+                            with your learning partner.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>What is Skill Verification?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Skill Verification provides a dedicated area
+                            where users can work toward demonstrating
+                            evidence of the skills they want to share.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>What is the Learning Roadmap?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            The Learning Roadmap helps organize a learning
+                            goal into structured steps so that users can
+                            clearly understand what they want to learn
+                            and track their progress.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>Is Coral Reef free to use?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Coral Reef is currently designed as a college
+                            project demonstrating a skill-exchange
+                            platform and its core functionality.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-item">
+
+                    <button class="faq-question" type="button">
+                        <span>What should I do if I need help?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+
+                    <div class="faq-answer">
+                        <p>
+                            Visit the Contact page to reach the project
+                            support area or use the available platform
+                            navigation to continue exploring Coral Reef.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="faq-cta">
+
+                    <h2>
+                        Still have a question?
+                    </h2>
+
+                    <p>
+                        We're here to help. Visit the contact page
+                        and send us your question.
+                    </p>
+
+                    <a href="contact.html" class="btn btn-primary">
+                        Contact Us →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div id="footer"></div>
+
+
+<script type="module" src="../js/modules/commonUI.js"></script>
+
+<script>
+    document.querySelectorAll(".faq-question").forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const item = button.closest(".faq-item");
+
+            document.querySelectorAll(".faq-item").forEach(otherItem => {
+
+                if (otherItem !== item) {
+                    otherItem.classList.remove("open");
+                }
+
+            });
+
+            item.classList.toggle("open");
+
+        });
+
+    });
+</script>
+
+</body>
+</html>

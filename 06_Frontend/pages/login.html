@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+
+</head>
+
+
+<body class="auth-page">
+
+
+    <main class="auth-container">
+
+
+        <!-- BRAND -->
+
+        <section class="auth-brand">
+
+            <div class="auth-logo">
+
+                <img
+                    src="../assets/images/logos/logo.png"
+                    alt="Coral Reef Logo"
+                >
+
+                <h1>Coral Reef 🪸</h1>
+
+            </div>
+
+
+            <h2>
+                Welcome back to
+                <span>Coral Reef.</span>
+            </h2>
+
+
+            <p>
+                Connect with learners, mentors and professionals,
+                exchange skills and continue your learning journey.
+            </p>
+
+        </section>
+
+
+
+        <!-- LOGIN FORM -->
+
+        <section class="auth-form-panel">
+
+            <div class="auth-form-header">
+
+                <h2>Login</h2>
+
+                <p>
+                    Sign in to continue to your Coral Reef account.
+                </p>
+
+            </div>
+
+
+            <form
+                id="loginForm"
+                class="auth-form"
+                novalidate
+            >
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                </div>
+
+
+                <div
+                    id="loginError"
+                    class="form-error"
+                ></div>
+
+
+                <div
+                    id="loginSuccess"
+                    class="form-success"
+                ></div>
+
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="auth-submit"
+                >
+                    Login
+                </button>
+
+
+            </form>
+
+
+            <div class="auth-footer">
+
+                Don't have an account?
+
+                <a href="register.html">
+                    Register Free
+                </a>
+
+                <br>
+
+                <a
+                    href="../index.html"
+                    class="back-home"
+                >
+                    ← Back to Coral Reef
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script
+        type="module"
+        src="../js/modules/auth.js"
+    ></script>
+
+</body>
+
+</html>

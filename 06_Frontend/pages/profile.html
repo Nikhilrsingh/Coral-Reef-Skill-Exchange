@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+<link rel="stylesheet" href="../assets/css/variables.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/layout.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/profile.css">
+<link rel="stylesheet" href="../assets/css/responsive.css">
+
+</head>
+
+<body>
+
+    <div id="navbar"></div>
+
+
+    <main class="profile-page">
+
+        <section class="profile-header">
+
+            <p class="profile-label">
+                USER MANAGEMENT
+            </p>
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Manage your information, skills and
+                learning interests.
+            </p>
+
+        </section>
+
+
+        <section class="profile-card">
+
+            <form
+                id="profileForm"
+                class="profile-form"
+            >
+
+                <!-- BASIC INFORMATION -->
+
+                <div class="profile-section">
+
+                    <h2>Basic Information</h2>
+
+                    <p>
+                        Your basic account information.
+                    </p>
+
+
+                    <div class="profile-grid">
+
+                        <div class="profile-field">
+
+                            <label for="name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="profile-field">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                disabled
+                            >
+
+                            <small>
+                                Email cannot be changed from the profile.
+                            </small>
+
+                        </div>
+
+
+                        <div class="profile-field">
+
+                            <label for="role">
+                                Role
+                            </label>
+
+                            <select id="role">
+
+                                <option value="student">
+                                    Student
+                                </option>
+
+                                <option value="teacher">
+                                    Teacher
+                                </option>
+
+                                <option value="professional">
+                                    Professional
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BIO -->
+
+                <div class="profile-section">
+
+                    <h2>About You</h2>
+
+                    <p>
+                        Tell the community a little about yourself.
+                    </p>
+
+                    <div class="profile-field">
+
+                        <label for="bio">
+                            Bio
+                        </label>
+
+                        <textarea
+                            id="bio"
+                            rows="5"
+                            maxlength="500"
+                            placeholder="Write a short introduction..."
+                        ></textarea>
+
+                        <small>
+                            Maximum 500 characters.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TEACHING SKILLS -->
+
+                <div class="profile-section">
+
+                    <h2>Skills I Can Teach</h2>
+
+                    <p>
+                        Add skills that you can share with others.
+                    </p>
+
+                    <div class="skill-input-row">
+
+                        <input
+                            type="text"
+                            id="teachSkillInput"
+                            placeholder="Example: JavaScript"
+                        >
+
+                        <button
+                            type="button"
+                            id="addTeachSkill"
+                            class="skill-add-button"
+                        >
+                            Add
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="teachSkills"
+                        class="skill-list"
+                    ></div>
+
+                </div>
+
+
+                <!-- LEARNING SKILLS -->
+
+                <div class="profile-section">
+
+                    <h2>Skills I Want To Learn</h2>
+
+                    <p>
+                        Add skills that you want to learn.
+                    </p>
+
+                    <div class="skill-input-row">
+
+                        <input
+                            type="text"
+                            id="learnSkillInput"
+                            placeholder="Example: Python"
+                        >
+
+                        <button
+                            type="button"
+                            id="addLearnSkill"
+                            class="skill-add-button"
+                        >
+                            Add
+                        </button>
+
+                    </div>
+
+                    <div
+                        id="learnSkills"
+                        class="skill-list"
+                    ></div>
+
+                </div>
+
+
+                <!-- =====================================================
+     PROFESSIONAL & CODING PROFILES
+===================================================== -->
+
+<div class="profile-section connected-profiles-section">
+
+    <div class="section-heading-row">
+
+        <div>
+            <span class="section-eyebrow">
+                PROFESSIONAL PRESENCE
+            </span>
+
+            <h2>
+                Connected Profiles
+            </h2>
+
+            <p>
+                Showcase your coding, professional and
+                creative profiles in one place.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- CONNECTED PROFILE LIST -->
+
+    <div
+        id="connectedProfiles"
+        class="connected-profile-list"
+    ></div>
+
+
+    <!-- ADD PROFESSIONAL PROFILE -->
+
+    <div class="connected-profile-form">
+
+        <div class="connected-profile-form-header">
+
+            <div>
+
+                <span class="form-eyebrow">
+                    ADD PROFILE
+                </span>
+
+                <h3>
+                    Connect a Professional Profile
+                </h3>
+
+                <p>
+                    Add a profile you want other Coral Reef
+                    members to discover.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="connected-profile-fields">
+
+            <!-- PLATFORM -->
+
+            <div class="profile-field">
+
+                <label for="connectedPlatform">
+                    Platform
+                </label>
+
+                <select id="connectedPlatform">
+
+                    <optgroup label="Coding & Development">
+
+                        <option value="github">
+                            GitHub
+                        </option>
+
+                        <option value="leetcode">
+                            LeetCode
+                        </option>
+
+                        <option value="codechef">
+                            CodeChef
+                        </option>
+
+                        <option value="codeforces">
+                            Codeforces
+                        </option>
+
+                        <option value="hackerrank">
+                            HackerRank
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Professional">
+
+                        <option value="linkedin">
+                            LinkedIn
+                        </option>
+
+                        <option value="website">
+                            Personal Website
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Creative">
+
+                        <option value="behance">
+                            Behance
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Social Media">
+
+                        <option value="instagram">
+                            Instagram
+                        </option>
+
+                        <option value="facebook">
+                            Facebook
+                        </option>
+
+                        <option value="x">
+                            X / Twitter
+                        </option>
+
+                        <option value="youtube">
+                            YouTube
+                        </option>
+
+                        <option value="discord">
+                            Discord
+                        </option>
+
+                        <option value="telegram">
+                            Telegram
+                        </option>
+
+                    </optgroup>
+
+
+                    <optgroup label="Other">
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </optgroup>
+
+                </select>
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="profile-field">
+
+                <label for="connectedUsername">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="connectedUsername"
+                    placeholder="Example: Nikhilsingh"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- PROFILE URL -->
+
+            <div class="profile-field">
+
+                <label for="connectedProfileUrl">
+                    Profile URL
+                </label>
+
+                <input
+                    type="url"
+                    id="connectedProfileUrl"
+                    placeholder="https://example.com/username"
+                    autocomplete="url"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="connected-profile-form-actions">
+
+            <button
+                type="button"
+                id="addConnectedProfile"
+                class="skill-add-button"
+            >
+                <span>+</span>
+                Connect Profile
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SOCIAL MEDIA PROFILES
+===================================================== -->
+
+<div class="profile-section social-profiles-section">
+
+    <div class="section-heading-row">
+
+        <div>
+
+            <span class="section-eyebrow">
+                SOCIAL PRESENCE
+            </span>
+
+            <h2>
+                Social Media
+            </h2>
+
+            <p>
+                Let the community connect with you beyond
+                Coral Reef.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SOCIAL PROFILE LIST -->
+
+    <div
+        id="socialProfiles"
+        class="social-profile-list"
+    ></div>
+
+
+    <!-- SOCIAL PROFILE INFORMATION -->
+
+    <div class="social-profile-info">
+
+        <div class="social-profile-info-icon">
+            +
+        </div>
+
+        <div>
+
+            <strong>
+                Want to add another social profile?
+            </strong>
+
+            <p>
+                Use the profile connector above and select
+                the social platform you want to add.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="profileMessage"
+                    class="profile-message"
+                ></div>
+
+
+                <!-- SAVE -->
+
+                <div class="profile-actions">
+
+                    <button
+                        type="submit"
+                        class="save-profile-button"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+
+    <script
+        type="module"
+        src="../js/modules/sessionGuard.js"
+    ></script>
+
+    <script
+        type="module"
+        src="../js/modules/profile.js"
+    ></script>
+
+    <script
+    type="module"
+    src="../js/modules/commonUI.js"
+></script>
+
+
+</body>
+
+</html>

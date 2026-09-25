@@ -1,0 +1,130 @@
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:15px 32px;
+
+    border-radius:14px;
+
+    font-family:var(--heading-font);
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+    transition:all .35s ease;
+
+}
+
+.btn-primary{
+
+    color:#102A56;
+
+    background:var(--accent);
+
+    box-shadow:0 8px 22px rgba(255,191,26,.25);
+
+}
+
+.btn-primary:hover{
+
+    color:#102A56;
+
+    background:#FFD34F;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 14px 30px rgba(255,191,26,.35);
+
+}
+
+.btn-secondary{
+
+    color:#fff;
+
+    background:transparent;
+
+    border:1.5px solid rgba(255,255,255,.85);
+
+}
+
+.btn-secondary:hover{
+
+    color:var(--primary);
+
+    background:#fff;
+
+    border-color:#fff;
+
+}
+
+
+/* ===========================
+   CARD
+=========================== */
+
+.card{
+
+    background:#fff;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    border:1px solid rgba(226,232,240,.8);
+
+    box-shadow:
+
+        0 10px 35px rgba(15,118,110,.06);
+
+    transition:all .35s ease;
+
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+
+        0 20px 50px rgba(15,118,110,.12);
+
+}
+
+
+/* ===========================
+   BADGE
+=========================== */
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+
+    border-radius:999px;
+
+    background:#E6FFFA;
+    color:var(--primary);
+
+    font-size:.85rem;
+    font-weight:600;
+}
+
+
+/* ===========================
+   SECTION HEADER
+=========================== */
+
+.section-header{
+    text-align:center;
+    margin-bottom:60px;
+}

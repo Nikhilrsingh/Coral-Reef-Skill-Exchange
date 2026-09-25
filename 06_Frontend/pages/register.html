@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Register | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+
+</head>
+
+<body class="auth-page">
+
+    <main class="auth-container">
+
+        <!-- BRAND PANEL -->
+
+        <section class="auth-brand">
+
+            <div class="auth-logo">
+
+                <img
+                    src="../assets/images/logos/logo.png"
+                    alt="Coral Reef Logo"
+                >
+
+                <h1>Coral Reef 🪸</h1>
+
+            </div>
+
+            <h2>
+                Start your
+                <span>learning journey.</span>
+            </h2>
+
+            <p>
+                Create your profile, share your skills,
+                discover new knowledge and connect with
+                people who can help you grow.
+            </p>
+
+        </section>
+
+
+        <!-- REGISTER FORM -->
+
+        <section class="auth-form-panel">
+
+            <div class="auth-form-header">
+
+                <h2>Create Account</h2>
+
+                <p>
+                    Join the Coral Reef learning community.
+                </p>
+
+            </div>
+
+
+            <form
+                id="registerForm"
+                class="auth-form"
+                novalidate
+            >
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ROLE -->
+
+                <div class="form-group">
+
+                    <label for="role">
+                        I am a
+                    </label>
+
+                    <select
+                        id="role"
+                        name="role"
+                        required
+                    >
+
+                        <option value="">
+                            Select your role
+                        </option>
+
+                        <option value="student">
+                            Student
+                        </option>
+
+                        <option value="teacher">
+                            Teacher
+                        </option>
+
+                        <option value="professional">
+                            Professional
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Create a password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Re-enter your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="registerError"
+                    class="form-error"
+                ></div>
+
+
+                <!-- SUCCESS -->
+
+                <div
+                    id="registerSuccess"
+                    class="form-success"
+                ></div>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    id="registerButton"
+                    class="auth-submit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div class="auth-footer">
+
+                Already have an account?
+
+                <a href="login.html">
+                    Login
+                </a>
+
+                <br>
+
+                <a
+                    href="../index.html"
+                    class="back-home"
+                >
+                    ← Back to Coral Reef
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script
+        type="module"
+        src="../js/modules/register.js"
+    ></script>
+
+</body>
+
+</html>

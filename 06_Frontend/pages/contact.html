@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | Coral Reef</title>
+
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+
+    <style>
+        .page-hero {
+            padding: 85px 0 75px;
+            background: linear-gradient(135deg, #0757C9, #1261D6);
+            text-align: center;
+        }
+
+        .page-hero .badge {
+            color: #fff;
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+        }
+
+        .page-hero h1 {
+            max-width: 800px;
+            margin: 22px auto 18px;
+            color: #fff;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+        }
+
+        .page-hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: rgba(255,255,255,.82);
+            line-height: 1.8;
+        }
+
+        .contact-section {
+            padding: 90px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 35px;
+            align-items: start;
+        }
+
+        .contact-info,
+        .contact-form-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-info {
+            padding: 35px;
+        }
+
+        .contact-info h2 {
+            margin: 18px 0 12px;
+            color: var(--text-dark);
+            font-size: 2rem;
+        }
+
+        .contact-info > p {
+            margin-bottom: 30px;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 15px;
+            padding: 18px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #EAF3FF;
+            border-radius: 12px;
+            font-size: 1.15rem;
+        }
+
+        .contact-item h3 {
+            margin-bottom: 4px;
+            color: var(--text-dark);
+            font-size: .95rem;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            color: var(--text-light);
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        .contact-form-card {
+            padding: 40px;
+        }
+
+        .contact-form-card h2 {
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        .contact-form-card > p {
+            margin-bottom: 28px;
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: .9rem;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 15px;
+            color: var(--text-dark);
+            background: #F8FBFF;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            font-family: var(--body-font);
+            font-size: .9rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            min-height: 145px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: #fff;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59,130,246,.1);
+        }
+
+        .contact-submit {
+            width: 100%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-message {
+            display: none;
+            margin-top: 18px;
+            padding: 13px 15px;
+            color: #166534;
+            background: #ECFDF5;
+            border: 1px solid #BBF7D0;
+            border-radius: 10px;
+            font-size: .88rem;
+        }
+
+        .form-message.show {
+            display: block;
+        }
+
+        @media (max-width: 800px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .contact-info,
+            .contact-form-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+
+<main>
+
+    <section class="page-hero">
+
+        <div class="container">
+
+            <span class="badge">Get In Touch</span>
+
+            <h1>
+                Let's talk about
+                <span style="color:#FFBF1A;">Coral Reef.</span>
+            </h1>
+
+            <p>
+                Have a question, suggestion or feedback?
+                Send us a message and we'll be happy to hear from you.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="contact-section">
+
+        <div class="container">
+
+            <div class="contact-grid">
+
+                <div class="contact-info">
+
+                    <span class="badge">Contact</span>
+
+                    <h2>How can we help?</h2>
+
+                    <p>
+                        Whether you want to know more about the platform
+                        or have feedback about your learning experience,
+                        use the contact form and reach out to us.
+                    </p>
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">💬</div>
+
+                        <div>
+                            <h3>Platform Support</h3>
+                            <p>
+                                Questions about your Coral Reef experience
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">💡</div>
+
+                        <div>
+                            <h3>Suggestions</h3>
+                            <p>
+                                Share ideas that could improve the platform
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="contact-item">
+
+                        <div class="contact-icon">🛠️</div>
+
+                        <div>
+                            <h3>Technical Help</h3>
+                            <p>
+                                Report issues you encounter while using Coral Reef
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contact-form-card">
+
+                    <h2>Send us a message</h2>
+
+                    <p>
+                        Fill in the details below. This form currently
+                        demonstrates the platform's contact interaction.
+                    </p>
+
+                    <form id="contactForm">
+
+                        <div class="form-group">
+
+                            <label for="contactName">
+                                Your Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contactName"
+                                placeholder="Enter your name"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="contactEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="contactEmail"
+                                placeholder="Enter your email"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="contactSubject">
+                                Subject
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contactSubject"
+                                placeholder="What is this about?"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="contactMessage">
+                                Message
+                            </label>
+
+                            <textarea
+                                id="contactMessage"
+                                placeholder="Write your message..."
+                                required
+                            ></textarea>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary contact-submit"
+                        >
+                            Send Message →
+                        </button>
+
+                        <div
+                            id="formMessage"
+                            class="form-message"
+                        >
+                            Message submitted successfully. Thank you for
+                            contacting Coral Reef!
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div id="footer"></div>
+
+
+<script type="module" src="../js/modules/commonUI.js"></script>
+
+<script>
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("formMessage");
+
+    contactForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        formMessage.classList.add("show");
+
+        contactForm.reset();
+
+        setTimeout(() => {
+            formMessage.classList.remove("show");
+        }, 5000);
+
+    });
+</script>
+
+</body>
+</html>
