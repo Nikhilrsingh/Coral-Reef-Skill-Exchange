@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 "roadmap_management",
 "verification_management",
 "contact_management",
+"call_management",
 ]
 
 MIDDLEWARE = [
@@ -89,12 +90,8 @@ WSGI_APPLICATION = 'coralreef.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "coral_reef",
-        "USER": "root",
-        "PASSWORD": "",
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -152,8 +149,9 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "http://172.20.10.2:5500",
 ]
+# Development-only convenience. Do not enable this for production.
+CORS_ALLOW_ALL_ORIGINS = DEBUG
 
 # =========================================================
 # DJANGO REST FRAMEWORK

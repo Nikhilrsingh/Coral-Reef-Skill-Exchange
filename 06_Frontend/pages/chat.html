@@ -1,129 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <title>Messages | Coral Reef</title>
-  <link rel="stylesheet" href="../assets/css/reset.css">
-  <link rel="stylesheet" href="../assets/css/variables.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
-  <link rel="stylesheet" href="../assets/css/layout.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/responsive.css">
-  <link rel="stylesheet" href="../assets/css/polish.css">
-  <link rel="stylesheet" href="../assets/css/chat.css?v=8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1730">
+    <title>Messages | Coral Reef</title>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/layout.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/polish.css">
+    <link rel="stylesheet" href="../assets/css/chat.css?v=5">
+    <link rel="stylesheet" href="../assets/css/call.css?v=2">
 </head>
-<body class="chat-page">
-  <div id="navbar"></div>
-  <main class="chat-app">
-    <section class="chat-shell" aria-label="Messages">
-      <aside class="inbox-panel" id="inboxPanel">
-        <div class="inbox-brand">
-          <div class="brand-mark">CR</div>
-          <div><strong>Coral Reef</strong><span>Knowledge connects us</span></div>
-          <button class="icon-button new-chat-button" id="refreshConversations" type="button" aria-label="Refresh conversations" title="Refresh conversations">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9a7 7 0 0 1 11.8-2L20 12M4 12l2.7 5a7 7 0 0 0 11.8-2"/></svg>
-          </button>
-        </div>
-        <div class="inbox-heading">
-          <div class="eyebrow">YOUR SPACE</div>
-          <h1>Messages <span id="conversationCount">0</span></h1>
-        </div>
-        <label class="search-box">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
-          <input id="conversationSearch" type="search" placeholder="Search conversations..." autocomplete="off">
-          <kbd>⌘ K</kbd>
-        </label>
-        <div class="recent-heading"><span>RECENT CHATS</span><span class="online-label"><i></i> Learning together</span></div>
-        <div id="conversationList" class="conversation-list" aria-live="polite">
-          <div class="inbox-loading">Loading your conversations…</div>
-        </div>
-        <div class="inbox-privacy"><i></i><span>Your conversations are for you and your learning partner.</span></div>
-      </aside>
+<body class="coral-chat-page">
+    <div id="navbar"></div>
 
-      <section class="conversation-panel" id="conversationPanel">
-        <header class="conversation-topbar">
-          <button type="button" class="icon-button mobile-back" id="mobileBack" aria-label="Back to conversations" title="Back">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-          </button>
-          <div class="partner-avatar" id="chatAvatar">CR</div>
-          <div class="partner-details">
-            <div class="eyebrow">LEARNING PARTNER</div>
-            <h2 id="chatUserName">Select a conversation</h2>
-            <p id="chatUserStatus"><i></i><span>Choose a partner to start exchanging ideas.</span></p>
-          </div>
-          <div class="header-actions">
-            <button type="button" class="icon-button call-action" id="voiceCallButton" aria-label="Voice call" title="Voice call">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a14 14 0 0 0 5 5L15 13l5 2v4c0 1.1-.9 2-2 2C9.2 21 3 14.8 3 6c0-1.1.9-2 2-2Z"/></svg>
-            </button>
-            <button type="button" class="icon-button call-action" id="videoCallButton" aria-label="Video call" title="Video call">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 6-3v10l-6-3"/></svg>
-            </button>
-            <div class="options-wrap">
-              <button type="button" class="icon-button" id="conversationMenuButton" aria-label="Conversation options" title="More options" aria-expanded="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
-              </button>
-              <div class="options-menu" id="conversationMenu" hidden>
-                <button type="button" id="refreshMessagesButton">Refresh messages</button>
-                <button type="button" id="contactInfoButton">Contact information</button>
-              </div>
+    <main class="chat-page-main">
+        <section class="chat-intro" aria-labelledby="chatPageTitle">
+            <div class="chat-intro-inner">
+                <div class="chat-intro-copy">
+                    <span class="chat-eyebrow"><span class="chat-eyebrow-dot"></span> YOUR LEARNING COMMUNITY</span>
+                    <h1 id="chatPageTitle">Good ideas start with <span>conversation.</span></h1>
+                    <p>Ask questions, share what you know, and make progress together.</p>
+                </div>
+                <div class="chat-intro-art" aria-hidden="true">
+                    <span class="chat-art-bubble chat-art-bubble-one">Aa</span>
+                    <span class="chat-art-bubble chat-art-bubble-two">✦</span>
+                    <span class="chat-art-orbit"></span>
+                </div>
             </div>
-          </div>
-        </header>
+        </section>
 
-        <div class="conversation-notice">
-          <span class="notice-check">✓</span>
-          <span>Share knowledge, ask questions, and grow together.</span>
-          <span class="private-label">Private conversation</span>
-        </div>
+        <section class="chat-section" aria-label="Messages workspace">
+            <div class="chat-shell">
+                <aside class="conversation-list" aria-label="Your conversations">
+                    <div class="conversation-header">
+                        <div class="conversation-heading-row">
+                            <div>
+                                <span class="sidebar-kicker">YOUR INBOX</span>
+                                <h2>Messages <span class="conversation-count" id="conversationCount"> </span></h2>
+                            </div>
+                            <span class="inbox-symbol" aria-hidden="true">✉</span>
+                        </div>
+                        <label class="conversation-search-wrap" for="conversationSearch">
+                            <span aria-hidden="true" class="search-symbol">⌕</span>
+                            <input type="search" class="conversation-search" id="conversationSearch" placeholder="Search people..." autocomplete="off">
+                        </label>
+                    </div>
+                    <div class="conversation-list-label">RECENT CONVERSATIONS</div>
+                    <div id="conversationList" class="conversation-items">
+                        <div class="conversation-loading"><span class="loading-dot"></span> Loading conversations...</div>
+                    </div>
+                    <div class="sidebar-footer"><span class="privacy-indicator"></span> Your conversations stay between you and your partner.</div>
+                </aside>
 
-        <div class="messages-area" id="messagesArea" aria-live="polite">
-          <div class="welcome-card" id="welcomeCard">
-            <div class="welcome-orbit"><div class="welcome-logo">CR</div></div>
-            <div class="eyebrow">A LITTLE KNOWLEDGE GOES A LONG WAY</div>
-            <h3>Your next great conversation starts here.</h3>
-            <p>Choose a learning partner and exchange ideas, ask questions, and keep growing together.</p>
-          </div>
-        </div>
+                <section class="chat-main" aria-label="Current conversation">
+                    <header class="chat-header">
+                        <button class="mobile-chat-back" id="mobileBackButton" type="button" aria-label="Back to conversations">←</button>
+                        <div class="chat-contact-avatar-wrap">
+                            <span class="avatar" id="chatAvatar">CR</span>
+                            <span class="contact-presence" aria-hidden="true"></span>
+                        </div>
+                        <div class="chat-user-info">
+                            <span class="chat-header-kicker">LEARNING PARTNER</span>
+                            <h2 id="chatUserName">Select a conversation</h2>
+                            <p id="chatUserStatus">Choose a partner to start exchanging ideas.</p>
+                        </div>
+                        <div class="chat-header-badge"><span>✦</span> Learn together</div>
+                    </header>
 
-        <form class="chat-composer" id="chatForm">
-          <div class="composer-tools">
-            <input id="attachmentInput" type="file" hidden>
-            <button type="button" class="tool-button" id="attachmentButton" aria-label="Attach a file" title="Attach a file">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 12.5 6.8-6.8a4 4 0 0 1 5.7 5.7l-9.2 9.2a6 6 0 0 1-8.5-8.5l9-9"/></svg>
-            </button>
-            <button type="button" class="tool-button" id="emojiButton" aria-label="Choose emoji" title="Choose emoji">☺</button>
-            <div class="emoji-popover" id="emojiPopover" hidden>
-              <button type="button" data-emoji="😊">😊</button><button type="button" data-emoji="😂">😂</button>
-              <button type="button" data-emoji="❤️">❤️</button><button type="button" data-emoji="👍">👍</button>
-              <button type="button" data-emoji="🎉">🎉</button><button type="button" data-emoji="🙏">🙏</button>
-              <button type="button" data-emoji="🤔">🤔</button><button type="button" data-emoji="🔥">🔥</button>
+                    <div class="messages-area" id="messagesArea" aria-live="polite" aria-label="Message history">
+                        <div class="empty-chat">
+                            <div class="empty-chat-visual" aria-hidden="true">
+                                <span class="empty-chat-orbit empty-chat-orbit-one"></span>
+                                <span class="empty-chat-orbit empty-chat-orbit-two"></span>
+                                <span class="empty-chat-main-icon">✉</span>
+                                <span class="empty-chat-spark empty-chat-spark-one">✦</span>
+                                <span class="empty-chat-spark empty-chat-spark-two">✧</span>
+                            </div>
+                            <div class="empty-chat-content">
+                                <span class="empty-chat-kicker">A LITTLE KNOWLEDGE GOES A LONG WAY</span>
+                                <h2>Your next great conversation starts here.</h2>
+                                <p>Choose someone from your inbox and exchange ideas, ask questions, or work through a new skill together.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="chat-input-area" id="chatForm">
+                        <div class="composer-avatar" aria-hidden="true">✦</div>
+                        <div class="composer-field-wrap">
+                            <input type="text" class="chat-input" id="chatInput" placeholder="Write a thoughtful message..." autocomplete="off" aria-label="Type a message">
+                            <span class="composer-hint">Be curious. Be kind. Keep learning.</span>
+                        </div>
+                        <button type="submit" class="send-button" aria-label="Send message">
+                            <span class="send-button-label">Send</span>
+                            <span class="send-button-icon" aria-hidden="true">↗</span>
+                        </button>
+                    </form>
+                </section>
             </div>
-            <span class="selected-file" id="selectedFile" hidden></span>
-          </div>
-          <div class="composer-row">
-            <input id="chatInput" class="chat-input" type="text" placeholder="Write a message..." autocomplete="off" maxlength="4000" aria-label="Message">
-            <button class="send-button" type="submit" id="sendButton">Send <span aria-hidden="true">↗</span></button>
-          </div>
-          <div class="composer-footer"><span>Be curious. Be kind. Keep learning.</span><span id="messageHint">Enter to send</span></div>
-        </form>
-      </section>
-    </section>
-  </main>
+        </section>
+    </main>
 
-  <div class="chat-modal-backdrop" id="chatModal" hidden>
-    <section class="chat-modal" role="dialog" aria-modal="true" aria-labelledby="chatModalTitle">
-      <button class="modal-close" type="button" id="closeChatModal" aria-label="Close">×</button>
-      <div class="modal-icon" id="chatModalIcon">☎</div>
-      <h2 id="chatModalTitle">Calling features</h2>
-      <p id="chatModalText"></p>
-      <button type="button" class="modal-primary" id="chatModalOk">Got it</button>
-    </section>
-  </div>
-
-  <div id="footer"></div>
-  <script type="module" src="../js/modules/commonUI.js"></script>
-  <script type="module" src="../js/modules/chat.js"></script>
+    <div id="footer"></div>
+    <script type="module" src="../js/modules/commonUI.js"></script>
+    <script type="module" src="../js/modules/chat.js?v=5"></script>
+    <script type="module" src="../js/modules/call.js?v=2"></script>
 </body>
 </html>

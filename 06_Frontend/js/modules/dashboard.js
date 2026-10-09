@@ -100,7 +100,7 @@ async function loadNotifications() {
         }
 
         const response = await fetch(
-            "http://172.20.10.2:8000/api/requests/",
+            `${window.location.protocol}//${window.location.hostname}:8000/api/requests/`,
             {
                 method: "GET",
                 headers: {
@@ -246,7 +246,7 @@ async function updateRequest(requestId, status, element) {
         `;
 
         const response = await fetch(
-            `http://172.20.10.2:8000/api/requests/${requestId}/`,
+            `${window.location.protocol}//${window.location.hostname}:8000/api/requests/${requestId}/`,
             {
                 method: "PATCH",
                 headers: {

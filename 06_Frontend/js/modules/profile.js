@@ -97,8 +97,7 @@ let connectedProfiles = [];
    API
 ========================================================= */
 
-const API_BASE_URL =
-    "http://172.20.10.2:8000/api";
+const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:8000/api`;
 
 
 /* =========================================================

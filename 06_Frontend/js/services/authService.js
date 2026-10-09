@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://172.20.10.2:8000/api";
+import { API_BASE_URL } from "./apiConfig.js";
 
 const TOKEN_KEY = "coral_reef_token";
 const USER_KEY = "coral_reef_user";

@@ -1,0 +1,34 @@
+/* Coral Reef WebRTC call UI */
+.chat-header { display:flex; align-items:center; gap:12px; }
+.cr-call-actions { display:flex; gap:8px; margin-left:auto; flex-shrink:0; }
+.cr-call-btn { border:0; border-radius:12px; padding:10px 12px; background:#eaf1ff; color:#245bd1; font-weight:700; cursor:pointer; }
+.cr-call-btn:disabled { opacity:.45; cursor:not-allowed; }
+.cr-call-btn:hover:not(:disabled) { background:#dce8ff; }
+.cr-call-overlay { position:fixed; inset:0; z-index:99999; display:none; align-items:center; justify-content:center; padding:18px; background:rgba(7,17,38,.78); backdrop-filter:blur(8px); }
+.cr-call-overlay.is-open { display:flex; }
+.cr-call-card { width:min(760px,100%); max-height:92vh; overflow:auto; background:#fff; color:#12213b; border-radius:24px; padding:22px; box-shadow:0 28px 90px rgba(0,0,0,.35); }
+.cr-call-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:14px; }
+.cr-call-title { font-size:1.2rem; font-weight:800; }
+.cr-call-status { color:#64748b; font-size:.94rem; margin-top:4px; }
+.cr-call-videos { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.cr-call-video-wrap { min-width:0; aspect-ratio:4/3; background:#0b1730; border-radius:16px; overflow:hidden; position:relative; }
+.cr-call-video-wrap video { width:100%; height:100%; object-fit:cover; }
+.cr-call-video-label { position:absolute; left:10px; bottom:10px; background:rgba(0,0,0,.55); color:#fff; padding:5px 8px; border-radius:8px; font-size:.8rem; }
+.cr-call-controls { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px; }
+.cr-call-control { border:0; border-radius:12px; padding:12px 16px; background:#eaf1ff; color:#1e3a8a; font-weight:700; cursor:pointer; }
+.cr-call-control.danger { background:#dc2626; color:white; }
+.cr-call-control.primary { background:#2563eb; color:white; }
+.cr-call-overlay.audio-mode .cr-call-videos { grid-template-columns:1fr; }
+.cr-call-overlay.audio-mode .cr-call-video-wrap.remote { display:none; }
+.cr-call-overlay.audio-mode .cr-call-video-wrap.local { max-width:300px; margin:auto; }
+.cr-call-overlay.audio-mode #crLocalVideo { opacity:0; }
+.cr-call-overlay.audio-mode .cr-call-video-wrap.local::after { content:'🎙️'; position:absolute; inset:0; display:grid; place-items:center; font-size:4rem; color:#fff; }
+.cr-call-error { color:#b91c1c; font-size:.9rem; margin-top:10px; text-align:center; }
+@media(max-width:560px) { .cr-call-actions { gap:5px; } .cr-call-btn { padding:9px; font-size:.8rem; } .cr-call-card { padding:15px; border-radius:18px; } .cr-call-videos { grid-template-columns:1fr; } .cr-call-video-wrap { aspect-ratio:16/10; } }
+
+/* The HTML hidden attribute must win over flex styles for inactive call controls. */
+.cr-call-overlay [hidden], .cr-call-overlay [hidden] * { display:none !important; }
+.cr-call-overlay { box-sizing:border-box; }
+.cr-call-card { box-sizing:border-box; }
+.cr-call-error:empty { display:none; }
+@media(max-width:560px) { .cr-call-overlay { padding:10px; } .cr-call-card { width:100%; max-height:calc(100dvh - 20px); padding:14px; overflow-y:auto; } .cr-call-videos { gap:8px; } .cr-call-control { padding:11px 12px; } }

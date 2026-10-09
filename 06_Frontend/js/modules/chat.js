@@ -1,6 +1,6 @@
+import { API_BASE_URL } from "../services/apiConfig.js";
 import authService from "../services/authService.js";
 
-const API_BASE_URL = "http://172.20.10.2:8000/api";
 const token = authService.getToken();
 if (!token) window.location.href = "login.html";
 
@@ -14,155 +14,159 @@ const chatAvatar = $("chatAvatar");
 const chatUserStatus = $("chatUserStatus");
 const conversationList = $("conversationList");
 const chatShell = document.querySelector(".chat-shell");
-const attachmentInput = $("attachmentInput");
-const selectedFile = $("selectedFile");
+const sendButton = chatForm?.querySelector('button[type="submit"]');
+
 let conversations = [];
 let activeConversationId = null;
 let activeConversation = null;
 let currentUserId = null;
-let selectedAttachment = null;
+let messagesPollTimer = null;
+let conversationsPollTimer = null;
+let isSending = false;
+let isLoadingMessages = false;
+let lastMessageSignature = "";
 
 async function apiRequest(endpoint, options = {}) {
+  if (!token) throw new Error("Your session has expired. Please sign in again.");
   const response = await fetch(`${API_BASE_URL}${endpoint}`, {
     ...options,
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Token ${token}`,
-      ...(options.headers || {})
-    }
+      ...(options.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
+      Authorization: `Token ${token}`,
+      ...(options.headers || {}),
+    },
   });
-  const data = response.status === 204 ? null : await response.json();
-  if (!response.ok) throw new Error(data?.detail || data?.error || "Request failed.");
+  const data = response.status === 204 ? null : await response.json().catch(() => ({}));
+  if (!response.ok) {
+    if (response.status === 401) {
+      authService.logout();
+      window.location.href = "login.html";
+    }
+    throw new Error(data?.detail || data?.error || `Request failed (${response.status}).`);
+  }
   return data;
 }
+
 function escapeHtml(value) {
-  const el = document.createElement("span");
-  el.textContent = String(value ?? "");
-  return el.innerHTML;
+  const node = document.createElement("span");
+  node.textContent = String(value ?? "");
+  return node.innerHTML;
 }
-function getInitials(name) {
-  return String(name || "User").trim().split(/\s+/).slice(0,2).map(s=>s[0]?.toUpperCase()||"").join("");
+function initials(name) {
+  return String(name || "User").trim().split(/\s+/).slice(0, 2).map(part => part[0]?.toUpperCase() || "").join("");
 }
-function showModal(title, text, icon = "✦") {
-  $("chatModalTitle").textContent = title;
-  $("chatModalText").textContent = text;
-  $("chatModalIcon").textContent = icon;
-  $("chatModal").hidden = false;
-}
-function closeModal() { $("chatModal").hidden = true; }
-function showInlineError(message) {
+function setInlineError(message) {
   let node = $("chatInlineError");
   if (!node) {
     node = document.createElement("div");
     node.id = "chatInlineError";
     node.className = "chat-inline-error";
-    node.style.cssText = "padding:8px 12px;color:#b42318;background:#fff1f0;border-top:1px solid #ffd8d5;font-size:12px";
-    $("conversationPanel").insertBefore(node, $("chatForm"));
+    node.setAttribute("role", "status");
+    const composer = chatForm;
+    if (composer?.parentElement) composer.parentElement.insertBefore(node, composer);
+    else messagesArea?.after(node);
   }
-  node.textContent = message;
+  if (node) node.textContent = message;
 }
 function clearInlineError() { $("chatInlineError")?.remove(); }
-
-async function init() {
-  try {
-    const user = await authService.getCurrentUserFromAPI();
-    currentUserId = user.id;
-    await loadConversations();
-    await openSelectedConversation();
-  } catch (error) {
-    console.error("Unable to initialize chat:", error);
-    conversationList.innerHTML = `<div class="inbox-empty">Could not load conversations. Check that the backend is running and you are logged in, then refresh.</div>`;
-    showInlineError(error.message || "Could not connect to the chat service.");
-  }
-}
-async function loadConversations() {
-  const data = await apiRequest("/chat/conversations/");
-  conversations = Array.isArray(data) ? data : (data?.results || []);
-  renderConversations();
+function showEmptyMessages() {
+  messagesArea.innerHTML = `<div class="empty-chat"><div class="empty-chat-visual" aria-hidden="true"><span class="empty-chat-main-icon">✉</span></div><div class="empty-chat-content"><span class="empty-chat-kicker">A LITTLE KNOWLEDGE GOES A LONG WAY</span><h2>Your next great conversation starts here.</h2><p>Say hello, share a question, or help your learning partner discover something new.</p></div></div>`;
 }
 function renderConversations() {
+  if (!conversationList) return;
   const query = (conversationSearch?.value || "").trim().toLowerCase();
-  const filtered = conversations.filter(c => {
-    const u = c.other_user || {};
-    return `${u.name || ""} ${c.last_message?.content || ""}`.toLowerCase().includes(query);
+  const valid = conversations.filter(item => item?.other_user);
+  const filtered = valid.filter(item => {
+    const user = item.other_user;
+    return `${user.name || ""} ${item.last_message?.content || ""}`.toLowerCase().includes(query);
   });
-  $("conversationCount").textContent = String(conversations.length);
+  const count = $("conversationCount");
+  if (count) count.textContent = String(valid.length);
+  conversationList.replaceChildren();
   if (!filtered.length) {
-    conversationList.innerHTML = `<div class="inbox-empty">${query ? "No conversations match your search." : "No conversations yet. Connect with a learning partner from Matches to start a chat."}</div>`;
+    const empty = document.createElement("div");
+    empty.className = "conversation-loading";
+    empty.textContent = query ? "No conversations match your search." : "No conversations yet. Connect with a learning partner to start chatting.";
+    conversationList.appendChild(empty);
     return;
   }
-  conversationList.innerHTML = "";
-  filtered.forEach(conversation => {
+  for (const conversation of filtered) {
     const user = conversation.other_user;
-    if (!user) return;
     const item = document.createElement("button");
     item.type = "button";
-    item.className = "conversation" + (Number(conversation.id) === Number(activeConversationId) ? " active" : "");
-    item.dataset.conversationId = conversation.id;
-    const avatar = user.profile_image
-      ? `<img src="${escapeHtml(user.profile_image)}" alt="">`
-      : escapeHtml(getInitials(user.name));
-    item.innerHTML = `<div class="conversation-avatar">${avatar}</div>
-      <div class="conversation-info"><div class="conversation-name">${escapeHtml(user.name || "Learning partner")}</div>
-      <div class="conversation-preview">${escapeHtml(conversation.last_message?.content || "Start exchanging ideas")}</div></div>`;
+    item.className = "conversation";
+    item.dataset.conversationId = String(conversation.id);
+    item.setAttribute("aria-label", `Open conversation with ${user.name || "learning partner"}`);
+    item.classList.toggle("active", Number(conversation.id) === Number(activeConversationId));
+    const avatar = document.createElement("span");
+    avatar.className = "conversation-avatar";
+    if (user.profile_image) {
+      const img = document.createElement("img");
+      img.src = user.profile_image;
+      img.alt = "";
+      img.loading = "lazy";
+      img.onerror = () => { avatar.textContent = initials(user.name); };
+      avatar.appendChild(img);
+    } else avatar.textContent = initials(user.name);
+    const info = document.createElement("span");
+    info.className = "conversation-info";
+    const name = document.createElement("span");
+    name.className = "conversation-name";
+    name.textContent = user.name || "Learning partner";
+    const preview = document.createElement("span");
+    preview.className = "conversation-preview";
+    preview.textContent = conversation.last_message?.content || "Start a conversation";
+    info.append(name, preview);
+    item.append(avatar, info);
     item.addEventListener("click", () => openConversation(conversation));
     conversationList.appendChild(item);
-  });
-}
-async function openSelectedConversation() {
-  const userId = new URLSearchParams(location.search).get("user");
-  if (!userId) return;
-  let found = conversations.find(c => Number(c.other_user?.id) === Number(userId));
-  if (!found) {
-    try {
-      found = await apiRequest("/chat/conversations/", {
-        method:"POST", body:JSON.stringify({receiver:Number(userId)})
-      });
-      if (!conversations.some(c => Number(c.id) === Number(found.id))) conversations.unshift(found);
-      renderConversations();
-    } catch (error) {
-      console.error("Could not create conversation:", error);
-      showInlineError(error.message || "Could not start this conversation.");
-      return;
-    }
   }
-  await openConversation(found);
 }
-async function openConversation(conversation) {
-  const user = conversation?.other_user;
-  if (!user) return;
-  activeConversation = conversation;
-  activeConversationId = conversation.id;
-  chatUserName.textContent = user.name || "Learning partner";
-  chatAvatar.innerHTML = user.profile_image
-    ? `<img src="${escapeHtml(user.profile_image)}" alt="">`
-    : escapeHtml(getInitials(user.name));
-  chatUserStatus.innerHTML = "<i></i><span>Your learning conversation</span>";
-  document.querySelectorAll(".conversation").forEach(item =>
-    item.classList.toggle("active", Number(item.dataset.conversationId) === Number(conversation.id))
-  );
-  chatShell.classList.add("mobile-chat-open");
-  clearInlineError();
-  await loadMessages(conversation.id);
+
+async function loadConversations({ quiet = false } = {}) {
+  try {
+    const data = await apiRequest("/chat/conversations/");
+    const next = Array.isArray(data) ? data : (data?.results || []);
+    conversations = next;
+    renderConversations();
+    if (activeConversationId) {
+      const fresh = conversations.find(item => Number(item.id) === Number(activeConversationId));
+      if (fresh) activeConversation = fresh;
+    }
+  } catch (error) {
+    if (!quiet) setInlineError(error.message || "Could not load conversations.");
+    console.error("Conversation refresh failed:", error);
+  }
 }
-async function loadMessages(conversationId) {
+
+async function loadMessages(conversationId, { quiet = false } = {}) {
+  if (!conversationId || isLoadingMessages) return;
+  isLoadingMessages = true;
   try {
     const data = await apiRequest(`/chat/conversations/${conversationId}/messages/`);
-    renderMessages(Array.isArray(data) ? data : (data?.results || []));
+    const messages = Array.isArray(data) ? data : (data?.results || []);
+    if (Number(conversationId) !== Number(activeConversationId)) return;
+    const signature = messages.map(message => `${message.id}:${message.updated_at || message.created_at}:${message.content}`).join("|");
+    if (signature !== lastMessageSignature) {
+      const nearBottom = messagesArea.scrollHeight - messagesArea.scrollTop - messagesArea.clientHeight < 100;
+      lastMessageSignature = signature;
+      renderMessages(messages);
+      if (nearBottom || messages.length < 2) messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
     clearInlineError();
   } catch (error) {
-    console.error("Unable to load messages:", error);
-    messagesArea.innerHTML = `<div class="inbox-empty">Messages could not be loaded. Check your connection and try Refresh messages.</div>`;
-    showInlineError(error.message || "Could not load messages.");
+    if (!quiet) setInlineError(error.message || "Messages could not be loaded.");
+    console.error("Message refresh failed:", error);
+  } finally {
+    isLoadingMessages = false;
   }
 }
+
 function renderMessages(messages) {
-  messagesArea.innerHTML = "";
-  if (!messages.length) {
-    messagesArea.innerHTML = `<div class="welcome-card"><div class="welcome-orbit"><div class="welcome-logo">CR</div></div><div class="eyebrow">A LITTLE KNOWLEDGE GOES A LONG WAY</div><h3>Your conversation starts here.</h3><p>Say hello, share a question, or help your learning partner discover something new.</p></div>`;
-    return;
-  }
-  messages.forEach(message => {
+  messagesArea.replaceChildren();
+  if (!messages.length) { showEmptyMessages(); return; }
+  const fragment = document.createDocumentFragment();
+  for (const message of messages) {
     const sent = Number(message.sender) === Number(currentUserId);
     const row = document.createElement("div");
     row.className = `message ${sent ? "sent" : "received"}`;
@@ -174,112 +178,103 @@ function renderMessages(messages) {
       const time = document.createElement("span");
       time.className = "message-time";
       const date = new Date(message.created_at);
-      time.textContent = Number.isNaN(date.getTime()) ? "" : date.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"});
+      time.textContent = Number.isNaN(date.getTime()) ? "" : date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+      time.title = Number.isNaN(date.getTime()) ? "" : date.toLocaleString();
       row.appendChild(time);
     }
-    messagesArea.appendChild(row);
-  });
-  messagesArea.scrollTop = messagesArea.scrollHeight;
+    fragment.appendChild(row);
+  }
+  messagesArea.appendChild(fragment);
 }
-async function sendMessage() {
-  const content = chatInput.value.trim();
-  if (!content) return;
-  if (!activeConversationId) {
-    showModal("Choose a conversation", "Select a learning partner before sending a message.", "✉");
-    return;
-  }
-  const button = $("sendButton");
-  button.disabled = true;
-  try {
-    await apiRequest(`/chat/conversations/${activeConversationId}/messages/`, {
-      method:"POST", body:JSON.stringify({content})
-    });
-    chatInput.value = "";
-    await loadMessages(activeConversationId);
-    const index = conversations.findIndex(c => Number(c.id) === Number(activeConversationId));
-    if (index >= 0) {
-      conversations[index].last_message = {content};
-      const [latest] = conversations.splice(index, 1);
-      conversations.unshift(latest);
-      renderConversations();
+
+async function openConversation(conversation) {
+  if (!conversation?.other_user) return;
+  activeConversation = conversation;
+  activeConversationId = conversation.id;
+  lastMessageSignature = "";
+  chatUserName.textContent = conversation.other_user.name || "Learning partner";
+  chatAvatar.innerHTML = conversation.other_user.profile_image
+    ? `<img src="${escapeHtml(conversation.other_user.profile_image)}" alt="">`
+    : escapeHtml(initials(conversation.other_user.name));
+  chatUserStatus.textContent = "Your learning conversation";
+  document.querySelectorAll(".conversation").forEach(item => {
+    item.classList.toggle("active", Number(item.dataset.conversationId) === Number(conversation.id));
+  });
+  chatShell?.classList.add("mobile-chat-open");
+  clearInlineError();
+  await loadMessages(conversation.id);
+  chatInput?.focus({ preventScroll: true });
+}
+
+async function openFromQuery() {
+  const userId = new URLSearchParams(window.location.search).get("user");
+  if (!userId) return;
+  let conversation = conversations.find(item => Number(item.other_user?.id) === Number(userId));
+  if (!conversation) {
+    try {
+      conversation = await apiRequest("/chat/conversations/", { method: "POST", body: JSON.stringify({ receiver: Number(userId) }) });
+      conversations.unshift(conversation);
+    } catch (error) {
+      setInlineError(error.message || "Could not start this conversation. You may need an accepted connection first.");
+      return;
     }
-  } catch (error) {
-    console.error("Unable to send message:", error);
-    showInlineError(error.message || "Message could not be sent. Please try again.");
-  } finally {
-    button.disabled = false;
-    chatInput.focus();
   }
+  renderConversations();
+  await openConversation(conversation);
+}
+
+async function sendMessage() {
+  const content = chatInput?.value.trim();
+  if (!content || !activeConversationId || isSending) return;
+  isSending = true;
+  if (sendButton) sendButton.disabled = true;
+  try {
+    const message = await apiRequest(`/chat/conversations/${activeConversationId}/messages/`, { method: "POST", body: JSON.stringify({ content }) });
+    chatInput.value = "";
+    clearInlineError();
+    const index = conversations.findIndex(item => Number(item.id) === Number(activeConversationId));
+    if (index >= 0) conversations[index].last_message = message;
+    renderConversations();
+    await loadMessages(activeConversationId);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+  } catch (error) {
+    setInlineError(error.message || "Message could not be sent. Please try again.");
+  } finally {
+    isSending = false;
+    if (sendButton) sendButton.disabled = false;
+    chatInput?.focus({ preventScroll: true });
+  }
+}
+
+async function init() {
+  if (!token) return;
+  try {
+    const user = await authService.getCurrentUserFromAPI();
+    if (!user?.id) throw new Error("Your session could not be verified. Please sign in again.");
+    currentUserId = user.id;
+    await loadConversations();
+    await openFromQuery();
+  } catch (error) {
+    setInlineError(error.message || "Could not initialize messaging.");
+    console.error("Chat initialization failed:", error);
+  }
+  conversationsPollTimer = window.setInterval(() => loadConversations({ quiet: true }), 7000);
+  messagesPollTimer = window.setInterval(() => {
+    if (activeConversationId && document.visibilityState === "visible") loadMessages(activeConversationId, { quiet: true });
+  }, 2200);
 }
 
 chatForm?.addEventListener("submit", event => { event.preventDefault(); sendMessage(); });
 conversationSearch?.addEventListener("input", renderConversations);
-$("refreshConversations")?.addEventListener("click", async () => {
-  const button = $("refreshConversations");
-  button.disabled = true;
-  try { await loadConversations(); }
-  catch (error) { showInlineError(error.message || "Could not refresh conversations."); }
-  finally { button.disabled = false; }
-});
-$("mobileBack")?.addEventListener("click", () => chatShell.classList.remove("mobile-chat-open"));
-$("refreshMessagesButton")?.addEventListener("click", () => {
-  $("conversationMenu").hidden = true;
-  $("conversationMenuButton").setAttribute("aria-expanded","false");
-  if (activeConversationId) loadMessages(activeConversationId);
-  else showModal("No conversation selected", "Choose a conversation first.", "↻");
-});
-$("conversationMenuButton")?.addEventListener("click", () => {
-  const menu = $("conversationMenu");
-  menu.hidden = !menu.hidden;
-  $("conversationMenuButton").setAttribute("aria-expanded", String(!menu.hidden));
-});
-document.addEventListener("click", event => {
-  if (!event.target.closest(".options-wrap")) {
-    $("conversationMenu").hidden = true;
-    $("conversationMenuButton").setAttribute("aria-expanded","false");
-  }
-  if (!event.target.closest(".composer-tools")) $("emojiPopover").hidden = true;
-});
-$("contactInfoButton")?.addEventListener("click", () => {
-  $("conversationMenu").hidden = true;
-  const u = activeConversation?.other_user;
-  showModal(u ? (u.name || "Learning partner") : "Contact information",
-    u ? "This is your Coral Reef learning partner. Contact details can be added here when the profile API exposes them." : "Select a conversation to view partner information.", "◉");
-});
-$("voiceCallButton")?.addEventListener("click", () => showModal("Voice calls", activeConversation ? "The voice-call interface is ready for integration, but live calls require WebRTC signaling and a backend call service. No call has been placed." : "Choose a learning partner first. Live calls also require WebRTC signaling and a backend call service.", "☎"));
-$("videoCallButton")?.addEventListener("click", () => showModal("Video calls", activeConversation ? "The video-call interface is ready for integration, but live video requires WebRTC signaling, permissions, and a backend call service. No call has been started." : "Choose a learning partner first. Live video also requires WebRTC signaling and a backend call service.", "▣"));
-$("closeChatModal")?.addEventListener("click", closeModal);
-$("chatModalOk")?.addEventListener("click", closeModal);
-$("chatModal")?.addEventListener("click", event => { if (event.target === $("chatModal")) closeModal(); });
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") { closeModal(); $("emojiPopover").hidden = true; $("conversationMenu").hidden = true; }
-  if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-    event.preventDefault(); conversationSearch?.focus();
+$("mobileBackButton")?.addEventListener("click", () => chatShell?.classList.remove("mobile-chat-open"));
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
+    loadConversations({ quiet: true });
+    if (activeConversationId) loadMessages(activeConversationId, { quiet: true });
   }
 });
-$("attachmentButton")?.addEventListener("click", () => {
-  if (!activeConversationId) {
-    showModal("Choose a conversation", "Select a learning partner before choosing a file.", "📎");
-    return;
-  }
-  attachmentInput.click();
+window.addEventListener("beforeunload", () => {
+  if (messagesPollTimer) clearInterval(messagesPollTimer);
+  if (conversationsPollTimer) clearInterval(conversationsPollTimer);
 });
-attachmentInput?.addEventListener("change", () => {
-  selectedAttachment = attachmentInput.files?.[0] || null;
-  if (!selectedAttachment) { selectedFile.hidden = true; return; }
-  selectedFile.textContent = `📎 ${selectedAttachment.name}`;
-  selectedFile.hidden = false;
-  showModal("File selected", `${selectedAttachment.name} is selected. File upload is not enabled yet because the current backend has no attachment-storage endpoint. Your file has not been uploaded or shared.`, "📎");
-  attachmentInput.value = "";
-});
-$("emojiButton")?.addEventListener("click", () => { $("emojiPopover").hidden = !$("emojiPopover").hidden; });
-document.querySelectorAll("[data-emoji]").forEach(button => button.addEventListener("click", () => {
-  const emoji = button.dataset.emoji;
-  const start = chatInput.selectionStart ?? chatInput.value.length;
-  const end = chatInput.selectionEnd ?? chatInput.value.length;
-  chatInput.value = chatInput.value.slice(0,start) + emoji + chatInput.value.slice(end);
-  chatInput.focus();
-  chatInput.setSelectionRange(start + emoji.length, start + emoji.length);
-  $("emojiPopover").hidden = true;
-}));
 init();

@@ -29,6 +29,7 @@ path(
 ),
 
 path("api/chat/", include("chat_management.urls")),
+path("api/chat/", include("call_management.urls")),
 path("api/roadmaps/", include("roadmap_management.urls")),
 path("api/verifications/", include("verification_management.urls")),
 path("api/contact/", include("contact_management.urls")),

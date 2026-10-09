@@ -367,7 +367,7 @@ async function setupNavbarNotifications() {
             return;
         }
         try {
-            const response = await fetch("http://172.20.10.2:8000/api/requests/", {
+            const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/api/requests/`, {
                 headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" }
             });
             const data = await response.json();
@@ -420,7 +420,7 @@ async function updateNavbarRequest(requestId, status, reload) {
     const token = authService.getToken();
     if (!token) return;
     try {
-        const response = await fetch(`http://172.20.10.2:8000/api/requests/${requestId}/`, {
+        const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/api/requests/${requestId}/`, {
             method: "PATCH",
             headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" },
             body: JSON.stringify({ status })
