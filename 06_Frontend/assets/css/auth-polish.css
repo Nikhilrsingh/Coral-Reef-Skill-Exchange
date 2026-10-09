@@ -1,0 +1,7 @@
+/* Coral Reef auth UI polish */
+.auth-page{background:linear-gradient(135deg,#F4F8FD,#FFFFFF)!important}
+.auth-container{max-width:1120px!important;border:1px solid #DCE8F7!important;border-radius:28px!important;box-shadow:0 30px 90px rgba(11,31,58,.12)!important;overflow:hidden}
+.auth-brand{background:linear-gradient(145deg,#0847A8,#1261D6 60%,#3B82F6)!important;position:relative;overflow:hidden}
+.auth-brand:after{content:"";position:absolute;width:330px;height:330px;border-radius:50%;right:-160px;bottom:-170px;background:rgba(255,255,255,.09)}
+.auth-brand>*{position:relative;z-index:1}.auth-logo h1{color:#fff!important}.auth-brand h2{color:#fff!important}.auth-brand p{color:rgba(255,255,255,.78)!important}.auth-form-panel{background:#fff!important}.auth-submit{border-radius:12px!important;background:#1261D6!important;box-shadow:0 12px 24px rgba(18,97,214,.18)!important}.auth-submit:hover{background:#0847A8!important}.form-group input,.form-group select{border-radius:11px!important}.auth-footer a{color:#1261D6!important}
+@media(max-width:800px){.auth-container{border-radius:0!important;min-height:100vh}.auth-brand{padding:40px 28px!important}}

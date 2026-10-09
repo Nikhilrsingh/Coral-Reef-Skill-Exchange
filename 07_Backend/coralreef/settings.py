@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q4(bz$$-5&q5kcx&ca9jy0z78j%=yl+_o-^3swte-#z+fqp=ae'
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-only-change-this-secret-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.20.10.2").split(",") if host.strip()]
 
 
 # Application definition
@@ -45,6 +46,9 @@ INSTALLED_APPS = [
 'rest_framework.authtoken',
 'authentication',
 "chat_management",
+"roadmap_management",
+"verification_management",
+"contact_management",
 ]
 
 MIDDLEWARE = [
@@ -148,6 +152,7 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
+    "http://172.20.10.2:5500",
 ]
 
 # =========================================================

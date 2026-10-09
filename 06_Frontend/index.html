@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/polish.css">
 </head>
 
 <body>
@@ -479,6 +480,23 @@
 
 </section>
 
+        <section class="home-profile-snapshot" id="homeProfileSnapshot">
+            <div class="container">
+                <div class="snapshot-card">
+                    <div class="snapshot-copy">
+                        <span class="badge">Your Coral Reef Profile</span>
+                        <h2>What you teach. What you want to learn.</h2>
+                        <p id="homeProfileSnapshotText">Complete your profile to show your skills here and unlock better learning matches.</p>
+                        <a id="homeProfileSnapshotAction" href="pages/profile.html" class="btn btn-primary">Complete Profile →</a>
+                    </div>
+                    <div class="snapshot-skills">
+                        <div class="snapshot-skill-box"><span>I can teach</span><div id="homeTeachingSkills"><em>Complete your profile</em></div></div>
+                        <div class="snapshot-skill-box"><span>I want to learn</span><div id="homeLearningSkills"><em>Complete your profile</em></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Why Coral Reef -->
         <section id="about">
 
@@ -831,7 +849,7 @@
     <div class="feature-card-content">
 
         <h3>
-            Real-Time Chat
+            One-to-One Chat
         </h3>
 
         <p>
@@ -939,222 +957,72 @@
 
 </section>
 
-<!-- ================= SKILL COMPATIBILITY MODULE ================= -->
-<section id="compatibility" class="compatibility-section">
-
-    <div class="section-badge">🎯 Smart Matching</div>
-
-    <h2>Find Your <span>Best Learning Match</span></h2>
-
-    <p class="section-description">
-        Compare learning goals and teaching skills to calculate a
-        Skill Compatibility Score.
-    </p>
-
-    <div class="compatibility-card">
-
-        <div class="skill-box">
-            <h3>Your Learning Goals</h3>
-            <p>Select the skills you want to learn.</p>
-
-            <div class="skill-options" id="learningSkills">
-                <button type="button" class="skill-option" data-skill="HTML">HTML</button>
-                <button type="button" class="skill-option" data-skill="CSS">CSS</button>
-                <button type="button" class="skill-option" data-skill="JavaScript">JavaScript</button>
-                <button type="button" class="skill-option" data-skill="Python">Python</button>
-                <button type="button" class="skill-option" data-skill="Java">Java</button>
-                <button type="button" class="skill-option" data-skill="C++">C++</button>
-                <button type="button" class="skill-option" data-skill="SQL">SQL</button>
-                <button type="button" class="skill-option" data-skill="React">React</button>
-            </div>
+<!-- ================= FEATURE DESTINATIONS ================= -->
+<section class="home-feature-destinations">
+    <div class="container">
+        <div class="section-heading-centered">
+            <span class="badge">Your Coral Reef Journey</span>
+            <h2>Everything you need to <span>learn together</span></h2>
+            <p>Each feature has its own focused workspace. Choose where you want to go next.</p>
         </div>
-
-
-        <div class="match-arrow">
-            ⇄
+        <div class="home-destination-grid">
+            <a class="home-destination-card" href="pages/matches.html"><span class="destination-icon">🎯</span><div><span class="destination-kicker">01 · MATCH</span><h3>Find Learning Partners</h3><p>Compare complementary skills and discover people who fit your learning goals.</p></div><span class="destination-arrow">→</span></a>
+            <a class="home-destination-card" href="pages/chat.html"><span class="destination-icon">💬</span><div><span class="destination-kicker">02 · CONNECT</span><h3>Messages</h3><p>Talk privately with accepted connections and keep your conversations in one place.</p></div><span class="destination-arrow">→</span></a>
+            <a class="home-destination-card" href="pages/verification.html"><span class="destination-icon">🛡️</span><div><span class="destination-kicker">03 · VERIFY</span><h3>Verify a Skill</h3><p>Take an assessment and build confidence in the skills you share with the community.</p></div><span class="destination-arrow">→</span></a>
+            <a class="home-destination-card" href="pages/roadmap.html"><span class="destination-icon">🗺️</span><div><span class="destination-kicker">04 · GROW</span><h3>Build Your Roadmap</h3><p>Turn a learning goal into a structured path and track your progress step by step.</p></div><span class="destination-arrow">→</span></a>
         </div>
-
-
-        <div class="skill-box">
-            <h3>Partner's Skills</h3>
-            <p>Select the skills your partner can teach.</p>
-
-            <div class="skill-options" id="partnerSkills">
-                <button type="button" class="skill-option" data-skill="HTML">HTML</button>
-                <button type="button" class="skill-option" data-skill="CSS">CSS</button>
-                <button type="button" class="skill-option" data-skill="JavaScript">JavaScript</button>
-                <button type="button" class="skill-option" data-skill="Python">Python</button>
-                <button type="button" class="skill-option" data-skill="Java">Java</button>
-                <button type="button" class="skill-option" data-skill="C++">C++</button>
-                <button type="button" class="skill-option" data-skill="SQL">SQL</button>
-                <button type="button" class="skill-option" data-skill="React">React</button>
-            </div>
-        </div>
-
     </div>
-
-
-    <button type="button" id="calculateMatch" class="calculate-match-btn">
-        Calculate Compatibility
-        <span>→</span>
-    </button>
-
-    <p id="matchValidationMessage" class="match-validation-message" role="alert"></p>
-
-
-    <!-- Result -->
-    <div id="matchResult" class="match-result">
-
-        <div class="score-circle">
-            <span id="scoreValue">0%</span>
-            <small>Match</small>
-        </div>
-
-        <div class="result-content">
-            <h3 id="matchTitle">Compatibility Result</h3>
-
-            <p id="matchMessage">
-                Select skills from both sides to calculate your compatibility.
-            </p>
-
-            <div id="matchedSkills" class="matched-skills"></div>
-        </div>
-
-    </div>
-
 </section>
-<!-- ================= END SKILL COMPATIBILITY MODULE ================= -->
-
-<!-- ================= SKILL VERIFICATION MODULE ================= -->
-
-<section id="verification" class="verification-section">
-
-    <div class="section-badge">✅ Skill Verification</div>
-
-    <h2>Verify Your <span>Skills</span></h2>
-
-    <p class="section-description">
-        Take a short skill assessment and demonstrate your knowledge
-        to build trust within the Coral Reef community.
-    </p>
-
-    <div class="verification-card">
-
-        <!-- Skill Selection -->
-
-        <div id="skillSelection">
-
-            <h3>Choose a Skill</h3>
-
-            <p>Select the skill you want to verify.</p>
-
-            <div class="verification-skills">
-
-                <button type="button" class="verification-skill"
-                    data-skill="HTML">
-                    HTML
-                </button>
-
-                <button type="button" class="verification-skill"
-                    data-skill="CSS">
-                    CSS
-                </button>
-
-                <button type="button" class="verification-skill"
-                    data-skill="JavaScript">
-                    JavaScript
-                </button>
-
-                <button type="button" class="verification-skill"
-                    data-skill="Python">
-                    Python
-                </button>
-
-            </div>
-
-            <button type="button" id="startQuiz"
-                class="start-quiz-btn" disabled>
-                Start Verification →
-            </button>
-
-        </div>
-
-
-        <!-- Quiz -->
-
-        <div id="quizContainer" class="quiz-container">
-
-            <div class="quiz-header">
-
-                <span id="questionNumber">
-                    Question 1 of 5
-                </span>
-
-                <span id="quizSkill">
-                    HTML
-                </span>
-
-            </div>
-
-            <div class="progress-bar">
-                <div id="quizProgress"></div>
-            </div>
-
-
-            <h3 id="questionText">
-                Question will appear here
-            </h3>
-
-
-            <div id="answerOptions" class="answer-options">
-            </div>
-
-
-            <button type="button" id="nextQuestion"
-                class="next-question-btn" disabled>
-                Next Question →
-            </button>
-
-        </div>
-
-
-        <!-- Result -->
-
-        <div id="verificationResult" class="verification-result">
-
-            <div class="verification-score">
-
-                <span id="verificationScore">
-                    0%
-                </span>
-
-                <small>Score</small>
-
-            </div>
-
-            <h3 id="verificationTitle">
-                Verification Result
-            </h3>
-
-            <p id="verificationMessage">
-                Your result will appear here.
-            </p>
-
-            <button type="button" id="retakeQuiz"
-                class="retake-btn">
-                Take Again
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ================= END SKILL VERIFICATION MODULE ================= -->
+<!-- ================= END FEATURE DESTINATIONS ================= -->
 
         <!-- FAQ -->
-        <section id="faq"></section>
+        <section id="faq">
+
+            <div class="container">
+
+                <div class="home-faq-grid">
+
+                    <div class="home-faq-intro">
+                        <span class="badge">Quick Answers</span>
+                        <h2>Everything starts with the right connection.</h2>
+                        <p>
+                            Coral Reef brings matching, connections, communication, verification and learning progress into one focused journey.
+                        </p>
+                        <a href="pages/faq.html" class="btn btn-primary" style="margin-top:22px;">View all FAQs →</a>
+                    </div>
+
+                    <div class="home-faq-list">
+                        <div class="home-faq-item open">
+                            <button class="home-faq-q" type="button"><span>How does Coral Reef match users?</span><span>−</span></button>
+                            <div class="home-faq-a">Your learning skills are compared with other users' teaching skills, while your teaching skills are compared with what they want to learn.</div>
+                        </div>
+                        <div class="home-faq-item">
+                            <button class="home-faq-q" type="button"><span>When can I start chatting?</span><span>+</span></button>
+                            <div class="home-faq-a">Chat is available after a connection request has been accepted.</div>
+                        </div>
+                        <div class="home-faq-item">
+                            <button class="home-faq-q" type="button"><span>Can I track my learning progress?</span><span>+</span></button>
+                            <div class="home-faq-a">Yes. Create a learning roadmap and mark each step complete as you progress.</div>
+                        </div>
+                        <div class="home-faq-item">
+                            <button class="home-faq-q" type="button"><span>How does skill verification work?</span><span>+</span></button>
+                            <div class="home-faq-a">Select a teaching skill, submit your verification request, complete the assessment and receive a stored result.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="home-final-cta">
+                    <div>
+                        <h2>Ready to learn, teach and grow?</h2>
+                        <p>Create your profile and find people whose skills complement yours.</p>
+                    </div>
+                    <a href="pages/register.html" class="btn">Create your profile →</a>
+                </div>
+
+            </div>
+
+        </section>
 
     </main>
 
@@ -1162,7 +1030,6 @@
     <div id="footer"></div>
 
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/script.js"></script>
 
 
 
@@ -1172,6 +1039,15 @@
 ></script>
 
 <script type="module" src="js/modules/commonUI.js"></script>
+<script>
+    document.querySelectorAll('.home-faq-q').forEach(button => {
+        button.addEventListener('click', () => {
+            const item = button.closest('.home-faq-item');
+            const open = item.classList.toggle('open');
+            button.querySelector('span:last-child').textContent = open ? '−' : '+';
+        });
+    });
+</script>
 
 </body>
 

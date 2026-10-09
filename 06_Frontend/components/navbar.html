@@ -35,6 +35,10 @@
                     <a href="roadmap.html">Roadmap</a>
                 </li>
 
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
+
                 <li data-auth="logged-in">
                     <a href="chat.html">Messages</a>
                 </li>
@@ -84,6 +88,20 @@
                         id="navbarNotificationDot"
                     ></span>
                 </button>
+
+                <div class="navbar-notification-panel" id="navbarNotificationPanel" aria-hidden="true">
+                    <div class="navbar-notification-head">
+                        <div>
+                            <strong>Notifications</strong>
+                            <span>Connection requests and updates</span>
+                        </div>
+                        <button type="button" id="navbarNotificationClose" aria-label="Close notifications">×</button>
+                    </div>
+                    <div class="navbar-notification-content" id="navbarNotificationContent">
+                        <div class="navbar-notification-empty">Loading notifications...</div>
+                    </div>
+                    <a class="navbar-notification-footer" href="dashboard.html">Open Dashboard →</a>
+                </div>
 
 
                 <div class="profile-menu">
@@ -169,6 +187,11 @@
 
                         <div class="profile-dropdown-divider"></div>
 
+
+                        <a href="dashboard.html">
+                            <span>▦</span>
+                            Dashboard
+                        </a>
 
                         <a href="profile.html">
                             <span>👤</span>

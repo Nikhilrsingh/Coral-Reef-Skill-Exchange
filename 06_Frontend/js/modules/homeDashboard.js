@@ -46,7 +46,7 @@ const matchSkill =
 ========================================================= */
 
 const API_BASE_URL =
-    "http://127.0.0.1:8000/api";
+    "http://172.20.10.2:8000/api";
 
 
 /* =========================================================
@@ -93,6 +93,7 @@ async function loadDashboard() {
         */
 
         updateDashboard(user);
+        updateHomeProfileSnapshot(user);
 
 
         /*
@@ -478,6 +479,28 @@ function formatRole(role) {
 }
 
 
+
+
+function updateHomeProfileSnapshot(user) {
+    const teach = Array.isArray(user?.skills) ? user.skills : [];
+    const learn = Array.isArray(user?.learningSkills) ? user.learningSkills : [];
+    const teachBox = document.getElementById("homeTeachingSkills");
+    const learnBox = document.getElementById("homeLearningSkills");
+    const text = document.getElementById("homeProfileSnapshotText");
+    const action = document.getElementById("homeProfileSnapshotAction");
+    const render = (items, empty) => items.length ? items.slice(0,5).map(skill => `<span>${escapeSnapshot(skill)}</span>`).join("") : `<em>${empty}</em>`;
+    if (teachBox) teachBox.innerHTML = render(teach, "No teaching skills added yet");
+    if (learnBox) learnBox.innerHTML = render(learn, "No learning goals added yet");
+    if (text) text.textContent = teach.length && learn.length ? "Your profile is ready to power better matches. Keep your skills updated as you grow." : "Complete both skill lists to personalize your matches and show your learning goals on your home page.";
+    if (action) action.textContent = teach.length && learn.length ? "Edit Profile →" : "Complete Profile →";
+}
+
+function escapeSnapshot(value) {
+    const div = document.createElement("div");
+    div.textContent = value;
+    return div.innerHTML;
+}
+
 /* =========================================================
    INITIALIZE
 ========================================================= */
@@ -486,4 +509,6 @@ if (authService.isLoggedIn()) {
 
     loadDashboard();
 
+} else {
+    updateHomeProfileSnapshot({ skills: [], learningSkills: [] });
 }

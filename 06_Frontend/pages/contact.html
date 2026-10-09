@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../assets/css/layout.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/polish.css">
 
     <style>
         .page-hero {
@@ -299,8 +300,7 @@
                     <h2>Send us a message</h2>
 
                     <p>
-                        Fill in the details below. This form currently
-                        demonstrates the platform's contact interaction.
+                        Fill in the details below and send your message directly to the Coral Reef platform.
                     </p>
 
                     <form id="contactForm">
@@ -401,24 +401,7 @@
 
 <script type="module" src="../js/modules/commonUI.js"></script>
 
-<script>
-    const contactForm = document.getElementById("contactForm");
-    const formMessage = document.getElementById("formMessage");
-
-    contactForm.addEventListener("submit", function(event) {
-
-        event.preventDefault();
-
-        formMessage.classList.add("show");
-
-        contactForm.reset();
-
-        setTimeout(() => {
-            formMessage.classList.remove("show");
-        }, 5000);
-
-    });
-</script>
+<script type="module" src="../js/modules/contact.js"></script>
 
 </body>
 </html>

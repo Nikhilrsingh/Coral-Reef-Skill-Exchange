@@ -222,7 +222,7 @@ function normalizeImageUrl(image) {
 
     if (image.startsWith("/")) {
 
-        return `http://127.0.0.1:8000${image}`;
+        return `http://172.20.10.2:8000${image}`;
 
     }
 

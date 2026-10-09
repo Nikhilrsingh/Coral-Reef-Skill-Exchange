@@ -100,7 +100,7 @@ async function loadNotifications() {
         }
 
         const response = await fetch(
-            "http://127.0.0.1:8000/api/requests/",
+            "http://172.20.10.2:8000/api/requests/",
             {
                 method: "GET",
                 headers: {
@@ -246,7 +246,7 @@ async function updateRequest(requestId, status, element) {
         `;
 
         const response = await fetch(
-            `http://127.0.0.1:8000/api/requests/${requestId}/`,
+            `http://172.20.10.2:8000/api/requests/${requestId}/`,
             {
                 method: "PATCH",
                 headers: {

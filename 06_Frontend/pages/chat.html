@@ -1,501 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Messages | Coral Reef</title>
-
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/components.css">
-    <link rel="stylesheet" href="../assets/css/layout.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
-
-    <style>
-        .page-hero {
-            padding: 70px 0 60px;
-            background: linear-gradient(135deg, #0757C9, #1261D6);
-            text-align: center;
-        }
-
-        .page-hero .badge {
-            color: #fff;
-            background: rgba(255,255,255,.15);
-            border: 1px solid rgba(255,255,255,.25);
-        }
-
-        .page-hero h1 {
-            margin: 18px auto 12px;
-            color: #fff;
-            font-size: clamp(2.3rem, 5vw, 3.6rem);
-        }
-
-        .page-hero p {
-            max-width: 650px;
-            margin: auto;
-            color: rgba(255,255,255,.82);
-            line-height: 1.8;
-        }
-
-        .chat-section {
-            padding: 55px 0 90px;
-        }
-
-        .chat-wrapper {
-            display: grid;
-            grid-template-columns: 310px minmax(0, 1fr);
-            max-width: 1100px;
-            height: 650px;
-            margin: auto;
-            overflow: hidden;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .conversation-list {
-            overflow-y: auto;
-            background: #F8FBFF;
-            border-right: 1px solid var(--border);
-        }
-
-        .conversation-header {
-            padding: 22px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .conversation-header h2 {
-            color: var(--text-dark);
-            font-size: 1.1rem;
-        }
-
-        .conversation-search {
-            width: 100%;
-            margin-top: 15px;
-            padding: 11px 13px;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 9px;
-            outline: none;
-            font-family: var(--body-font);
-        }
-
-        .conversation-search:focus {
-            border-color: var(--primary-light);
-        }
-
-        .conversation {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            padding: 16px 18px;
-            text-align: left;
-            background: transparent;
-            border: 0;
-            border-bottom: 1px solid #EDF3FA;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .conversation:hover,
-        .conversation.active {
-            background: #EAF3FF;
-        }
-
-        .avatar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            width: 43px;
-            height: 43px;
-            color: #fff;
-            background: var(--primary);
-            border-radius: 50%;
-            font-size: .85rem;
-            font-weight: 800;
-        }
-
-        .conversation-info {
-            min-width: 0;
-            flex: 1;
-        }
-
-        .conversation-info strong {
-            display: block;
-            overflow: hidden;
-            color: var(--text-dark);
-            font-size: .86rem;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .conversation-info span {
-            display: block;
-            overflow: hidden;
-            margin-top: 4px;
-            color: var(--text-light);
-            font-size: .73rem;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .chat-main {
-            display: flex;
-            min-width: 0;
-            flex-direction: column;
-        }
-
-        .chat-header {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            min-height: 76px;
-            padding: 15px 22px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .chat-user-info h2 {
-            color: var(--text-dark);
-            font-size: .98rem;
-        }
-
-        .chat-user-info p {
-            margin-top: 3px;
-            color: #16A34A;
-            font-size: .72rem;
-            font-weight: 600;
-        }
-
-        .messages-area {
-            display: flex;
-            flex: 1;
-            flex-direction: column;
-            gap: 15px;
-            padding: 25px;
-            overflow-y: auto;
-            background: #FBFDFF;
-        }
-
-        .message {
-            display: flex;
-            max-width: 72%;
-        }
-
-        .message.received {
-            align-self: flex-start;
-        }
-
-        .message.sent {
-            align-self: flex-end;
-            justify-content: flex-end;
-        }
-
-        .message-bubble {
-            padding: 12px 15px;
-            border-radius: 15px;
-            font-size: .83rem;
-            line-height: 1.55;
-        }
-
-        .received .message-bubble {
-            color: var(--text-dark);
-            background: #fff;
-            border: 1px solid var(--border);
-            border-bottom-left-radius: 4px;
-        }
-
-        .sent .message-bubble {
-            color: #fff;
-            background: var(--primary);
-            border-bottom-right-radius: 4px;
-        }
-
-        .message-time {
-            display: block;
-            margin-top: 5px;
-            opacity: .65;
-            font-size: .62rem;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 10px;
-            padding: 17px;
-            border-top: 1px solid var(--border);
-            background: #fff;
-        }
-
-        .chat-input {
-            flex: 1;
-            min-width: 0;
-            padding: 13px 15px;
-            background: #F8FBFF;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            outline: none;
-            font-family: var(--body-font);
-            font-size: .83rem;
-        }
-
-        .chat-input:focus {
-            background: #fff;
-            border-color: var(--primary-light);
-        }
-
-        .send-button {
-            flex-shrink: 0;
-            padding: 0 20px;
-            color: #fff;
-            background: var(--primary);
-            border: 0;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: var(--body-font);
-            font-size: .8rem;
-            font-weight: 700;
-        }
-
-        .send-button:hover {
-            background: var(--primary-dark);
-        }
-
-        .empty-chat {
-            display: flex;
-            flex: 1;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .empty-chat-content {
-            max-width: 350px;
-        }
-
-        .empty-chat-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 65px;
-            height: 65px;
-            margin: 0 auto 18px;
-            color: var(--primary);
-            background: #EAF3FF;
-            border-radius: 18px;
-            font-size: 1.7rem;
-        }
-
-        .empty-chat h2 {
-            margin-bottom: 8px;
-            color: var(--text-dark);
-            font-size: 1.15rem;
-        }
-
-        .empty-chat p {
-            color: var(--text-light);
-            line-height: 1.7;
-            font-size: .83rem;
-        }
-
-        @media (max-width: 800px) {
-            .chat-wrapper {
-                grid-template-columns: 250px minmax(0, 1fr);
-            }
-
-            .message {
-                max-width: 82%;
-            }
-        }
-
-        @media (max-width: 650px) {
-            .chat-section {
-                padding: 35px 0 60px;
-            }
-
-            .chat-wrapper {
-                grid-template-columns: 1fr;
-                height: 650px;
-            }
-
-            .conversation-list {
-                display: none;
-            }
-
-            .chat-header {
-                padding: 14px 16px;
-            }
-
-            .messages-area {
-                padding: 18px;
-            }
-
-            .message {
-                max-width: 88%;
-            }
-
-            .chat-input-area {
-                padding: 12px;
-            }
-
-            .send-button {
-                padding: 0 15px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Messages | Coral Reef</title>
+  <link rel="stylesheet" href="../assets/css/reset.css">
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/layout.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/responsive.css">
+  <link rel="stylesheet" href="../assets/css/polish.css">
+  <link rel="stylesheet" href="../assets/css/chat.css?v=8">
 </head>
-
-<body>
-
-<div id="navbar"></div>
-
-
-<main>
-
-    <section class="page-hero">
-
-        <div class="container">
-
-            <span class="badge">
-                Skill Exchange
-            </span>
-
-            <h1>
-                Learn together.
-                <span style="color:#FFBF1A;">Grow together.</span>
-            </h1>
-
-            <p>
-                Connect with your learning partners and exchange
-                knowledge through meaningful conversations.
-            </p>
-
+<body class="chat-page">
+  <div id="navbar"></div>
+  <main class="chat-app">
+    <section class="chat-shell" aria-label="Messages">
+      <aside class="inbox-panel" id="inboxPanel">
+        <div class="inbox-brand">
+          <div class="brand-mark">CR</div>
+          <div><strong>Coral Reef</strong><span>Knowledge connects us</span></div>
+          <button class="icon-button new-chat-button" id="refreshConversations" type="button" aria-label="Refresh conversations" title="Refresh conversations">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.5 9a7 7 0 0 1 11.8-2L20 12M4 12l2.7 5a7 7 0 0 0 11.8-2"/></svg>
+          </button>
         </div>
+        <div class="inbox-heading">
+          <div class="eyebrow">YOUR SPACE</div>
+          <h1>Messages <span id="conversationCount">0</span></h1>
+        </div>
+        <label class="search-box">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5"/></svg>
+          <input id="conversationSearch" type="search" placeholder="Search conversations..." autocomplete="off">
+          <kbd>⌘ K</kbd>
+        </label>
+        <div class="recent-heading"><span>RECENT CHATS</span><span class="online-label"><i></i> Learning together</span></div>
+        <div id="conversationList" class="conversation-list" aria-live="polite">
+          <div class="inbox-loading">Loading your conversations…</div>
+        </div>
+        <div class="inbox-privacy"><i></i><span>Your conversations are for you and your learning partner.</span></div>
+      </aside>
 
-    </section>
-
-
-    <section class="chat-section">
-
-        <div class="container">
-
-            <div class="chat-wrapper">
-
-                <aside class="conversation-list">
-
-                    <div class="conversation-header">
-
-                        <h2>
-                            Conversations
-                        </h2>
-
-                        <input
-                            type="search"
-                            class="conversation-search"
-                            id="conversationSearch"
-                            placeholder="Search conversations..."
-                        >
-
-                    </div>
-
-                    <div id="conversationList"></div>
-
-                </aside>
-
-
-                <section class="chat-main">
-
-                    <header class="chat-header">
-
-    <span
-        class="avatar"
-        id="chatAvatar"
-    >
-    </span>
-
-    <div class="chat-user-info">
-
-        <h2 id="chatUserName">
-            Select a conversation
-        </h2>
-
-        <p id="chatUserStatus">
-            Choose a learning partner to start chatting.
-        </p>
-
-    </div>
-
-</header>
-
-
-                    <div
-    class="messages-area"
-    id="messagesArea"
->
-    <div class="empty-chat">
-        <div class="empty-chat-content">
-
-            <div class="empty-chat-icon">
-                💬
+      <section class="conversation-panel" id="conversationPanel">
+        <header class="conversation-topbar">
+          <button type="button" class="icon-button mobile-back" id="mobileBack" aria-label="Back to conversations" title="Back">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="partner-avatar" id="chatAvatar">CR</div>
+          <div class="partner-details">
+            <div class="eyebrow">LEARNING PARTNER</div>
+            <h2 id="chatUserName">Select a conversation</h2>
+            <p id="chatUserStatus"><i></i><span>Choose a partner to start exchanging ideas.</span></p>
+          </div>
+          <div class="header-actions">
+            <button type="button" class="icon-button call-action" id="voiceCallButton" aria-label="Voice call" title="Voice call">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a14 14 0 0 0 5 5L15 13l5 2v4c0 1.1-.9 2-2 2C9.2 21 3 14.8 3 6c0-1.1.9-2 2-2Z"/></svg>
+            </button>
+            <button type="button" class="icon-button call-action" id="videoCallButton" aria-label="Video call" title="Video call">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="m15 10 6-3v10l-6-3"/></svg>
+            </button>
+            <div class="options-wrap">
+              <button type="button" class="icon-button" id="conversationMenuButton" aria-label="Conversation options" title="More options" aria-expanded="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>
+              </button>
+              <div class="options-menu" id="conversationMenu" hidden>
+                <button type="button" id="refreshMessagesButton">Refresh messages</button>
+                <button type="button" id="contactInfoButton">Contact information</button>
+              </div>
             </div>
+          </div>
+        </header>
 
-            <h2>
-                No conversation selected
-            </h2>
-
-            <p>
-                Select a conversation from the left to view
-                your messages.
-            </p>
-
+        <div class="conversation-notice">
+          <span class="notice-check">✓</span>
+          <span>Share knowledge, ask questions, and grow together.</span>
+          <span class="private-label">Private conversation</span>
         </div>
-    </div>
-</div>
 
+        <div class="messages-area" id="messagesArea" aria-live="polite">
+          <div class="welcome-card" id="welcomeCard">
+            <div class="welcome-orbit"><div class="welcome-logo">CR</div></div>
+            <div class="eyebrow">A LITTLE KNOWLEDGE GOES A LONG WAY</div>
+            <h3>Your next great conversation starts here.</h3>
+            <p>Choose a learning partner and exchange ideas, ask questions, and keep growing together.</p>
+          </div>
+        </div>
 
-                    <form
-                        class="chat-input-area"
-                        id="chatForm"
-                    >
-
-                        <input
-    type="text"
-    class="chat-input"
-    id="chatInput"
-    placeholder="Type a message..."
-    autocomplete="off"
->
-
-                        <button
-    type="submit"
-    class="send-button"
->
-    Send
-</button>
-
-                    </form>
-
-                </section>
-
+        <form class="chat-composer" id="chatForm">
+          <div class="composer-tools">
+            <input id="attachmentInput" type="file" hidden>
+            <button type="button" class="tool-button" id="attachmentButton" aria-label="Attach a file" title="Attach a file">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 12.5 6.8-6.8a4 4 0 0 1 5.7 5.7l-9.2 9.2a6 6 0 0 1-8.5-8.5l9-9"/></svg>
+            </button>
+            <button type="button" class="tool-button" id="emojiButton" aria-label="Choose emoji" title="Choose emoji">☺</button>
+            <div class="emoji-popover" id="emojiPopover" hidden>
+              <button type="button" data-emoji="😊">😊</button><button type="button" data-emoji="😂">😂</button>
+              <button type="button" data-emoji="❤️">❤️</button><button type="button" data-emoji="👍">👍</button>
+              <button type="button" data-emoji="🎉">🎉</button><button type="button" data-emoji="🙏">🙏</button>
+              <button type="button" data-emoji="🤔">🤔</button><button type="button" data-emoji="🔥">🔥</button>
             </div>
-
-        </div>
-
+            <span class="selected-file" id="selectedFile" hidden></span>
+          </div>
+          <div class="composer-row">
+            <input id="chatInput" class="chat-input" type="text" placeholder="Write a message..." autocomplete="off" maxlength="4000" aria-label="Message">
+            <button class="send-button" type="submit" id="sendButton">Send <span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="composer-footer"><span>Be curious. Be kind. Keep learning.</span><span id="messageHint">Enter to send</span></div>
+        </form>
+      </section>
     </section>
+  </main>
 
-</main>
+  <div class="chat-modal-backdrop" id="chatModal" hidden>
+    <section class="chat-modal" role="dialog" aria-modal="true" aria-labelledby="chatModalTitle">
+      <button class="modal-close" type="button" id="closeChatModal" aria-label="Close">×</button>
+      <div class="modal-icon" id="chatModalIcon">☎</div>
+      <h2 id="chatModalTitle">Calling features</h2>
+      <p id="chatModalText"></p>
+      <button type="button" class="modal-primary" id="chatModalOk">Got it</button>
+    </section>
+  </div>
 
-
-<div id="footer"></div>
-
-
-<script type="module" src="../js/modules/commonUI.js"></script>
-<script type="module" src="../js/modules/chat.js"></script>
-
+  <div id="footer"></div>
+  <script type="module" src="../js/modules/commonUI.js"></script>
+  <script type="module" src="../js/modules/chat.js"></script>
 </body>
 </html>
