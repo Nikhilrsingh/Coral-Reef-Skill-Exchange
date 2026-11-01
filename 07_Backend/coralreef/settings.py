@@ -27,8 +27,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-only-change-this-secret-ke
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
 # cloud backend link without https
-ALLOWED_HOSTS = [host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.20.10.2, korea-theme-tools-judges.trycloudflare.com, fin-counties-competent-caused.trycloudflare.com, ingredients-grip-warren-southern.trycloudflare.com, folding-venture-cooking-temperature.trycloudflare.com, requirements-pottery-buy-standing.trycloudflare.com, partnerships-cms-consortium-jill.trycloudflare.com, assessing-thou-impaired-rates.trycloudflare.com").split(",") if host.strip()]
-
+# ALLOWED_HOSTS = [host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.20.10.2, korea-theme-tools-judges.trycloudflare.com, fin-counties-competent-caused.trycloudflare.com, ingredients-grip-warren-southern.trycloudflare.com, folding-venture-cooking-temperature.trycloudflare.com, requirements-pottery-buy-standing.trycloudflare.com, partnerships-cms-consortium-jill.trycloudflare.com, assessing-thou-impaired-rates.trycloudflare.com").split(",") if host.strip()]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -132,6 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # Email
