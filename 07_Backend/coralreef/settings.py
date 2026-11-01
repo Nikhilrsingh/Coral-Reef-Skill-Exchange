@@ -26,7 +26,8 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-only-change-this-secret-ke
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() == "true"
 
-ALLOWED_HOSTS = [host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.20.10.2").split(",") if host.strip()]
+# cloud backend link without https
+ALLOWED_HOSTS = [host.strip() for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,172.20.10.2, korea-theme-tools-judges.trycloudflare.com, fin-counties-competent-caused.trycloudflare.com, ingredients-grip-warren-southern.trycloudflare.com, folding-venture-cooking-temperature.trycloudflare.com, requirements-pottery-buy-standing.trycloudflare.com, partnerships-cms-consortium-jill.trycloudflare.com, assessing-thou-impaired-rates.trycloudflare.com").split(",") if host.strip()]
 
 
 # Application definition
@@ -149,6 +150,16 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
+    "https://gdp-devices-suggestions-condos.trycloudflare.com",
+    "https://unsigned-reads-stand-plates.trycloudflare.com",
+    "https://gdp-devices-suggestions-condos.trycloudflare.com",
+    # cloud frontend link
+    "https://festival-mls-integrate-either.trycloudflare.com",
+    "https://emissions-wizard-puzzle-construct.trycloudflare.com",
+
+    "https://action-schedules-posts-show.trycloudflare.com",
+    "https://notebook-belly-independent-average.trycloudflare.com",
+
 ]
 # Development-only convenience. Do not enable this for production.
 CORS_ALLOW_ALL_ORIGINS = DEBUG

@@ -1,0 +1,1965 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#fff8fc" />
+    <title>My Living Ocean — Build a Little Sea of Your Own</title>
+    <style>
+      :root {
+        --ink: #30405c;
+        --muted: #71809b;
+        --pink: #ff9fca;
+        --lilac: #c7b6ff;
+        --mint: #a6eedb;
+        --yellow: #ffe58a;
+        --blue: #a8e8ff;
+        --white: #fff;
+        --line: #f3c8e1;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font:
+          15px/1.45 ui-rounded,
+          "Trebuchet MS",
+          system-ui,
+          sans-serif;
+        background:
+          radial-gradient(circle at 8% 8%, #ffe5f2 0 2px, transparent 3px),
+          radial-gradient(circle at 90% 18%, #e5ddff 0 3px, transparent 4px),
+          linear-gradient(135deg, #fff9fc, #f7fbff 55%, #fffaf0);
+        background-size:
+          36px 36px,
+          48px 48px,
+          auto;
+      }
+      button {
+        font: inherit;
+        font-weight: 800;
+        border: 2px solid #e8d8f5;
+        border-radius: 14px;
+        background: #fff;
+        color: var(--ink);
+        padding: 10px 13px;
+        cursor: pointer;
+        box-shadow: 0 3px 0 #e9e1f2;
+        transition:
+          transform 0.12s,
+          box-shadow 0.12s;
+      }
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 0 #e9e1f2;
+      }
+      button:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px 0 #e9e1f2;
+      }
+      button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        transform: none;
+      }
+      button:focus-visible {
+        outline: 3px solid #73cde9;
+        outline-offset: 2px;
+      }
+      header {
+        max-width: 1500px;
+        margin: auto;
+        padding: 18px clamp(12px, 3vw, 34px) 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logo {
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 18px;
+        background: linear-gradient(145deg, #c4f6ff, #d8c8ff);
+        border: 3px solid white;
+        box-shadow: 0 4px 0 #c7c2ef;
+        font-size: 30px;
+      }
+      h1 {
+        font-size: clamp(20px, 3vw, 30px);
+        letter-spacing: 0.2px;
+        line-height: 1.1;
+        margin: 0;
+        color: #354765;
+      }
+      .sub {
+        color: #8b78a7;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        margin-top: 5px;
+      }
+      .wallet {
+        background: #fff;
+        border: 3px solid #ffe4a0;
+        border-radius: 18px;
+        padding: 10px 16px;
+        font-weight: 900;
+        color: #9a6b19;
+        box-shadow: 0 4px 0 #f7d9a2;
+        white-space: nowrap;
+      }
+      main {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 0 clamp(10px, 2.4vw, 30px) 28px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.65fr) minmax(320px, 0.85fr);
+        gap: 18px;
+        align-items: start;
+      }
+      .leftcol {
+        min-width: 0;
+      }
+      .welcome {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 10px;
+        padding: 0 4px;
+        flex-wrap: wrap;
+      }
+      .welcome h2 {
+        margin: 0;
+        font-size: 19px;
+      }
+      .welcome p {
+        margin: 2px 0 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .world-shell {
+        border: 5px solid white;
+        border-radius: 27px;
+        padding: 5px;
+        background: linear-gradient(135deg, #ffb7d8, #c9bbff, #a4e9dc);
+        box-shadow:
+          0 9px 0 #e9d9f2,
+          0 16px 35px #8b9dc326;
+      }
+      .world {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        border: 2px solid #8ce7f0;
+        border-radius: 19px;
+        height: clamp(410px, 61vh, 780px);
+        min-height: 410px;
+        background: #68e0fa;
+        touch-action: pan-x pan-y;
+      }
+      .ocean-scroll {
+        position: absolute;
+        inset: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        z-index: 0;
+        scrollbar-color: #ffacd1 #d7faff;
+        scrollbar-width: thin;
+        touch-action: pan-x pan-y;
+      }
+      .ocean-stage {
+        position: relative;
+        width: 2600px;
+        min-width: 2600px;
+        height: 100%;
+      }
+      #ocean {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        z-index: 0;
+        touch-action: manipulation;
+      }
+      .world-label {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 2;
+        background: #ffffffdd;
+        border: 2px solid #fff;
+        border-radius: 15px;
+        padding: 7px 11px;
+        font-size: 11px;
+        font-weight: 900;
+        color: #44718d;
+        box-shadow: 0 3px 0 #80dce8;
+        pointer-events: none;
+      }
+      .world-actions {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+        z-index: 2;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .world-actions button {
+        font-size: 11px;
+        padding: 8px 10px;
+        background: #ffffffed;
+        border-color: #c7e9f3;
+        box-shadow: 0 3px 0 #9edee9;
+      }
+      .empty {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 20px;
+        background: #2abedc45;
+      }
+      .empty-card {
+        max-width: 380px;
+        background: #ffffffef;
+        border: 3px solid #fff;
+        border-radius: 26px;
+        padding: 25px 24px;
+        box-shadow:
+          0 7px 0 #a3e7ef,
+          0 16px 40px #267ca333;
+      }
+      .empty-card .big {
+        font-size: 58px;
+        line-height: 1.2;
+      }
+      .empty-card h2 {
+        font-size: 25px;
+        margin: 6px 0;
+        color: #3b6a91;
+      }
+      .empty-card p {
+        color: #6e819b;
+        font-size: 13px;
+        margin: 7px 0 17px;
+      }
+      .primary {
+        background: linear-gradient(135deg, #ffb9d8, #ffd4e8);
+        border-color: #fff;
+        color: #784568;
+        box-shadow: 0 4px 0 #e9a5c9;
+      }
+      .helpbar {
+        margin: 13px 2px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #71809b;
+        font-size: 12px;
+      }
+      .helpbubble {
+        background: #fff;
+        border: 2px solid #e7d9fa;
+        border-radius: 15px;
+        padding: 9px 12px;
+        flex: 1;
+      }
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-width: 0;
+      }
+      .panel {
+        background: #ffffffeb;
+        border: 2px solid white;
+        outline: 2px solid var(--line);
+        border-radius: 21px;
+        padding: 15px;
+        box-shadow: 0 5px 0 #e9dff0;
+      }
+      .panel:nth-child(2) {
+        outline-color: #c5e8f9;
+      }
+      .panel:nth-child(3) {
+        outline-color: #c6eddf;
+      }
+      .panel:nth-child(4) {
+        outline-color: #f4d7a1;
+      }
+      .panel h3 {
+        font-size: 15px;
+        margin: 0 0 4px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .panel p {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 4px 0 11px;
+        line-height: 1.45;
+      }
+      .mode {
+        display: flex;
+        gap: 7px;
+      }
+      .mode button {
+        flex: 1;
+        font-size: 12px;
+        padding: 9px 6px;
+      }
+      .mode .active {
+        background: #c8f6e8;
+        border-color: #92e1c9;
+        box-shadow: 0 3px 0 #91d8c4;
+      }
+      .soundrow {
+        display: flex;
+        gap: 7px;
+      }
+      .soundrow button {
+        flex: 1;
+        font-size: 12px;
+        padding: 9px 6px;
+      }
+      .soundrow #audioBtn {
+        background: #fff0b9;
+        border-color: #ffe29a;
+        box-shadow: 0 3px 0 #f2d88b;
+      }
+      .range {
+        width: 100%;
+        accent-color: #fa91c1;
+        margin: 6px 0 0;
+      }
+      .hint {
+        font-size: 11px;
+        color: #8b8ba5;
+      }
+      .reward-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .reward {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 4px;
+        min-height: 89px;
+        padding: 10px;
+        background: #f9f6ff;
+        border-color: #e4dafa;
+        box-shadow: 0 3px 0 #e8def7;
+      }
+      .reward:nth-child(2) {
+        background: #fff4f8;
+        border-color: #f8d4e4;
+        box-shadow: 0 3px 0 #f1d2e0;
+      }
+      .reward:nth-child(3) {
+        background: #effcf7;
+        border-color: #c9efe1;
+        box-shadow: 0 3px 0 #cdeee2;
+      }
+      .reward:nth-child(4) {
+        background: #fff9e9;
+        border-color: #f7e4b2;
+        box-shadow: 0 3px 0 #f2e3bb;
+      }
+      .reward strong {
+        font-size: 12px;
+        line-height: 1.25;
+      }
+      .reward small {
+        font-size: 10px;
+        color: #7c87a0;
+        font-weight: 600;
+      }
+      .reward em {
+        font-size: 12px;
+        font-style: normal;
+        color: #936a1b;
+        font-weight: 900;
+      }
+      .categories {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin: 10px 0;
+      }
+      .categories button {
+        padding: 6px 9px;
+        font-size: 11px;
+        border-radius: 20px;
+        box-shadow: none;
+        border-width: 1px;
+        background: #fff;
+      }
+      .categories button.active {
+        background: #d9f8ff;
+        border-color: #8edce9;
+        color: #34758c;
+      }
+      .shopgrid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+      .item {
+        min-width: 0;
+        text-align: center;
+        border: 2px solid #f2e7f8;
+        border-radius: 15px;
+        padding: 8px 5px;
+        background: linear-gradient(180deg, #fff, #fff8fc);
+      }
+      .item-art {
+        display: block;
+        width: 100%;
+        height: 66px;
+        max-width: 110px;
+        margin: 0 auto 2px;
+        filter: drop-shadow(0 3px 2px #5b91a522);
+      }
+      .item b {
+        display: block;
+        font-size: 11px;
+        line-height: 1.2;
+        margin: 3px 0;
+      }
+      .item small {
+        display: block;
+        color: #8991a7;
+        font-size: 9px;
+        min-height: 23px;
+        margin: 4px 0;
+      }
+      .item button {
+        font-size: 10px;
+        padding: 6px 3px;
+        width: 100%;
+        border-width: 1px;
+        box-shadow: 0 2px 0 #e9e1f2;
+      }
+      .item .buy-one {
+        margin-top: 6px;
+        background: #fff0f7;
+        border-color: #f6c4dc;
+        box-shadow: 0 2px 0 #f1d1e1;
+      }
+      .item .stock {
+        font-size: 10px;
+        font-weight: 900;
+        color: #4b9b8b;
+        min-height: 14px;
+        margin: 2px 0 5px;
+      }
+      .item.selected {
+        outline: 3px solid #ffb7d8;
+        background: #fff0f7;
+      }
+      .bottomnote {
+        font-size: 10px;
+        color: #929bb0;
+        text-align: center;
+        padding: 5px;
+      }
+      #toast {
+        position: fixed;
+        z-index: 20;
+        left: 50%;
+        bottom: 22px;
+        transform: translate(-50%, 12px);
+        opacity: 0;
+        transition: 0.22s;
+        padding: 12px 18px;
+        border: 2px solid #fff;
+        border-radius: 22px;
+        background: #fff1b9;
+        color: #71521b;
+        font-weight: 900;
+        box-shadow:
+          0 6px 0 #eedb9e,
+          0 10px 30px #5060802b;
+        pointer-events: none;
+        text-align: center;
+        max-width: calc(100vw - 28px);
+      }
+      #toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      @media (max-width: 1000px) {
+        main {
+          grid-template-columns: minmax(0, 1fr);
+          max-width: 900px;
+        }
+        .world {
+          height: clamp(400px, 57vh, 650px);
+        }
+        .sidebar {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 13px;
+        }
+        .shop-panel,
+        .earn-panel {
+          grid-column: 1/-1;
+        }
+        .shopgrid {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 600px) {
+        header {
+          padding: 12px 13px 15px;
+        }
+        .logo {
+          width: 44px;
+          height: 44px;
+          font-size: 25px;
+          border-radius: 15px;
+        }
+        h1 {
+          font-size: 20px;
+        }
+        .sub {
+          font-size: 9px;
+          letter-spacing: 1px;
+        }
+        .wallet {
+          font-size: 12px;
+          padding: 8px 10px;
+        }
+        main {
+          padding: 0 11px 24px;
+          gap: 15px;
+        }
+        .welcome h2 {
+          font-size: 17px;
+        }
+        .world-shell {
+          border-width: 4px;
+          border-radius: 22px;
+          padding: 4px;
+        }
+        .world {
+          height: 56vh;
+          min-height: 380px;
+          max-height: 570px;
+          border-radius: 15px;
+        }
+        .world-label {
+          top: 8px;
+          left: 8px;
+          padding: 6px 8px;
+          font-size: 9px;
+        }
+        .world-actions {
+          right: 7px;
+          top: 7px;
+          gap: 4px;
+        }
+        .world-actions button {
+          font-size: 9px;
+          padding: 6px 7px;
+        }
+        .empty-card {
+          padding: 19px 16px;
+          max-width: 310px;
+        }
+        .empty-card .big {
+          font-size: 47px;
+        }
+        .empty-card h2 {
+          font-size: 22px;
+        }
+        .empty-card p {
+          font-size: 12px;
+        }
+        .sidebar {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+        .shop-panel,
+        .earn-panel {
+          grid-column: auto;
+        }
+        .panel {
+          padding: 13px;
+        }
+        .shopgrid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 7px;
+        }
+        .item {
+          padding: 8px 4px;
+        }
+        .item-art {
+          height: 60px;
+        }
+        .reward {
+          min-height: 83px;
+        }
+        .helpbar {
+          align-items: flex-start;
+        }
+        .helpbubble {
+          line-height: 1.4;
+        }
+      }
+      @media (min-width: 1001px) and (max-height: 760px) {
+        .world {
+          height: calc(100vh - 220px);
+          min-height: 430px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="logo">🫧</div>
+        <div>
+          <h1>My Living Ocean</h1>
+          <div class="sub">
+            A LITTLE SEA OF YOUR OWN ✦ CREATE · COLLECT · RELAX
+          </div>
+        </div>
+      </div>
+      <div class="wallet">🪙 <span id="coins">120</span> reef coins</div>
+    </header>
+    <main>
+      <section class="leftcol">
+        <div class="welcome">
+          <div>
+            <h2>Welcome to your ocean! 🐚</h2>
+            <p>Make a bright, happy underwater world that feels like yours.</p>
+          </div>
+        </div>
+        <div class="world-shell">
+          <div class="world" id="world">
+            <div
+              class="ocean-scroll"
+              id="oceanScroll"
+              aria-label="Scrollable ocean world"
+            >
+              <div class="ocean-stage" id="oceanStage">
+                <canvas
+                  id="ocean"
+                  aria-label="Your ocean. Tap a spot to place your selected sea friend."
+                ></canvas>
+              </div>
+            </div>
+            <div class="world-label" id="worldLabel">
+              YOUR OCEAN · WAITING FOR YOU
+            </div>
+            <div class="world-actions">
+              <button id="aliveBtn">✨ Bring to life</button
+              ><button id="restBtn">🌙 Rest</button>
+            </div>
+            <div class="empty" id="empty">
+              <div class="empty-card">
+                <div class="big">🐳💗</div>
+                <h2>Let’s make a sea!</h2>
+                <p>
+                  Your ocean starts as a little blank canvas. Create it, then
+                  fill it with adorable fish, friendly creatures, coral gardens
+                  and treasures.
+                </p>
+                <button class="primary" id="buyOcean">
+                  Create my ocean · 100 🪙
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="helpbar">
+          <span>💡</span>
+          <div class="helpbubble" id="placeHint">
+            Create your ocean first. Then unlock a sea friend and tap any open
+            spot in the water to place it.
+          </div>
+        </div>
+      </section>
+      <aside class="sidebar">
+        <section class="panel">
+          <h3>🌈 Make it wiggle!</h3>
+          <p>
+            Choose whether your sea friends swim and sway or stay still while
+            you decorate.
+          </p>
+          <div class="mode">
+            <button id="aliveMode" class="active">✨ Come alive</button
+            ><button id="restMode">🌙 Rest ocean</button>
+          </div>
+          <p id="stateText" style="margin-bottom: 0">
+            Your ocean is waiting to be created.
+          </p>
+        </section>
+        <section class="panel">
+          <h3>🌊 Calm ocean sounds</h3>
+          <p>
+            Relax with a soft, continuous ocean hush and slow, soothing waves.
+            No bubble sounds or musical notes.
+          </p>
+          <div class="soundrow">
+            <button id="audioBtn">▶ Play ocean sounds</button
+            ><button id="muteBtn">♫ Sound on</button>
+          </div>
+          <label class="hint" for="volume">Music volume</label
+          ><input
+            class="range"
+            id="volume"
+            type="range"
+            min="0"
+            max="100"
+            value="85"
+          />
+        </section>
+        <section class="panel earn-panel">
+          <h3>🪙 Earn reef coins with skills</h3>
+          <p>
+            Demo rewards for trying out the four skill activities. In your real
+            project, award coins only after the backend verifies completion.
+          </p>
+          <div class="reward-list">
+            <button class="reward" data-reward="50" data-key="vc-hour">
+              <strong>🎧 1-hour VC learning session</strong
+              ><small>Completed a full hour learning a skill</small
+              ><em>＋50 coins</em>
+            </button>
+            <button class="reward" data-reward="20" data-key="teach-learn">
+              <strong>🧁 Teach or learn a simple skill</strong
+              ><small
+                >Baking, cooking or another skill via VC + interaction
+                benefit</small
+              ><em>＋20 coins</em>
+            </button>
+            <button class="reward" data-reward="25" data-key="perfect-test">
+              <strong>📝 Perfect skill test</strong
+              ><small>Answered every question correctly</small
+              ><em>＋25 coins</em>
+            </button>
+            <button class="reward" data-reward="15" data-key="no-hints">
+              <strong>🌟 Test with no hints</strong
+              ><small>Completed a skill test without using hints</small
+              ><em>＋15 coins</em>
+            </button>
+          </div>
+          <div class="hint" style="margin-top: 9px">
+            Each demo reward can be collected once. Reset demo clears local
+            progress.
+          </div>
+        </section>
+        <section class="panel shop-panel">
+          <h3>🪸 Build your ocean</h3>
+          <p>
+            Each purchase buys one item. Select Place, then tap the water to use
+            one item from your stock. Buy another whenever you want more.
+          </p>
+          <div class="categories" id="categories"></div>
+          <div class="shopgrid" id="shopgrid"></div>
+          <div class="hint" id="shopHint" style="margin-top: 9px">
+            Choose an item to get started.
+          </div>
+          <button
+            id="reset"
+            style="margin-top: 12px; width: 100%; font-size: 11px"
+          >
+            ↺ Reset demo ocean
+          </button>
+        </section>
+        <div class="bottomnote">
+          Creative ocean-builder prototype · Progress saves in this browser
+        </div>
+      </aside>
+    </main>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script>
+      (() => {
+        const $ = (id) => document.getElementById(id),
+          canvas = $("ocean"),
+          ctx = canvas.getContext("2d"),
+          world = $("world");
+        const catalog = [
+          {
+            id: "clownfish",
+            name: "Clownfish",
+            emoji: "🐠",
+            price: 15,
+            cat: "Fish",
+            desc: "Peachy reef pal",
+          },
+          {
+            id: "tang",
+            name: "Blue tang",
+            emoji: "🐟",
+            price: 20,
+            cat: "Fish",
+            desc: "A bright blue buddy",
+          },
+          {
+            id: "puffer",
+            name: "Puffer pal",
+            emoji: "🐡",
+            price: 22,
+            cat: "Fish",
+            desc: "Round and smiley",
+          },
+          {
+            id: "school",
+            name: "Fish friends",
+            emoji: "🐠🐟",
+            price: 35,
+            cat: "Fish",
+            desc: "A little swimming team",
+          },
+          {
+            id: "seahorse",
+            name: "Seahorse",
+            emoji: "🐴",
+            price: 28,
+            cat: "Creatures",
+            desc: "Tiny magical swimmer",
+          },
+          {
+            id: "turtle",
+            name: "Sea turtle",
+            emoji: "🐢",
+            price: 45,
+            cat: "Creatures",
+            desc: "Gentle and kind",
+          },
+          {
+            id: "dolphin",
+            name: "Dolphin",
+            emoji: "🐬",
+            price: 65,
+            cat: "Creatures",
+            desc: "Playful sea jumper",
+          },
+          {
+            id: "octopus",
+            name: "Octopus",
+            emoji: "🐙",
+            price: 50,
+            cat: "Creatures",
+            desc: "Eight happy arms",
+          },
+          {
+            id: "whale",
+            name: "Baby whale",
+            emoji: "🐳",
+            price: 75,
+            cat: "Creatures",
+            desc: "A giant little friend",
+          },
+          {
+            id: "jelly",
+            name: "Jellyfish",
+            emoji: "🪼",
+            price: 40,
+            cat: "Creatures",
+            desc: "Floaty and glowy",
+          },
+          {
+            id: "coralPink",
+            name: "Pink coral",
+            emoji: "🪸",
+            price: 12,
+            cat: "Corals",
+            desc: "Candy-colour branches",
+          },
+          {
+            id: "coralRed",
+            name: "Fan coral",
+            emoji: "🌺",
+            price: 18,
+            cat: "Corals",
+            desc: "A flower-like reef",
+          },
+          {
+            id: "anemone",
+            name: "Sea anemone",
+            emoji: "🌸",
+            price: 20,
+            cat: "Corals",
+            desc: "Soft swishy petals",
+          },
+          {
+            id: "kelp",
+            name: "Kelp forest",
+            emoji: "🌿",
+            price: 15,
+            cat: "Plants",
+            desc: "Wavy green leaves",
+          },
+          {
+            id: "seagrass",
+            name: "Sea grass",
+            emoji: "🌱",
+            price: 10,
+            cat: "Plants",
+            desc: "Tiny ocean garden",
+          },
+          {
+            id: "shell",
+            name: "Rainbow shell",
+            emoji: "🐚",
+            price: 12,
+            cat: "Treasures",
+            desc: "A beachy treasure",
+          },
+          {
+            id: "crystal",
+            name: "Sea crystal",
+            emoji: "💎",
+            price: 30,
+            cat: "Treasures",
+            desc: "A sparkly surprise",
+          },
+          {
+            id: "palace",
+            name: "Reef palace",
+            emoji: "🏰",
+            price: 55,
+            cat: "Treasures",
+            desc: "A tiny sea castle",
+          },
+        ];
+        let state = {
+          owned: false,
+          alive: false,
+          coins: 120,
+          items: [],
+          inventory: {},
+          claimed: [],
+          audio: false,
+          category: "All",
+          selected: null,
+        };
+        try {
+          const old = JSON.parse(
+            localStorage.getItem("myLivingOcean") || "null",
+          );
+          if (old && typeof old === "object") {
+            state = { ...state, ...old };
+            state.items = Array.isArray(state.items) ? state.items : [];
+            if (Array.isArray(state.inventory)) {
+              const migrated = {};
+              state.inventory.forEach(
+                (id) => (migrated[id] = (migrated[id] || 0) + 1),
+              );
+              state.inventory = migrated;
+            } else if (!state.inventory || typeof state.inventory !== "object")
+              state.inventory = {};
+            state.claimed = Array.isArray(state.claimed) ? state.claimed : [];
+            state.coins = Number.isFinite(state.coins) ? state.coins : 120;
+          }
+        } catch (e) {}
+        let W = 0,
+          H = 0,
+          dpr = 1,
+          time = 0,
+          last = performance.now(),
+          audioCtx = null,
+          master = null,
+          voiceNodes = [],
+          muted = false;
+        const OCEAN_WIDTH = 2600;
+        const rand = (a, b) => a + Math.random() * (b - a);
+        function save() {
+          try {
+            localStorage.setItem("myLivingOcean", JSON.stringify(state));
+          } catch (e) {}
+        }
+        function toast(t) {
+          $("toast").textContent = t;
+          $("toast").classList.add("show");
+          clearTimeout(toast.timer);
+          toast.timer = setTimeout(
+            () => $("toast").classList.remove("show"),
+            2100,
+          );
+        }
+        function resize() {
+          const r = world.getBoundingClientRect();
+          H = r.height;
+          W = Math.max(OCEAN_WIDTH, r.width * 2.4);
+          $("oceanStage").style.width = W + "px";
+          $("oceanStage").style.minWidth = W + "px";
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.max(1, Math.round(W * dpr));
+          canvas.height = Math.max(1, Math.round(H * dpr));
+          canvas.style.width = W + "px";
+          canvas.style.height = H + "px";
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        if ("ResizeObserver" in window)
+          new ResizeObserver(resize).observe(world);
+        else window.addEventListener("resize", resize);
+        resize();
+        function render() {
+          $("coins").textContent = state.coins;
+          $("empty").style.display = state.owned ? "none" : "grid";
+          $("worldLabel").textContent = !state.owned
+            ? "YOUR OCEAN · WAITING FOR YOU"
+            : state.alive
+              ? "YOUR OCEAN · HAPPY & ALIVE"
+              : "YOUR OCEAN · RESTING PEACEFULLY";
+          ["aliveBtn", "aliveMode"].forEach((id) =>
+            $(id).classList.toggle("active", state.alive),
+          );
+          ["restBtn", "restMode"].forEach((id) =>
+            $(id).classList.toggle("active", !state.alive),
+          );
+          $("stateText").textContent = !state.owned
+            ? "Create your ocean, then fill it with your favourite sea friends."
+            : state.alive
+              ? "Your sea friends are swimming and your plants are swaying!"
+              : "Your ocean is taking a peaceful little rest.";
+          $("placeHint").textContent = state.selected
+            ? `Selected: ${catalog.find((c) => c.id === state.selected)?.name || "sea friend"} — tap anywhere in the water to place it.`
+            : state.owned
+              ? "Unlock or select an item, then tap the ocean to place it."
+              : "Create your ocean first. Then unlock a sea friend and tap the water.";
+          $("shopHint").textContent = state.selected
+            ? `Ready to place ${catalog.find((c) => c.id === state.selected)?.name || "your item"}! Tap the ocean.`
+            : "Choose an item to unlock or select it for placement.";
+          $("audioBtn").textContent = state.audio
+            ? "Ⅱ Pause ocean sounds"
+            : "▶ Play ocean sounds";
+          $("muteBtn").textContent = muted ? "♫ Muted" : "♫ Sound on";
+          document.querySelectorAll("[data-reward]").forEach((b) => {
+            const done = state.claimed.includes(b.dataset.key);
+            b.disabled = done;
+            b.querySelector("em").textContent = done
+              ? "✓ Collected"
+              : "＋" + b.dataset.reward + " coins";
+          });
+          renderCats();
+          renderShop();
+        }
+        function renderCats() {
+          const cats = [
+            "All",
+            "Fish",
+            "Creatures",
+            "Corals",
+            "Plants",
+            "Treasures",
+          ];
+          $("categories").innerHTML = "";
+          cats.forEach((c) => {
+            const b = document.createElement("button");
+            b.textContent = c;
+            b.className = state.category === c ? "active" : "";
+            b.onclick = () => {
+              state.category = c;
+              renderCats();
+              renderShop();
+            };
+            $("categories").appendChild(b);
+          });
+        }
+        function renderShop() {
+          const el = $("shopgrid");
+          el.innerHTML = "";
+          catalog
+            .filter((c) => state.category === "All" || c.cat === state.category)
+            .forEach((c) => {
+              const stock = Number(state.inventory[c.id] || 0),
+                d = document.createElement("div");
+              d.className =
+                "item" + (state.selected === c.id ? " selected" : "");
+              d.innerHTML = `<canvas class="item-art" width="110" height="66" aria-label="Illustration of ${c.name}"></canvas><b>${c.name}</b><div class="stock">In stock: ${stock}</div><small>${c.desc}</small><button class="place-one" ${stock < 1 || !state.owned ? "disabled" : ""}>＋ Place one</button><button class="buy-one" ${state.coins < c.price ? "disabled" : ""}>Buy 1 · 🪙 ${c.price}</button>`;
+              const thumb = d.querySelector(".item-art"),
+                tc = thumb.getContext("2d");
+              tc.clearRect(0, 0, 110, 66);
+              drawArt(tc, c.id, 55, 34, 0.72, 0);
+              d.querySelector(".place-one").onclick = () => {
+                if (!state.owned) {
+                  toast("Create your ocean first 🫧");
+                  return;
+                }
+                if (!stock) {
+                  toast("Buy one of these first 🪙");
+                  return;
+                }
+                state.selected = c.id;
+                save();
+                render();
+                toast(`Tap the ocean once to place one ${c.name}!`);
+              };
+              d.querySelector(".buy-one").onclick = () => {
+                if (state.coins < c.price) {
+                  toast("Not enough coins yet — try a skill activity!");
+                  return;
+                }
+                state.coins -= c.price;
+                state.inventory[c.id] =
+                  (Number(state.inventory[c.id]) || 0) + 1;
+                state.selected = c.id;
+                save();
+                render();
+                toast(
+                  `You bought 1 ${c.name}! Stock: ${state.inventory[c.id]}.`,
+                );
+              };
+              el.appendChild(d);
+            });
+        }
+        $("buyOcean").onclick = () => {
+          if (state.coins < 100) {
+            toast(
+              "You need 100 coins to create your ocean. Try a skill activity!",
+            );
+            return;
+          }
+          state.coins -= 100;
+          state.owned = true;
+          state.alive = false;
+          save();
+          render();
+          toast("Your bright little ocean is ready! 🐬");
+        };
+        function setAlive(value) {
+          if (!state.owned) {
+            toast("Create your ocean first 🫧");
+            return;
+          }
+          state.alive = value;
+          last = performance.now();
+          save();
+          render();
+          toast(
+            value
+              ? "Your ocean is alive! Watch the fish swim 🐠"
+              : "Your ocean is resting peacefully 🌙",
+          );
+        }
+        $("aliveBtn").onclick = $("aliveMode").onclick = () => setAlive(true);
+        $("restBtn").onclick = $("restMode").onclick = () => setAlive(false);
+        document.querySelectorAll("[data-reward]").forEach(
+          (b) =>
+            (b.onclick = () => {
+              if (state.claimed.includes(b.dataset.key)) {
+                toast("You already collected this demo reward");
+                return;
+              }
+              state.claimed.push(b.dataset.key);
+              state.coins += Number(b.dataset.reward);
+              save();
+              render();
+              toast("+" + b.dataset.reward + " reef coins earned! 🌟");
+            }),
+        );
+        $("reset").onclick = () => {
+          if (!confirm("Reset your demo ocean, items and coins?")) return;
+          stopAudio();
+          state = {
+            owned: false,
+            alive: false,
+            coins: 120,
+            items: [],
+            inventory: [],
+            claimed: [],
+            audio: false,
+            category: "All",
+            selected: null,
+          };
+          save();
+          render();
+          toast("Your demo has been reset");
+        };
+        // The canvas itself receives placement taps. Coordinates are stored as fractions and scaled during drawing.
+        canvas.addEventListener("pointerdown", (e) => {
+          if (!state.owned || !state.selected) return;
+          const r = canvas.getBoundingClientRect(),
+            x = e.clientX - r.left,
+            y = e.clientY - r.top;
+          const safeY = Math.max(58, Math.min(H - 24, y));
+          if (!(Number(state.inventory[state.selected]) > 0)) {
+            state.selected = null;
+            save();
+            render();
+            toast(
+              "You have no more of that item in stock. Buy one more to place it!",
+            );
+            return;
+          }
+          state.items.push({
+            id: state.selected,
+            x: Math.max(24, Math.min(W - 24, x)) / W,
+            y: safeY / H,
+            phase: rand(0, Math.PI * 2),
+            scale: rand(0.58, 1.22),
+          });
+          state.inventory[state.selected]--;
+          if (state.inventory[state.selected] <= 0) state.selected = null;
+          save();
+          render();
+          toast("One item placed! 💗");
+        });
+        function drawBackground() {
+          const g = ctx.createLinearGradient(0, 0, 0, H);
+          g.addColorStop(0, "#7af2ff");
+          g.addColorStop(0.23, "#52e2f3");
+          g.addColorStop(0.53, "#42c9ef");
+          g.addColorStop(0.78, "#48c7dc");
+          g.addColorStop(1, "#8cebd8");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, W, H);
+          // bright, rounded sunbeams
+          ctx.save();
+          ctx.globalAlpha = 0.2;
+          for (let i = 0; i < 7; i++) {
+            let x = W * (i / 6) - 25 + Math.sin(time * 0.18 + i) * 14;
+            ctx.fillStyle = i % 2 ? "#fffbe1" : "#ffffff";
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x + 34, 0);
+            ctx.lineTo(x + W * 0.12, H * 0.73);
+            ctx.lineTo(x - W * 0.02, H * 0.73);
+            ctx.closePath();
+            ctx.fill();
+          }
+          ctx.restore();
+          // floating pastel cloud-like surface glows
+          for (let i = 0; i < 6; i++) {
+            let x = (i * W) / 5 + Math.sin(time * 0.2 + i) * 10;
+            ctx.fillStyle = "#fff8e866";
+            ctx.beginPath();
+            ctx.ellipse(x, 18 + Math.sin(i) * 8, 38, 13, 0, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          // distant rounded coral-island silhouettes
+          for (let layer = 0; layer < 3; layer++) {
+            const base = H * (0.79 + layer * 0.045);
+            ctx.beginPath();
+            ctx.moveTo(0, H);
+            ctx.lineTo(0, base);
+            for (let x = 0; x <= W + 12; x += 12) {
+              const yy =
+                base -
+                14 -
+                Math.sin(x * 0.012 + layer * 1.7) * 11 -
+                Math.sin(x * 0.027 + layer) * 5;
+              ctx.lineTo(x, yy);
+            }
+            ctx.lineTo(W, H);
+            ctx.closePath();
+            ctx.fillStyle = ["#6de0d1", "#46d3c6", "#31bda9"][layer];
+            ctx.fill();
+          }
+          // sandy pastel floor
+          const sandY = H - 45;
+          const sand = ctx.createLinearGradient(0, sandY, 0, H);
+          sand.addColorStop(0, "#ffe6a4");
+          sand.addColorStop(1, "#ffc7a6");
+          ctx.fillStyle = sand;
+          ctx.beginPath();
+          ctx.moveTo(0, H - 35);
+          for (let x = 0; x <= W + 8; x += 8)
+            ctx.lineTo(
+              x,
+              H - 34 + Math.sin(x * 0.022) * 5 + Math.sin(x * 0.008) * 4,
+            );
+          ctx.lineTo(W, H);
+          ctx.lineTo(0, H);
+          ctx.closePath();
+          ctx.fill();
+          // cute stylized reef plants along bottom
+          for (let i = 0; i < Math.ceil(W / 105) + 2; i++) {
+            const x =
+                ((((i * 113 - time * 1.1) % (W + 140)) + W + 140) % (W + 140)) -
+                35,
+              base = H - 13,
+              col = ["#ff8fbd", "#ffb76d", "#b9a1ff", "#ff7d9b", "#7de1bd"][
+                i % 5
+              ];
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.strokeStyle = col;
+            ctx.lineWidth = 5;
+            for (let b = 0; b < 3; b++) {
+              const bx = x + (b - 1) * 10,
+                top = base - 27 - ((i + b) % 3) * 9;
+              ctx.beginPath();
+              ctx.moveTo(bx, base);
+              ctx.bezierCurveTo(
+                bx - 5,
+                base - 12,
+                bx + 4,
+                top + 10,
+                bx + (b - 1) * 7,
+                top,
+              );
+              ctx.stroke();
+              ctx.fillStyle = col;
+              ctx.beginPath();
+              ctx.arc(bx + (b - 1) * 7, top, 3.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+            ctx.strokeStyle = "#29cba8";
+            ctx.lineWidth = 3;
+            for (let k = 0; k < 2; k++) {
+              const kx = x + 24 + k * 8,
+                lean = Math.sin(time * 0.75 + i + k) * 8;
+              ctx.beginPath();
+              ctx.moveTo(kx, base);
+              ctx.quadraticCurveTo(
+                kx + lean,
+                base - 23,
+                kx + lean - 3,
+                base - 51 - k * 8,
+              );
+              ctx.stroke();
+              ctx.fillStyle = "#4dd6b0";
+              ctx.beginPath();
+              ctx.ellipse(
+                kx + lean - 2,
+                base - 30 - k * 8,
+                4.5,
+                10,
+                lean * 0.04,
+                0,
+                Math.PI * 2,
+              );
+              ctx.fill();
+            }
+          }
+          // soft pebble dots
+          for (let i = 0; i < Math.ceil(W / 38); i++) {
+            const x = i * 38 + Math.sin(i * 3) * 7;
+            ctx.fillStyle = ["#ffb5a7", "#e6b8ff", "#fff0b8"][i % 3];
+            ctx.beginPath();
+            ctx.ellipse(
+              x,
+              H - 8 - Math.abs(Math.sin(i)) * 3,
+              7 + (i % 4),
+              3.5,
+              0,
+              0,
+              Math.PI * 2,
+            );
+            ctx.fill();
+          }
+          // bubbles drifting upwards
+          for (let i = 0; i < 25; i++) {
+            const x = (((i * 83 + Math.sin(time * 0.45 + i) * 15) % W) + W) % W,
+              y = H - ((i * 59 + time * (10 + (i % 4)) * 5) % (H + 20));
+            ctx.strokeStyle = "rgba(255,255,255,.65)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(x, y, 2 + (i % 3), 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.fillStyle = "#ffffff35";
+            ctx.fill();
+          }
+        }
+        // Hand-drawn, colourful 2D sea-creature illustrations (no emoji characters).
+        function pathFill(c, fill, stroke = "#ffffff", lw = 2) {
+          c.fillStyle = fill;
+          c.strokeStyle = stroke;
+          c.lineWidth = lw;
+          c.lineJoin = "round";
+          c.lineCap = "round";
+          c.fill();
+          c.stroke();
+        }
+        function drawArt(c, id, x, y, scale = 1, phase = 0) {
+          c.save();
+          c.translate(x, y + Math.sin(phase) * 2);
+          c.scale(scale, scale);
+          const outline = "#286b83",
+            white = "#fffaf0";
+          const eye = (ex, ey, r = 2.6) => {
+            c.fillStyle = "#163e56";
+            c.beginPath();
+            c.arc(ex, ey, r, 0, Math.PI * 2);
+            c.fill();
+            c.fillStyle = "#fff";
+            c.beginPath();
+            c.arc(ex - 0.7, ey - 0.8, r * 0.34, 0, Math.PI * 2);
+            c.fill();
+          };
+          const fin = (pts, col) => {
+            c.beginPath();
+            c.moveTo(...pts[0]);
+            for (let i = 1; i < pts.length; i++) c.lineTo(...pts[i]);
+            c.closePath();
+            pathFill(c, col, outline, 1.8);
+          };
+          const ellipse = (cx, cy, rx, ry, col, rot = 0) => {
+            c.beginPath();
+            c.ellipse(cx, cy, rx, ry, rot, 0, Math.PI * 2);
+            pathFill(c, col, outline, 1.8);
+          };
+          if (["clownfish", "tang", "school", "puffer"].includes(id)) {
+            if (id === "puffer") {
+              ellipse(0, 0, 22, 19, "#f8c66d");
+              for (let a = 0.25; a < Math.PI * 2; a += 0.72)
+                fin(
+                  [
+                    [Math.cos(a) * 19, Math.sin(a) * 16],
+                    [Math.cos(a) * 27, Math.sin(a) * 23],
+                    [Math.cos(a + 0.18) * 17, Math.sin(a + 0.18) * 15],
+                  ],
+                  "#ffe6a1",
+                );
+              ellipse(0, 4, 13, 10, "#ffdc91");
+              eye(8, -5, 2.8);
+              c.strokeStyle = outline;
+              c.lineWidth = 1.6;
+              c.beginPath();
+              c.arc(10, 1, 4, 0.2, 1.8);
+              c.stroke();
+            } else {
+              const col =
+                id === "tang"
+                  ? "#348ce0"
+                  : id === "school"
+                    ? "#64b8ed"
+                    : "#ff9b56";
+              fin(
+                [
+                  [-14, 0],
+                  [-29, -13],
+                  [-27, 13],
+                ],
+                id === "tang" ? "#f7d45d" : "#f7bd7e",
+              );
+              ellipse(0, 0, 23, 14, col);
+              if (id !== "tang") {
+                c.strokeStyle = white;
+                c.lineWidth = 5;
+                for (let xx = -9; xx <= 7; xx += 11) {
+                  c.beginPath();
+                  c.moveTo(xx, -12);
+                  c.lineTo(xx + 2, 12);
+                  c.stroke();
+                }
+              } else {
+                c.strokeStyle = "#f7d45d";
+                c.lineWidth = 4;
+                c.beginPath();
+                c.moveTo(-2, -12);
+                c.quadraticCurveTo(8, 0, -1, 12);
+                c.stroke();
+              }
+              fin(
+                [
+                  [0, -10],
+                  [8, -19],
+                  [14, -9],
+                ],
+                col,
+              );
+              fin(
+                [
+                  [0, 10],
+                  [8, 18],
+                  [14, 10],
+                ],
+                col,
+              );
+              eye(13, -3, 2.5);
+              c.strokeStyle = outline;
+              c.lineWidth = 1.4;
+              c.beginPath();
+              c.arc(15, 3, 3, 0.15, 1.8);
+              c.stroke();
+            }
+          } else if (id === "dolphin" || id === "whale") {
+            const col = id === "dolphin" ? "#72c9e9" : "#7fa8ee";
+            c.beginPath();
+            c.moveTo(-25, 2);
+            c.quadraticCurveTo(-17, -18, 4, -13);
+            c.quadraticCurveTo(17, -12, 24, -2);
+            c.lineTo(34, -8);
+            c.lineTo(30, 1);
+            c.lineTo(20, 4);
+            c.quadraticCurveTo(7, 17, -10, 12);
+            c.lineTo(-25, 2);
+            pathFill(c, col, outline, 2);
+            fin(
+              [
+                [-2, 8],
+                [6, 19],
+                [13, 10],
+              ],
+              id === "dolphin" ? "#4ca7d4" : "#648bd7",
+            );
+            c.fillStyle = "#dff8ff";
+            c.beginPath();
+            c.ellipse(4, 6, 14, 5, 0.12, 0, Math.PI * 2);
+            c.fill();
+            eye(16, -5, 2.5);
+            if (id === "whale") {
+              c.strokeStyle = "#66c9ec";
+              c.lineWidth = 2;
+              c.beginPath();
+              c.moveTo(-3, -13);
+              c.quadraticCurveTo(-8, -22, -2, -24);
+              c.moveTo(0, -13);
+              c.quadraticCurveTo(7, -21, 7, -24);
+              c.stroke();
+            }
+          } else if (id === "turtle") {
+            ellipse(0, 0, 20, 14, "#62c99c");
+            ellipse(0, -1, 14, 11, "#a2dba0");
+            c.strokeStyle = "#4ca783";
+            c.lineWidth = 1.5;
+            c.beginPath();
+            c.moveTo(-10, -2);
+            c.lineTo(-3, -8);
+            c.lineTo(6, -7);
+            c.lineTo(11, 0);
+            c.lineTo(4, 7);
+            c.lineTo(-5, 7);
+            c.closePath();
+            c.stroke();
+            ellipse(20, -2, 7, 6, "#71d4a5");
+            fin(
+              [
+                [-12, -7],
+                [-19, -15],
+                [-22, -9],
+              ],
+              "#79dcb0",
+            );
+            fin(
+              [
+                [-11, 7],
+                [-17, 15],
+                [-10, 13],
+              ],
+              "#79dcb0",
+            );
+            fin(
+              [
+                [8, 8],
+                [14, 15],
+                [17, 11],
+              ],
+              "#79dcb0",
+            );
+            eye(22, -4, 1.8);
+            c.strokeStyle = outline;
+            c.beginPath();
+            c.arc(23, 0, 2, 0.2, 1.7);
+            c.stroke();
+          } else if (id === "octopus") {
+            for (let i = 0; i < 6; i++) {
+              let a = Math.PI * 0.12 + (i * Math.PI * 0.76) / 5;
+              let sx = Math.cos(a) * 8,
+                ex = Math.cos(a) * 24,
+                sy = 8,
+                ey = 22 + Math.sin(i * 2) * 3;
+              c.beginPath();
+              c.moveTo(sx, sy);
+              c.quadraticCurveTo(ex - 5, ey - 4, ex, ey);
+              c.strokeStyle = "#c278df";
+              c.lineWidth = 5;
+              c.stroke();
+              for (let j = 1; j <= 3; j++) {
+                c.fillStyle = "#f6d5ff";
+                c.beginPath();
+                c.arc(
+                  sx + ((ex - sx) * j) / 4,
+                  sy + ((ey - sy) * j) / 4 + 2,
+                  1.5,
+                  0,
+                  Math.PI * 2,
+                );
+                c.fill();
+              }
+            }
+            ellipse(0, -2, 17, 17, "#d69ae9");
+            ellipse(-4, -8, 6, 3, "#f4d8ff");
+            eye(-6, -3, 2.2);
+            eye(6, -3, 2.2);
+            c.strokeStyle = outline;
+            c.beginPath();
+            c.arc(0, 2, 4, 0.2, Math.PI - 0.2);
+            c.stroke();
+          } else if (id === "jelly") {
+            c.beginPath();
+            c.moveTo(-20, 2);
+            c.bezierCurveTo(-22, -23, 22, -23, 20, 2);
+            c.quadraticCurveTo(14, 8, 9, 2);
+            c.quadraticCurveTo(3, 9, -2, 2);
+            c.quadraticCurveTo(-9, 9, -14, 2);
+            c.quadraticCurveTo(-18, 7, -20, 2);
+            pathFill(c, "#bca6ff", "#8172d7", 2);
+            c.fillStyle = "#ffffff88";
+            c.beginPath();
+            c.ellipse(-5, -10, 8, 3, -0.3, 0, Math.PI * 2);
+            c.fill();
+            for (let i = -2; i <= 2; i++) {
+              c.beginPath();
+              c.moveTo(i * 7, 4);
+              c.quadraticCurveTo(i * 7 + 4, 14, i * 7 - 2, 21);
+              c.strokeStyle = "#a58eea";
+              c.lineWidth = 2.5;
+              c.stroke();
+            }
+            eye(-6, -3, 1.8);
+            eye(6, -3, 1.8);
+          } else if (id === "seahorse") {
+            c.beginPath();
+            c.moveTo(5, -21);
+            c.quadraticCurveTo(-12, -23, -12, -8);
+            c.quadraticCurveTo(-13, 2, -3, 5);
+            c.quadraticCurveTo(6, 10, 1, 16);
+            c.quadraticCurveTo(-4, 22, -11, 16);
+            c.quadraticCurveTo(-14, 27, -1, 27);
+            c.quadraticCurveTo(14, 24, 10, 12);
+            c.quadraticCurveTo(8, 4, 2, 0);
+            c.quadraticCurveTo(15, -4, 12, -14);
+            c.lineTo(21, -17);
+            c.lineTo(10, -19);
+            c.quadraticCurveTo(13, -27, 5, -21);
+            pathFill(c, "#f6b66e", "#b8754d", 2);
+            ellipse(1, -11, 7, 10, "#ffce83");
+            eye(4, -14, 2);
+            fin(
+              [
+                [-8, -4],
+                [-17, -8],
+                [-12, 2],
+              ],
+              "#ffdf9e",
+            );
+          } else if (
+            id === "coralPink" ||
+            id === "coralRed" ||
+            id === "anemone"
+          ) {
+            const col =
+              id === "coralPink"
+                ? "#ff91c5"
+                : id === "coralRed"
+                  ? "#ff8d9f"
+                  : "#c3a0ff";
+            c.lineCap = "round";
+            c.lineJoin = "round";
+            c.strokeStyle = col;
+            c.lineWidth = 8;
+            const branches = [
+              [0, 18, 0, -5],
+              [-1, 7, -13, -8],
+              [0, 1, 12, -13],
+              [-12, -7, -17, -20],
+              [12, -12, 18, -23],
+              [0, -5, 1, -26],
+            ];
+            branches.forEach(([a, b, d, e]) => {
+              c.beginPath();
+              c.moveTo(a, b);
+              c.quadraticCurveTo(a - 2, b - 8, d, e);
+              c.stroke();
+            });
+            c.fillStyle = col;
+            branches.forEach(([a, b, d, e]) => {
+              c.beginPath();
+              c.arc(d, e, 4.5, 0, Math.PI * 2);
+              c.fill();
+            });
+          } else if (id === "kelp" || id === "seagrass") {
+            for (let i = -2; i <= 2; i++) {
+              c.strokeStyle = id === "kelp" ? "#34b98e" : "#55ca8b";
+              c.lineWidth = 3.5;
+              c.beginPath();
+              c.moveTo(i * 7, 24);
+              c.bezierCurveTo(
+                i * 7 - 8,
+                12,
+                i * 7 + 9,
+                -2,
+                i * 7 + Math.sin(i + phase) * 6,
+                -24 - Math.abs(i) * 2,
+              );
+              c.stroke();
+              for (let j = 0; j < 3; j++) {
+                c.fillStyle = id === "kelp" ? "#62d6a3" : "#8be4a1";
+                c.beginPath();
+                c.ellipse(
+                  i * 7 + (j % 2 ? 5 : -5),
+                  14 - j * 10,
+                  4,
+                  7,
+                  (i + j) * 0.4,
+                  0,
+                  Math.PI * 2,
+                );
+                c.fill();
+              }
+            }
+          } else if (id === "shell") {
+            c.beginPath();
+            c.moveTo(-20, 10);
+            c.quadraticCurveTo(-24, -8, -12, -16);
+            c.quadraticCurveTo(0, -24, 12, -16);
+            c.quadraticCurveTo(24, -8, 20, 10);
+            c.quadraticCurveTo(0, 24, -20, 10);
+            pathFill(c, "#ffb2c8", "#c87f9d", 2);
+            for (let i = -2; i <= 2; i++) {
+              c.strokeStyle = ["#fff0a8", "#ff8bb9", "#b4a4ff"][
+                Math.abs(i) % 3
+              ];
+              c.lineWidth = 2;
+              c.beginPath();
+              c.moveTo(0, 15);
+              c.quadraticCurveTo(i * 5, -1, i * 8, -14);
+              c.stroke();
+            }
+          } else if (id === "crystal") {
+            c.beginPath();
+            c.moveTo(0, -25);
+            c.lineTo(17, -8);
+            c.lineTo(13, 15);
+            c.lineTo(0, 23);
+            c.lineTo(-15, 12);
+            c.lineTo(-18, -8);
+            c.closePath();
+            pathFill(c, "#91e8ed", "#4babbc", 2);
+            c.fillStyle = "#ffffffa8";
+            c.beginPath();
+            c.moveTo(0, -20);
+            c.lineTo(3, 6);
+            c.lineTo(-11, 9);
+            c.lineTo(-13, -7);
+            c.closePath();
+            c.fill();
+            c.strokeStyle = "#ffffff";
+            c.lineWidth = 1.5;
+            c.beginPath();
+            c.moveTo(21, -20);
+            c.lineTo(24, -15);
+            c.lineTo(29, -13);
+            c.lineTo(24, -11);
+            c.lineTo(21, -6);
+            c.lineTo(19, -11);
+            c.lineTo(14, -13);
+            c.lineTo(19, -15);
+            c.closePath();
+            c.stroke();
+          } else if (id === "palace") {
+            c.fillStyle = "#f6d4f2";
+            c.strokeStyle = "#ae7dbd";
+            c.lineWidth = 2;
+            c.beginPath();
+            c.moveTo(-23, 20);
+            c.lineTo(-23, -3);
+            c.lineTo(-14, -3);
+            c.lineTo(-14, -16);
+            c.lineTo(-5, -16);
+            c.lineTo(-5, -4);
+            c.lineTo(5, -4);
+            c.lineTo(5, -22);
+            c.lineTo(15, -22);
+            c.lineTo(15, -3);
+            c.lineTo(23, -3);
+            c.lineTo(23, 20);
+            c.closePath();
+            c.fill();
+            c.stroke();
+            for (let xx of [-17, -1, 10]) {
+              c.fillStyle = "#a5dff0";
+              c.beginPath();
+              c.arc(xx, 4, 3, Math.PI, 0);
+              c.lineTo(xx + 3, 10);
+              c.lineTo(xx - 3, 10);
+              c.closePath();
+              c.fill();
+            }
+            c.fillStyle = "#ffe59a";
+            c.beginPath();
+            c.arc(10, -25, 3, 0, Math.PI * 2);
+            c.fill();
+          }
+          c.restore();
+        }
+        function drawCreature(item) {
+          const info = catalog.find((a) => a.id === item.id);
+          if (!info) return;
+          drawArt(
+            ctx,
+            item.id,
+            item.x * W,
+            item.y * H,
+            item.scale || 1,
+            (item.phase || 0) + (state.alive ? time : 0),
+          );
+          if (state.alive && ["crystal", "palace", "jelly"].includes(item.id)) {
+            ctx.fillStyle = "#fff8c8";
+            ctx.font = "14px sans-serif";
+            ctx.fillText("✦", item.x * W + 18, item.y * H - 17);
+          }
+        }
+        function drawSwimmers() {
+          if (!state.owned) return;
+          const swimmers = [
+            { id: "tang", y: 0.22, s: 0.72, speed: 42, offset: 0 },
+            { id: "clownfish", y: 0.42, s: 0.62, speed: 31, offset: 370 },
+            { id: "dolphin", y: 0.31, s: 0.78, speed: 54, offset: 900 },
+            { id: "turtle", y: 0.61, s: 0.55, speed: 20, offset: 1400 },
+            { id: "clownfish", y: 0.52, s: 0.5, speed: 36, offset: 1900 },
+            { id: "puffer", y: 0.68, s: 0.48, speed: 24, offset: 720 },
+            { id: "tang", y: 0.35, s: 0.48, speed: 39, offset: 1750 },
+            { id: "clownfish", y: 0.58, s: 0.44, speed: 29, offset: 1120 },
+          ];
+          swimmers.forEach((f, i) => {
+            let x = ((time * f.speed + f.offset) % (W + 100)) - 50;
+            let y = H * f.y + Math.sin(time * 1.4 + i) * 12;
+            ctx.save();
+            drawArt(ctx, f.id, x, y, f.s, time * 1.4 + i);
+            ctx.restore();
+          });
+        }
+        function frame(now) {
+          const dt = Math.min(0.04, (now - last) / 1000);
+          last = now;
+          if (state.owned && state.alive) time += dt;
+          if (W && H) {
+            ctx.clearRect(0, 0, W, H);
+            drawBackground();
+            drawSwimmers();
+            if (state.owned) state.items.forEach(drawCreature);
+          }
+          requestAnimationFrame(frame);
+        }
+        // Original calming ocean ambience: a continuous filtered water hush with slow surf-like swells.
+        function startAudio() {
+          try {
+            audioCtx =
+              audioCtx ||
+              new (window.AudioContext || window.webkitAudioContext)();
+            audioCtx.resume();
+            if (!master) {
+              master = audioCtx.createGain();
+              master.gain.value = +$("volume").value / 100;
+              master.connect(audioCtx.destination);
+              const buffer = audioCtx.createBuffer(
+                  1,
+                  audioCtx.sampleRate * 4,
+                  audioCtx.sampleRate,
+                ),
+                data = buffer.getChannelData(0);
+              for (let i = 0; i < data.length; i++)
+                data[i] = (Math.random() * 2 - 1) * 0.45;
+              const noise = audioCtx.createBufferSource(),
+                low = audioCtx.createBiquadFilter(),
+                high = audioCtx.createBiquadFilter(),
+                wash = audioCtx.createGain(),
+                lfo = audioCtx.createOscillator(),
+                depth = audioCtx.createGain();
+              noise.buffer = buffer;
+              noise.loop = true;
+              low.type = "lowpass";
+              low.frequency.value = 620;
+              high.type = "highpass";
+              high.frequency.value = 90;
+              wash.gain.value = 0.24;
+              lfo.type = "sine";
+              lfo.frequency.value = 0.075;
+              depth.gain.value = 0.1;
+              lfo.connect(depth);
+              depth.connect(wash.gain);
+              noise.connect(low);
+              low.connect(high);
+              high.connect(wash);
+              wash.connect(master);
+              noise.start();
+              lfo.start();
+              voiceNodes.push(noise, lfo);
+            }
+            state.audio = true;
+            muted = false;
+            master.gain.setTargetAtTime(
+              +$("volume").value / 100,
+              audioCtx.currentTime,
+              0.8,
+            );
+            save();
+            render();
+          } catch (e) {
+            toast("Tap Play once more to allow audio in your browser");
+          }
+        }
+        function stopAudio() {
+          state.audio = false;
+          if (master && audioCtx)
+            master.gain.setTargetAtTime(0, audioCtx.currentTime, 0.8);
+          save();
+          render();
+        }
+        $("audioBtn").onclick = () =>
+          state.audio ? stopAudio() : startAudio();
+        $("muteBtn").onclick = () => {
+          if (!master) {
+            startAudio();
+            return;
+          }
+          muted = !muted;
+          master.gain.setTargetAtTime(
+            muted ? 0 : +$("volume").value / 100,
+            audioCtx.currentTime,
+            0.8,
+          );
+          render();
+        };
+        $("volume").oninput = () => {
+          if (master && state.audio && !muted)
+            master.gain.setTargetAtTime(
+              +$("volume").value / 100,
+              audioCtx.currentTime,
+              0.06,
+            );
+        };
+        render();
+        requestAnimationFrame(frame);
+      })();
+    </script>
+
+    <!-- <div id="skill-challenges"></div>
+<script src="../js/modules/skill_challenges.js"></script>
+<script>
+  let reefCoins = 120; // Replace with the app's actual wallet state.
+  const challengeUI = SkillChallenges.mount({
+    container: '#skill-challenges',
+    getCoins: () => reefCoins,
+    onReward: ({ coins }) => {
+      reefCoins += coins;
+      // Update the app's wallet display here.
+    }
+  });
+</script> -->
+
+  </body>
+</html>
