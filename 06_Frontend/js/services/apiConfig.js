@@ -5,7 +5,7 @@
  */
 
 // cloud backend link
-const API_BASE_URL_OVERRIDE = "https://assessing-thou-impaired-rates.trycloudflare.com/api";
+const API_BASE_URL_OVERRIDE = "https://nikhilrsingh.pythonanywhere.com/api";
 
 export const API_BASE_URL = (
   API_BASE_URL_OVERRIDE ||
