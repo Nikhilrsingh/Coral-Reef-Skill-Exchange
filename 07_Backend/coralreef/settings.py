@@ -151,19 +151,28 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",
     "http://127.0.0.1:5500",
-    "https://gdp-devices-suggestions-condos.trycloudflare.com",
-    "https://unsigned-reads-stand-plates.trycloudflare.com",
-    "https://gdp-devices-suggestions-condos.trycloudflare.com",
-    # cloud frontend link
+    "https://nikhilrsingh.pythonanywhere.com",
+    "http://nikhilrsingh.pythonanywhere.com",
     "https://festival-mls-integrate-either.trycloudflare.com",
     "https://emissions-wizard-puzzle-construct.trycloudflare.com",
-
     "https://action-schedules-posts-show.trycloudflare.com",
     "https://notebook-belly-independent-average.trycloudflare.com",
-
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://nikhilrsingh.pythonanywhere.com",
+    "http://nikhilrsingh.pythonanywhere.com",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+]
+
 # Development-only convenience. Do not enable this for production.
 CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOW_CREDENTIALS = True
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # =========================================================
 # DJANGO REST FRAMEWORK
