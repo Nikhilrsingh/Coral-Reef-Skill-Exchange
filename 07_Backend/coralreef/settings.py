@@ -167,7 +167,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # Development-only convenience. Do not enable this for production.
-CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
