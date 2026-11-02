@@ -1,6 +1,6 @@
 import authService from "../services/authService.js";
 
-const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:8000/api`;
+const API_BASE_URL = "https://nikhilrsingh.pythonanywhere.com/api";
 const token = () => authService.getToken();
 
 const form = document.getElementById("verificationForm");

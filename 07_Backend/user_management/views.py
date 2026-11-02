@@ -156,9 +156,9 @@ class UserMatchesView(APIView):
             )
 
             if (
-                teaches_what_user_learns
-                and learns_what_user_teaches
-            ):
+    teaches_what_user_learns
+    or learns_what_user_teaches
+):
 
                 matching_skills = [
                     skill.name
