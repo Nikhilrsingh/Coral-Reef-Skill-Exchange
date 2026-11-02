@@ -367,9 +367,9 @@ async function setupNavbarNotifications() {
             return;
         }
         try {
-            const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/api/requests/`, {
-                headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" }
-            });
+            const response = await fetch(`${API_BASE_URL}/requests/`, {
+    headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" }
+});
             const data = await response.json();
             if (!response.ok) throw new Error(data.detail || "Unable to load notifications");
             const requests = Array.isArray(data) ? data : (data.results || []);
@@ -420,11 +420,11 @@ async function updateNavbarRequest(requestId, status, reload) {
     const token = authService.getToken();
     if (!token) return;
     try {
-        const response = await fetch(`${window.location.protocol}//${window.location.hostname}:8000/api/requests/${requestId}/`, {
-            method: "PATCH",
-            headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" },
-            body: JSON.stringify({ status })
-        });
+        const response = await fetch(`${API_BASE_URL}/requests/${requestId}/`, {
+    method: "PATCH",
+    headers: { Authorization: `Token ${token}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ status })
+});
         if (!response.ok) throw new Error("Request update failed");
         await reload();
     } catch (error) {

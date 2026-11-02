@@ -8,8 +8,8 @@
 const API_BASE_URL_OVERRIDE = "https://nikhilrsingh.pythonanywhere.com/api";
 
 export const API_BASE_URL = (
-  API_BASE_URL_OVERRIDE ||
-  window.CORAL_REEF_API_BASE_URL ||
-  localStorage.getItem("coral_reef_api_base_url") ||
-  `${window.location.protocol}//${window.location.hostname}:8000/api`
+    API_BASE_URL_OVERRIDE ||
+    window.CORAL_REEF_API_BASE_URL ||
+    localStorage.getItem("coral_reef_api_base_url") ||
+    `${window.location.protocol}//${window.location.hostname}:8000/api`
 ).replace(/\/$/, "");

@@ -221,10 +221,8 @@ function normalizeImageUrl(image) {
 
 
     if (image.startsWith("/")) {
-
-        return `${window.location.protocol}//${window.location.hostname}:8000${image}`;
-
-    }
+    return `${window.location.origin}${image}`;
+}
 
 
     return image;

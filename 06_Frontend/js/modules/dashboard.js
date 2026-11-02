@@ -100,15 +100,15 @@ async function loadNotifications() {
         }
 
         const response = await fetch(
-            `${window.location.protocol}//${window.location.hostname}:8000/api/requests/`,
-            {
-                method: "GET",
-                headers: {
-                    "Authorization": `Token ${token}`,
-                    "Content-Type": "application/json"
-                }
-            }
-        );
+    `${API_BASE_URL}/requests/`,
+    {
+        method: "GET",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        }
+    }
+);
 
         if (!response.ok) {
             throw new Error("Failed to load notifications");
@@ -246,18 +246,18 @@ async function updateRequest(requestId, status, element) {
         `;
 
         const response = await fetch(
-            `${window.location.protocol}//${window.location.hostname}:8000/api/requests/${requestId}/`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Authorization": `Token ${token}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    status: status
-                })
-            }
-        );
+    `${API_BASE_URL}/requests/${requestId}/`,
+    {
+        method: "PATCH",
+        headers: {
+            "Authorization": `Token ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            status: status
+        })
+    }
+);
 
         if (!response.ok) {
             throw new Error("Failed to update request");
